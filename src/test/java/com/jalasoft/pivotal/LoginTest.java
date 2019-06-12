@@ -1,6 +1,7 @@
 package com.jalasoft.pivotal;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,20 +11,40 @@ public class LoginTest {
 
     @Test
     public void testLogin() {
+
+        // Given
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.pivotaltracker.com/");
 
-        driver.findElement(By.cssSelector(".header__lg a[href=\"/blog\"] + a")).click();
+        // When
+//        driver.findElement(By.cssSelector(".header__lg a[href=\"/blog\"] + a")).click();
+        driver.findElement(By.xpath("//div[@class='header__lg']/a[contains(@href, \"/blog\") + a")).click();
 
-        String userName = "carledriss";
+        String userName = "mauricioramirez1";
         driver.findElement(By.cssSelector("#credentials_username")).sendKeys(userName);
 
         driver.findElement(By.cssSelector(".app_signin_action_button")).click();
 
-        String password = "";
+        String password = "59334499";
         driver.findElement(By.cssSelector("#credentials_password")).sendKeys(password);
         System.out.println("");
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.cssSelector(".app_signin_action_button")).click();
+
+        // Then
+        driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
+
+        String actualResult = driver.findElement(By.cssSelector(".AvatarDetails__username")).getText();
+        actualResult = actualResult.replace("@", "");
+        String expectedResult = userName;
+        Assert.assertEquals(expectedResult, actualResult);
     }
 }
