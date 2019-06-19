@@ -1,14 +1,13 @@
 package com.jalasoft.pivotal;
 
+import java.util.concurrent.TimeUnit;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
-
-import java.util.concurrent.TimeUnit;
 
 public class LoginTest {
 
@@ -18,6 +17,8 @@ public class LoginTest {
         // Given
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
         driver.manage().window().maximize();
         driver.get("https://www.pivotaltracker.com/");
 
@@ -25,23 +26,24 @@ public class LoginTest {
         driver.findElement(By.cssSelector(".header__lg a[href=\"/blog\"] + a")).click();
 //        driver.findElement(By.xpath("//div[@class='header__lg']/a[contains(@href, \"/signin\")]")).click();
 
-        String userName = "mauricioramirez1";
-        driver.findElement(By.cssSelector("#credentials_username")).sendKeys(userName);
+        String expectedUserName = "Carledriss";
+        driver.findElement(By.cssSelector("#credentials_username")).sendKeys(expectedUserName);
+//        driver.findElement(By.xpath("//input[@id='credentials_username']")).sendKeys(expectedUserName);
 
         driver.findElement(By.cssSelector(".app_signin_action_button")).click();
+//        driver.findElement(By.xpath("//input[@class='app_signin_action_button']")).click();
 
-        String password = "59334499";
+        String password = "P@ssw0rd";
         driver.findElement(By.cssSelector("#credentials_password")).sendKeys(password);
 
         driver.findElement(By.cssSelector(".app_signin_action_button")).click();
 
         // Then
         driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
+        String actualResult = driver.findElement(By.cssSelector(".AvatarDetails__name")).getText();
+        Assert.assertEquals(expectedUserName, actualResult);
 
-        String actualResult = driver.findElement(By.cssSelector(".AvatarDetails__username")).getText();
-        actualResult = actualResult.replace("@", "");
-
-        Assert.assertEquals(userName, actualResult);
+        System.out.println("");
     }
 
     @Test
@@ -50,18 +52,18 @@ public class LoginTest {
         // Given
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
         driver.get("https://www.pivotaltracker.com/");
 
         driver.findElement(By.cssSelector(".header__lg a[href=\"/blog\"] + a")).click();
 
-        String expectedUserName = "mauricioramirez1";
+        String expectedUserName = "Carledriss";
         driver.findElement(By.cssSelector("#credentials_username")).sendKeys(expectedUserName);
 
         driver.findElement(By.cssSelector(".app_signin_action_button")).click();
 
-        String password = "59334499";
+        String password = "";
         driver.findElement(By.cssSelector("#credentials_password")).sendKeys(password);
 
         driver.findElement(By.cssSelector(".app_signin_action_button")).click();
@@ -70,14 +72,13 @@ public class LoginTest {
 
         driver.findElement(By.cssSelector("#create-project-button")).click();
 
-        String projectName = "MyProject";
-        driver.findElement(By.cssSelector("input[name=\"project_name\"]")).sendKeys(projectName);
+        String expectedProject = "MyProject";
+        driver.findElement(By.cssSelector("input[name=\"project_name\"]")).sendKeys(expectedProject);
 
-//        driver.findElement(By.cssSelector(".tc-account-selector__header")).click();
+        driver.findElement(By.cssSelector(".tc-account-selector__header")).click();
 
-        driver.findElement(By.cssSelector("div[data-aid=\"account-selector\"]")).click();
-
-        driver.findElement(By.xpath("//div[@class='tc-account-selector__option-account-name' and text()='test_account']")).click();
+        String expectedAccount = "account1";
+        driver.findElement(By.xpath("//div[@class='tc-account-selector__option-account-name' and text()='" + expectedAccount + "']")).click();
 
         driver.findElement(By.cssSelector("input[data-aid=\"public\"]")).click();
 
@@ -85,15 +86,20 @@ public class LoginTest {
 
         // Then
 
-        String actualValue = driver.findElement(By.cssSelector(".tc_context_name > .raw_context_name")).getText();
-        Assert.assertEquals(projectName, actualValue);
+        String actualProjectName = driver.findElement(By.cssSelector(".raw_context_name")).getText();
+        Assert.assertEquals(expectedProject, actualProjectName);
 
-        actualValue = driver.findElement(By.cssSelector(".tc_context_name > .public_project_label")).getText();
-        Assert.assertEquals("(Public)", actualValue);
+        String actualPrivacy = driver.findElement(By.cssSelector(".public_project_label")).getText();
+        Assert.assertEquals("(Public)", actualPrivacy);
 
-        actualValue = driver.findElement(By.cssSelector("li.raw_context_name"))
+        driver.findElement(By.cssSelector("a[href*=\"/settings\"] > span")).click();
 
+        actualProjectName = driver.findElement(By.cssSelector("#project_name")).getAttribute("value");
+        Assert.assertEquals(expectedProject, actualProjectName);
 
+        String actualAccount = driver.findElement(By.cssSelector("a[href*='/accounts']")).getText();
+        Assert.assertTrue(actualAccount.contains(expectedAccount));
 
+        Assert.assertTrue(driver.findElement(By.cssSelector("#project_public")).isSelected());
     }
 }
