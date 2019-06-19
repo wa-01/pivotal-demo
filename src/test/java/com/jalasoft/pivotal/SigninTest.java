@@ -16,7 +16,7 @@ public class SigninTest {
 
     @Test
     public void testSignin() {
-        // Given
+        // When
         Signin signin = new Signin();
         String expectedUserName = "Carledriss";
         signin.setUserName(expectedUserName);
