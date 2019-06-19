@@ -2,6 +2,9 @@ package com.jalasoft.pivotal;
 
 import java.util.concurrent.TimeUnit;
 
+import com.jalasoft.pivotal.pages.Header;
+import com.jalasoft.pivotal.pages.ProfileDropdown;
+import com.jalasoft.pivotal.pages.Signin;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,41 +12,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LoginTest {
+public class SigninTest {
 
     @Test
-    public void testLogin() {
-
+    public void testSignin() {
         // Given
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.pivotaltracker.com/");
-
-        // When
-        driver.findElement(By.cssSelector(".header__lg a[href=\"/blog\"] + a")).click();
-//        driver.findElement(By.xpath("//div[@class='header__lg']/a[contains(@href, \"/signin\")]")).click();
-
+        Signin signin = new Signin();
         String expectedUserName = "Carledriss";
-        driver.findElement(By.cssSelector("#credentials_username")).sendKeys(expectedUserName);
-//        driver.findElement(By.xpath("//input[@id='credentials_username']")).sendKeys(expectedUserName);
-
-        driver.findElement(By.cssSelector(".app_signin_action_button")).click();
-//        driver.findElement(By.xpath("//input[@class='app_signin_action_button']")).click();
-
-        String password = "P@ssw0rd";
-        driver.findElement(By.cssSelector("#credentials_password")).sendKeys(password);
-
-        driver.findElement(By.cssSelector(".app_signin_action_button")).click();
+        signin.setUserName(expectedUserName);
+        signin.clickNextButton();
+        signin.setPassword("");
+        Header header = signin.clickLoginButton();
 
         // Then
-        driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
-        String actualResult = driver.findElement(By.cssSelector(".AvatarDetails__name")).getText();
+        ProfileDropdown profileDropdown = header.clickProfileDropdown();
+        String actualResult = profileDropdown.getAvatarName();
         Assert.assertEquals(expectedUserName, actualResult);
-
-        System.out.println("");
     }
 
     @Test
@@ -63,7 +47,7 @@ public class LoginTest {
 
         driver.findElement(By.cssSelector(".app_signin_action_button")).click();
 
-        String password = "";
+        String password = "P@ssw0rd";
         driver.findElement(By.cssSelector("#credentials_password")).sendKeys(password);
 
         driver.findElement(By.cssSelector(".app_signin_action_button")).click();
