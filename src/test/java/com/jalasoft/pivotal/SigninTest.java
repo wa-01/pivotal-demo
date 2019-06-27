@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.jalasoft.pivotal.pages.Dashboard;
-import com.jalasoft.pivotal.pages.Header;
-import com.jalasoft.pivotal.pages.ProfileDropdown;
-import com.jalasoft.pivotal.pages.ProjectForm;
-import com.jalasoft.pivotal.pages.Signin;
+import com.jalasoft.pivotal.pages.*;
+import com.sun.xml.internal.ws.util.StringUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.jsoup.helper.StringUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -35,9 +33,9 @@ public class SigninTest {
     public void testCreateProject() {
 
         // Given
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "albertcamacho04";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "Pass112233*+");
 
         // When
 
@@ -45,30 +43,54 @@ public class SigninTest {
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
         Map<String, String> data = new HashMap<>();
-        data.put("project_name", "MyProject");
+        data.put("project_name", "MyProjectAB");
         data.put("account", "account1");
-//        data.put("privacy", "public");
+        data.put("privacy", "public");
 
-//        Map<String, String> data = new HashMap<>();
-//        data.put("project_name", "MyProject");
-//        data.put("account", "account1");
         projectForm.createProject(data);
 
-        // Then
-//        String actualProjectName = driver.findElement(By.cssSelector(".raw_context_name")).getText();
-//        Assert.assertEquals(expectedProject, actualProjectName);
-//
-//        String actualPrivacy = driver.findElement(By.cssSelector(".public_project_label")).getText();
-//        Assert.assertEquals("(Public)", actualPrivacy);
-//
-//        driver.findElement(By.cssSelector("a[href*=\"/settings\"] > span")).click();
-//
-//        actualProjectName = driver.findElement(By.cssSelector("#project_name")).getAttribute("value");
-//        Assert.assertEquals(expectedProject, actualProjectName);
-//
-//        String actualAccount = driver.findElement(By.cssSelector("a[href*='/accounts']")).getText();
-//        Assert.assertTrue(actualAccount.contains(expectedAccount));
-//
-//        Assert.assertTrue(driver.findElement(By.cssSelector("#project_public")).isSelected());
+        Project project = new Project();
+
+        Assert.assertEquals(data.get("project_name"), project.getProjectName());
+
+        String expected = "(" + StringUtils.capitalize(data.get("privacy")) +")";
+        Assert.assertEquals(expected, project.getProjectPrivacy());
+
+        ProjectSettings projectSettings = project.clickMoreTab();
+
+        Assert.assertEquals(data.get("project_name"), projectSettings.getProjectTitle());
+        Assert.assertTrue(projectSettings.getAccountLinkText().contains(data.get("account")));
+        Assert.assertTrue(projectSettings.projectIsPublic());
+
+    }
+
+    @Test
+    public void testAddHistory() {
+        // Given
+        String expectedUserName = "albertcamacho04";
+        Signin signin = new Signin();
+        Header header = signin.loginAs(expectedUserName, "Pass112233*+");
+
+        Dashboard dashboard = new Dashboard();
+        ProjectForm projectForm = dashboard.clickCreateProjectButton();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("project_name", "MyProjectAB");
+        data.put("account", "account1");
+        data.put("privacy", "public");
+
+        projectForm.createProject(data);
+
+        Project project = new Project();
+
+        Story story = project.clickAddStory();
+
+        String storyTitle = "My first story";
+        Map<String, String> storyData = new HashMap<>();
+        data.put("title", "My first story");
+        data.put("description", "A sort Description");
+        data.put("labels", "test, prod");
+        story.saveStory(storyData);
+
     }
 }
