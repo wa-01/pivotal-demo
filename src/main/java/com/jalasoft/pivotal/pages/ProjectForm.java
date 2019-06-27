@@ -27,11 +27,11 @@ public class ProjectForm extends AbstractPage {
 	@FindBy(css = "textArea[aria-label='story title']")
 	private WebElement storyTitleTextArea;
 
-	@FindBy(xpath = "//div[contains(text(),'Add a description')]")
-	private WebElement storyDescriptionTextArea;
-
 	@FindBy(css = "input[data-aid='LabelsSearch__input']")
 	private WebElement storyLabelTextField;
+
+	@FindBy(css = "textarea[data-aid='Comment__textarea']")
+	private WebElement storyCommentTextArea;
 
 	@FindBy(css = "button[type='submit']")
 	private WebElement storySaveButton;
@@ -58,7 +58,7 @@ public class ProjectForm extends AbstractPage {
 	public void addStoryForm(Map<String, String> data){
 		Map<String, ISteps> strategyMap = new HashMap<>();
 		strategyMap.put("storyName", () ->action.setValue(storyTitleTextArea, data.get("storyName")));
-		strategyMap.put("description", () -> action.setValue(storyDescriptionTextArea, data.get("description")));
+		strategyMap.put("comment", () -> action.setValue(storyCommentTextArea, data.get("comment")));
 		strategyMap.put("label", () -> action.setValue(storyLabelTextField, data.get("label")));
 
 		Set<String> keys = data.keySet();
@@ -69,6 +69,5 @@ public class ProjectForm extends AbstractPage {
 		storyLabelTextField.sendKeys(Keys.ENTER);
 		action.click(storySaveButton);
 	}
-
 
 }
