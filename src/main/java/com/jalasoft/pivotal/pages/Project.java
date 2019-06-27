@@ -27,7 +27,4 @@ public class Project extends AbstractPage {
         return new ProjectSettings();
     }
 
-    public Story clickAddStory() {
-        return null;
-    }
 }

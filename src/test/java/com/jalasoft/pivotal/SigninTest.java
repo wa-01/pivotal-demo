@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.jalasoft.pivotal.pages.*;
-import com.sun.xml.internal.ws.util.StringUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.helper.StringUtil;
 import org.junit.Assert;
 import org.junit.Test;
@@ -75,20 +75,20 @@ public class SigninTest {
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
         Map<String, String> data = new HashMap<>();
-        data.put("project_name", "MyProjectAB");
+        data.put("project_name", "MyProjectABCD");
         data.put("account", "account1");
         data.put("privacy", "public");
 
         projectForm.createProject(data);
 
-        Project project = new Project();
+        Story story = new Story();
+        story.clickAddStoryBacklog();
 
-        Story story = project.clickAddStory();
-
-        String storyTitle = "My first story";
         Map<String, String> storyData = new HashMap<>();
         data.put("title", "My first story");
+        data.put("story_type", "bug");
         data.put("description", "A sort Description");
+        data.put("save_description", "save");
         data.put("labels", "test, prod");
         story.saveStory(storyData);
 
