@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -23,6 +24,18 @@ public class ProjectForm extends AbstractPage {
 	@FindBy(css = "[data-aid=\"FormModal__submit\"]")
 	private WebElement createButton;
 
+	@FindBy(css = "textArea[aria-label='story title']")
+	private WebElement storyTitleTextArea;
+
+	@FindBy(xpath = "//div[contains(text(),'Add a description')]")
+	private WebElement storyDescriptionTextArea;
+
+	@FindBy(css = "input[data-aid='LabelsSearch__input']")
+	private WebElement storyLabelTextField;
+
+	@FindBy(css = "button[type='submit']")
+	private WebElement storySaveButton;
+
 	public void createProject(Map<String, String> data) {
 		Map<String, ISteps> strategyMap = new HashMap<>();
 		strategyMap.put("project_name", () -> action.setValue(projectNameTextField, data.get("project_name")));
@@ -40,6 +53,21 @@ public class ProjectForm extends AbstractPage {
 		action.click(accountSelect);
 		String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, expectedAccount);
 		action.click(By.xpath(optionAccountLocator));
+	}
+
+	public void addStoryForm(Map<String, String> data){
+		Map<String, ISteps> strategyMap = new HashMap<>();
+		strategyMap.put("storyName", () ->action.setValue(storyTitleTextArea, data.get("storyName")));
+		strategyMap.put("description", () -> action.setValue(storyDescriptionTextArea, data.get("description")));
+		strategyMap.put("label", () -> action.setValue(storyLabelTextField, data.get("label")));
+
+		Set<String> keys = data.keySet();
+		for (String key : keys) {
+			strategyMap.get(key).execute();
+		}
+
+		storyLabelTextField.sendKeys(Keys.ENTER);
+		action.click(storySaveButton);
 	}
 
 

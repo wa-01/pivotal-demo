@@ -71,4 +71,30 @@ public class SigninTest {
 //
 //        Assert.assertTrue(driver.findElement(By.cssSelector("#project_public")).isSelected());
     }
+
+    @Test
+    public void testAddStoryForm(){
+        // given
+        String expectedUserName = "rubenmendoza";
+        String expectedPassword = "p1v0t4Labc";
+        String expectedProjectStoryName = "My Project Story";
+        String expectedStoryDescription = "This is my web automation test project";
+        String expectedStoryLabel = "Label of my Project";
+
+        Signin signin = new Signin();
+        Header header = signin.loginAs(expectedUserName, expectedPassword);
+
+        // when
+        Dashboard dashboard = new Dashboard();
+        ProjectForm projectForm = dashboard.selectProject();
+        projectForm = dashboard.clickAddStory();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("storyName", expectedProjectStoryName);
+        data.put("description", expectedStoryDescription);
+        data.put("label", expectedStoryLabel);
+
+        projectForm.addStoryForm(data);
+
+    }
 }
