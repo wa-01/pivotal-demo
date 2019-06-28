@@ -12,7 +12,7 @@ public class SigninTest {
     @Test
     public void testSignin() {
         // When
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "edgarriverq";
         Signin signin = new Signin();
         Header header = signin.loginAs(expectedUserName, "");
 
@@ -28,7 +28,7 @@ public class SigninTest {
         // Given
         String expectedUserName = "edgarriverq";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "Password1000");
+        Header header = signin.loginAs(expectedUserName, "");
 
         // When
 
@@ -68,7 +68,7 @@ public class SigninTest {
         // Given
         String expectedUserName = "edgarriverq";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "Password1000");
+        Header header = signin.loginAs(expectedUserName, "");
 
         // When
 
