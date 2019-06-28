@@ -42,4 +42,10 @@ public class WebDriverAction {
 
 	}
 
+	public String getFieldValue(WebElement webElement){
+		wait.until(ExpectedConditions.visibilityOf(webElement));
+		return webElement.getAttribute("value");
+
+	}
+
 }

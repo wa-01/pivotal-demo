@@ -28,7 +28,7 @@ public class SigninTest {
         // Given
         String expectedUserName = "magalifa";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "BQEmagui1");
 
         // When
 
@@ -36,11 +36,28 @@ public class SigninTest {
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
         Map<String, String> data = new HashMap<>();
-        data.put("project_name", "MyProject");
-        data.put("account", "account1");
+        String expectedProject = "MyProject";
+        String expectedAccount = "account1";
+        data.put("project_name", expectedProject);
+        data.put("account", expectedAccount);
         projectForm.createProject(data);
 
         // Then
+        String actualProjectName = projectForm.getProjectName();
+        Assert.assertEquals(expectedProject, actualProjectName);
+
+
+//        String actualPrivacy = projectForm.getProjectPrivacy();
+//        Assert.assertEquals("(Public)", actualPrivacy);
+        ProjectSettings projectSettings = projectForm.clickMoreLink();
+        String actualProjectTitle = projectSettings.getProjectTitle();
+        Assert.assertEquals(expectedProject, actualProjectTitle);
+
+        String actualAccount = projectSettings.getAccount();
+        Assert.assertTrue(actualAccount.contains(expectedAccount));
+
+        projectSettings.deleteProject();
+
 //        String actualProjectName = driver.findElement(By.cssSelector(".raw_context_name")).getText();
 //        Assert.assertEquals(expectedProject, actualProjectName);
 //
@@ -80,7 +97,7 @@ public class SigninTest {
         String expectedstoryName = "MyStory";
         data1.put("story_name", expectedstoryName);
         storyForm.createStory(data1);
-        String actualResult = storyForm.getNameStory();
+        String actualResult = storyForm.getStoryName();
         Assert.assertEquals(expectedstoryName, actualResult);
     }
 }

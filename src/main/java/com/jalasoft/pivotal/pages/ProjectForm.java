@@ -26,6 +26,16 @@ public class ProjectForm extends AbstractPage {
 	@FindBy(css = "a[data-aid=\"AddButton\"]")
 	private WebElement createStoryLink;
 
+
+	@FindBy(css = ".raw_context_name")
+	private WebElement projectName;
+
+	@FindBy(css = ".public_project_label")
+	private WebElement projectPrivacy;
+
+	@FindBy(css = "a[href*=\\\"/settings\\\"] > span")
+	private WebElement moreLink;
+
 	public void createProject(Map<String, String> data) {
 		Map<String, ISteps> strategyMap = new HashMap<>();
 		strategyMap.put("project_name", () -> action.setValue(projectNameTextField, data.get("project_name")));
@@ -48,6 +58,20 @@ public class ProjectForm extends AbstractPage {
 	public StoryForm clickCreateStoryLink() {
 		action.click(createStoryLink);
 		return new StoryForm();
+	}
+
+	public String getProjectName(){
+		return action.getText(projectName);
+	}
+
+	public String getProjectPrivacy(){
+		return action.getText(projectPrivacy);
+	}
+
+
+	public ProjectSettings clickMoreLink() {
+		action.click(moreLink);
+		return new ProjectSettings();
 	}
 
 

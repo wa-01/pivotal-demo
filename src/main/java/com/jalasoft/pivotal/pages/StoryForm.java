@@ -29,7 +29,7 @@ public class StoryForm extends AbstractPage {
         action.click(saveButton);
     }
 
-    public String getNameStory(){
+    public String getStoryName(){
         return action.getText(storyName);
     }
 }
