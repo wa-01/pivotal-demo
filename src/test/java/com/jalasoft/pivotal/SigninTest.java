@@ -4,11 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.jalasoft.pivotal.pages.Dashboard;
-import com.jalasoft.pivotal.pages.Header;
-import com.jalasoft.pivotal.pages.ProfileDropdown;
-import com.jalasoft.pivotal.pages.ProjectForm;
-import com.jalasoft.pivotal.pages.Signin;
+import com.jalasoft.pivotal.pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,9 +17,9 @@ public class SigninTest {
     @Test
     public void testSignin() {
         // When
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "lufer.lfcc@gmail.com";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "Control123");
 
         // Then
         ProfileDropdown profileDropdown = header.clickProfileDropdown();
@@ -70,5 +66,34 @@ public class SigninTest {
 //        Assert.assertTrue(actualAccount.contains(expectedAccount));
 //
 //        Assert.assertTrue(driver.findElement(By.cssSelector("#project_public")).isSelected());
+    }
+
+    @Test
+    public void testCreateStory() {
+        // Given
+        String expectedUserName = "lufer.lfcc@gmail.com";
+        Signin signin = new Signin();
+        Header header = signin.loginAs(expectedUserName, "Control123");
+
+        // When
+
+        Dashboard dashboard = new Dashboard();
+        ProjectForm projectForm = dashboard.clickCreateProjectButton();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("project_name", "MyProject6");
+        data.put("account", "lufer1");
+        data.put("privacy", "public");
+        projectForm.createProject(data);
+
+        //Then
+
+        ProjectPanel projectPanel = new ProjectPanel();
+        StoryForm storyForm = projectPanel.clickAddStoryBacklog();
+        Map<String, String> StoryData = new HashMap<>();
+        StoryData.put("title", "new Story");
+        StoryData.put("description", "This is a description");
+        StoryData.put("labels", "test");
+        storyForm.saveStory(StoryData);
     }
 }
