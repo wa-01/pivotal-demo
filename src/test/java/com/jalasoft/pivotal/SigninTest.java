@@ -14,7 +14,7 @@ public class SigninTest {
         // When
         String expectedUserName = "magalifa";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "BQEmagui1");
+        Header header = signin.loginAs(expectedUserName, "");
 
         // Then
         ProfileDropdown profileDropdown = header.clickProfileDropdown();
@@ -28,7 +28,7 @@ public class SigninTest {
         // Given
         String expectedUserName = "magalifa";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "BQEmagui1");
+        Header header = signin.loginAs(expectedUserName, "");
 
         // When
 
@@ -64,7 +64,7 @@ public class SigninTest {
         // Given
         String expectedUserName = "magalifa";
         Signin signin = new Signin();
-        signin.loginAs(expectedUserName, "BQEmagui1");
+        signin.loginAs(expectedUserName, "");
 
         // When
 
@@ -82,6 +82,5 @@ public class SigninTest {
         storyForm.createStory(data1);
         String actualResult = storyForm.getNameStory();
         Assert.assertEquals(expectedstoryName, actualResult);
-
     }
 }
