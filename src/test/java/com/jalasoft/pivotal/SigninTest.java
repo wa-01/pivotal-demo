@@ -4,11 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.jalasoft.pivotal.pages.Dashboard;
-import com.jalasoft.pivotal.pages.Header;
-import com.jalasoft.pivotal.pages.ProfileDropdown;
-import com.jalasoft.pivotal.pages.ProjectForm;
-import com.jalasoft.pivotal.pages.Signin;
+import com.jalasoft.pivotal.pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.junit.Test;
@@ -70,5 +66,31 @@ public class SigninTest {
 //        Assert.assertTrue(actualAccount.contains(expectedAccount));
 //
 //        Assert.assertTrue(driver.findElement(By.cssSelector("#project_public")).isSelected());
+    }
+
+    @Test
+    public void testAddStory() {
+        // Given
+        String expectedUserName = "josseccb";
+        Signin signin = new Signin();
+        Header header = signin.loginAs(expectedUserName, "Control123");
+        Dashboard dashboard = new Dashboard();
+        ProjectForm projectForm = dashboard.clickCreateProjectButton();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("project_name", "MyProject1");
+        data.put("account", "account1");
+        projectForm.createProject(data);
+
+        DashboardProject dashboardProject = new DashboardProject();
+        StoryForm storyForm = dashboardProject.clickAddStoryButton();
+
+        // When
+        Map<String, String> storyFields = new HashMap<>();
+        storyFields.put("story_title", "TEst story");
+        storyFields.put("story_type", "feature");
+        storyFields.put("points", "1 point");
+        storyFields.put("requester", "josseccb");
+        storyForm.addStory(data);
     }
 }
