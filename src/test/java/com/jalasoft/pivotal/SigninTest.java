@@ -1,29 +1,20 @@
 package com.jalasoft.pivotal;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import com.jalasoft.pivotal.pages.Dashboard;
-import com.jalasoft.pivotal.pages.Header;
-import com.jalasoft.pivotal.pages.ProfileDropdown;
-import com.jalasoft.pivotal.pages.ProjectForm;
-import com.jalasoft.pivotal.pages.Signin;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.jalasoft.pivotal.pages.*;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SigninTest {
 
     @Test
-    public void testSignin() {
+    public void testSignin () {
         // When
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "magalifa";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "BQEmagui1");
 
         // Then
         ProfileDropdown profileDropdown = header.clickProfileDropdown();
@@ -32,12 +23,12 @@ public class SigninTest {
     }
 
     @Test
-    public void testCreateProject() {
+    public void testCreateProject () {
 
         // Given
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "magalifa";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "BQEmagui1");
 
         // When
 
@@ -47,11 +38,6 @@ public class SigninTest {
         Map<String, String> data = new HashMap<>();
         data.put("project_name", "MyProject");
         data.put("account", "account1");
-//        data.put("privacy", "public");
-
-//        Map<String, String> data = new HashMap<>();
-//        data.put("project_name", "MyProject");
-//        data.put("account", "account1");
         projectForm.createProject(data);
 
         // Then
@@ -70,5 +56,32 @@ public class SigninTest {
 //        Assert.assertTrue(actualAccount.contains(expectedAccount));
 //
 //        Assert.assertTrue(driver.findElement(By.cssSelector("#project_public")).isSelected());
+    }
+
+    @Test
+    public void testCreateStory () {
+
+        // Given
+        String expectedUserName = "magalifa";
+        Signin signin = new Signin();
+        signin.loginAs(expectedUserName, "BQEmagui1");
+
+        // When
+
+        Dashboard dashboard = new Dashboard();
+        ProjectForm projectForm = dashboard.clickCreateProjectButton();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("project_name", "MyProject");
+        data.put("account", "account1");
+        projectForm.createProject(data);
+        StoryForm storyForm = projectForm.clickCreateStoryLink();
+        Map<String, String> data1 = new HashMap<>();
+        String expectedstoryName = "MyStory";
+        data1.put("story_name", expectedstoryName);
+        storyForm.createStory(data1);
+        String actualResult = storyForm.getNameStory();
+        Assert.assertEquals(expectedstoryName, actualResult);
+
     }
 }
