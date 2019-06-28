@@ -30,10 +30,10 @@ public class StoryForm extends AbstractPage {
         action.click(saveButton);
     }
     public String gettextStoryName() {
-//        action.click(accountSelect);
-        String textStoryName = driver.findElement(By.cssSelector("span[data-aid=\"StoryPreviewItem__title\"]")).getText();
+        return action.getText(storyNameGet);
+//        String textStoryName = driver.findElement(By.cssSelector("span[data-aid=\"StoryPreviewItem__title\"]")).getText();
 
 //        action.click(By.xpath(optionAccountLocator));
-        return textStoryName;
+//        return textStoryName;
     }
 }

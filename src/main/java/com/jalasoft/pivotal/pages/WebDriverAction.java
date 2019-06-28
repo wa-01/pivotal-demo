@@ -35,5 +35,9 @@ public class WebDriverAction {
 		wait.until(ExpectedConditions.visibilityOf(webElement));
 		webElement.sendKeys(value);
 	}
+	public String getText(WebElement webElement) {
+		wait.until(ExpectedConditions.visibilityOf(webElement));
+		return webElement.getText();
+	}
 
 }
