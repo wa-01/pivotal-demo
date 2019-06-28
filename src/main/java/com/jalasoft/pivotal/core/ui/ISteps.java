@@ -1,4 +1,4 @@
-package com.jalasoft.pivotal.pages;
+package com.jalasoft.pivotal.core.ui;
 
 @FunctionalInterface
 public interface ISteps {

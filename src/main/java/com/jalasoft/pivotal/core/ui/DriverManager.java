@@ -1,4 +1,4 @@
-package com.jalasoft.pivotal.pages;
+package com.jalasoft.pivotal.core.ui;
 
 import java.util.concurrent.TimeUnit;
 
