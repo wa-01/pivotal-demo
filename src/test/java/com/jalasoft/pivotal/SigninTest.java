@@ -2,19 +2,10 @@ package com.jalasoft.pivotal;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import com.jalasoft.pivotal.pages.Dashboard;
-import com.jalasoft.pivotal.pages.Header;
-import com.jalasoft.pivotal.pages.ProfileDropdown;
-import com.jalasoft.pivotal.pages.ProjectForm;
-import com.jalasoft.pivotal.pages.Signin;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.jalasoft.pivotal.pages.*;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SigninTest {
 
@@ -35,9 +26,9 @@ public class SigninTest {
     public void testCreateProject() {
 
         // Given
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "edgarriverq";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "Password1000");
 
         // When
 
@@ -45,8 +36,8 @@ public class SigninTest {
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
         Map<String, String> data = new HashMap<>();
-        data.put("project_name", "MyProject");
-        data.put("account", "account1");
+        data.put("project_name", "MyProject01");
+        data.put("account", "edgar2");
 //        data.put("privacy", "public");
 
 //        Map<String, String> data = new HashMap<>();
@@ -71,4 +62,35 @@ public class SigninTest {
 //
 //        Assert.assertTrue(driver.findElement(By.cssSelector("#project_public")).isSelected());
     }
+    @Test
+    public void testaddStory() {
+
+        // Given
+        String expectedUserName = "edgarriverq";
+        Signin signin = new Signin();
+        Header header = signin.loginAs(expectedUserName, "Password1000");
+
+        // When
+
+        Dashboard dashboard = new Dashboard();
+        ProjectForm projectForm = dashboard.clickCreateProjectButton();
+
+        Map<String, String> data = new HashMap<>();
+        data.put("project_name", "MyProjectStory");
+        data.put("account", "edgar2");
+        projectForm.createProject(data);
+        StoryForm storyForm = projectForm.clickAddStoryLink();
+        Map<String, String> storydata = new HashMap<>();
+        storydata.put("story_name", "MyStorytest");
+        storyForm.createStory(storydata);
+
+        //Then
+        String storyNameBefore = "MyStorytest";
+        String actualStoryName = storyForm.gettextStoryName();
+        Assert.assertTrue(actualStoryName.equals(storyNameBefore));
+
+
+
+    }
 }
+

@@ -23,6 +23,9 @@ public class ProjectForm extends AbstractPage {
 	@FindBy(css = "[data-aid=\"FormModal__submit\"]")
 	private WebElement createButton;
 
+	@FindBy(css = "a[data-aid=\"AddButton\"]")
+	private WebElement addStoryLink;
+
 	public void createProject(Map<String, String> data) {
 		Map<String, ISteps> strategyMap = new HashMap<>();
 		strategyMap.put("project_name", () -> action.setValue(projectNameTextField, data.get("project_name")));
@@ -42,5 +45,8 @@ public class ProjectForm extends AbstractPage {
 		action.click(By.xpath(optionAccountLocator));
 	}
 
-
+	public StoryForm clickAddStoryLink() {
+		action.click(addStoryLink);
+		return new StoryForm();
+	}
 }
