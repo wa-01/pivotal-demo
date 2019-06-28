@@ -2,17 +2,11 @@ package com.jalasoft.pivotal;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import com.jalasoft.pivotal.pages.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.helper.StringUtil;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SigninTest {
 
@@ -33,9 +27,9 @@ public class SigninTest {
     public void testCreateProject() {
 
         // Given
-        String expectedUserName = "albertcamacho04";
+        String expectedUserName = "Carledriss";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "Pass112233*+");
+        Header header = signin.loginAs(expectedUserName, "");
 
         // When
 
@@ -53,7 +47,7 @@ public class SigninTest {
 
         Assert.assertEquals(data.get("project_name"), project.getProjectName());
 
-        String expected = "(" + StringUtils.capitalize(data.get("privacy")) +")";
+        String expected = "(" + StringUtils.capitalize(data.get("privacy")) + ")";
         Assert.assertEquals(expected, project.getProjectPrivacy());
 
         ProjectSettings projectSettings = project.clickMoreTab();
@@ -67,15 +61,15 @@ public class SigninTest {
     @Test
     public void testAddHistory() {
         // Given
-        String expectedUserName = "albertcamacho04";
+        String expectedUserName = "Carledriss";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "Pass112233*+");
+        Header header = signin.loginAs(expectedUserName, "");
 
         Dashboard dashboard = new Dashboard();
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
         Map<String, String> data = new HashMap<>();
-        data.put("project_name", "MyProjectABCD");
+        data.put("project_name", "MyProjectAA1");
         data.put("account", "account1");
         data.put("privacy", "public");
 
@@ -85,12 +79,12 @@ public class SigninTest {
         story.clickAddStoryBacklog();
 
         Map<String, String> storyData = new HashMap<>();
-        data.put("title", "My first story");
-        data.put("story_type", "bug");
-        data.put("description", "A sort Description");
-        data.put("save_description", "save");
-        data.put("labels", "test, prod");
+        storyData.put("title", "My first story");
+        storyData.put("story_type", "bug");
+        storyData.put("description", "A sort Description");
+        storyData.put("labels", "test, prod");
         story.saveStory(storyData);
 
+        Assert.assertEquals(storyData.get("title"), story.getStoryModelName(storyData.get("title")));
     }
 }
