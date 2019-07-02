@@ -81,7 +81,7 @@ public class SigninTest {
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
         Map<String, String> data = new HashMap<>();
-        data.put("project_name", "MyProject6");
+        data.put("project_name", "MyProject4");
         data.put("account", "lufer1");
         data.put("privacy", "public");
         projectForm.createProject(data);
@@ -94,6 +94,9 @@ public class SigninTest {
         StoryData.put("title", "new Story");
         StoryData.put("description", "This is a description");
         StoryData.put("labels", "test");
+        StoryData.put("story_type" , "Bug");
+        StoryData.put("points" , "-1");
+
         storyForm.saveStory(StoryData);
     }
 }

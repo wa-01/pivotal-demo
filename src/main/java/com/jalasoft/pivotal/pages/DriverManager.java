@@ -26,6 +26,7 @@ public class DriverManager {
 		wait = new WebDriverWait(driver, 30);
 
 		driver.manage().window().maximize();
+
 	}
 
 	public WebDriver getDriver() {
