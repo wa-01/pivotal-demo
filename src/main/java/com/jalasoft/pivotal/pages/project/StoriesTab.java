@@ -9,7 +9,7 @@ public class StoriesTab extends AbstractPage {
     private static final String BACKLOG_A_DATA_AID_ADD_BUTTON = ".%s a[data-aid='AddButton']";
 
     public StoryForm clickAddStoryButton(String panelName) {
-        action.click(By.className(String.format(BACKLOG_A_DATA_AID_ADD_BUTTON, panelName)));
+        action.click(By.cssSelector(String.format(BACKLOG_A_DATA_AID_ADD_BUTTON, panelName)));
         return new StoryForm();
     }
 }

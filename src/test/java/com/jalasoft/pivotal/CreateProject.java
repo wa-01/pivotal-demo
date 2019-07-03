@@ -7,33 +7,35 @@ import com.jalasoft.pivotal.pages.Dashboard;
 import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.MenuPopover;
 import com.jalasoft.pivotal.pages.ShowAll;
+import com.jalasoft.pivotal.pages.Signin;
 import com.jalasoft.pivotal.pages.project.MoreTab;
 import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
-import com.jalasoft.pivotal.pages.Signin;
 import com.jalasoft.pivotal.pages.project.ProjectSettings;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CreateProject {
 
-    @Test
-    public void testCreateProject() {
-
+    @Before
+    public void setUp() {
         // Given
         String userName = "Carledriss";
         Signin signin = new Signin();
         signin.loginAs(userName, "P@ssw0rd");
+    }
 
+    @Test
+    public void testCreateProject() {
         // When
         Dashboard dashboard = new Dashboard();
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
         Map<String, String> data = new HashMap<>();
-        data.put("name", "MyProject");
+        data.put("name", "MyProject22");
         data.put("account", "account1");
         data.put("privacy", "public");
         ProjectDetails projectDetails = projectForm.createProject(data);
