@@ -1,11 +1,11 @@
-package com.jalasoft.pivotal.pages;
-
-import java.util.concurrent.TimeUnit;
+package com.jalasoft.pivotal.core.ui;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class DriverManager {
 	private static DriverManager ourInstance = new DriverManager();
