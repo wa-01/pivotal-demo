@@ -1,8 +1,10 @@
 package com.jalasoft.pivotal.pages;
 
-import com.jalasoft.pivotal.core.ui.DriverManager;
-import com.jalasoft.pivotal.core.ui.WebDriverAction;
+import java.util.concurrent.TimeUnit;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 

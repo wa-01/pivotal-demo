@@ -32,6 +32,6 @@ public class Signin extends AbstractPage {
         action.click(loginButton);
         action.setValue(passwordTextField, password);
         action.click(loginButton);
-        return new Header();
+        return new Header(driver);
     }
 }

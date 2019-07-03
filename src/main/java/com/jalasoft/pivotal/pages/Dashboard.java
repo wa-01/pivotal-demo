@@ -1,23 +1,24 @@
 package com.jalasoft.pivotal.pages;
 
-import com.jalasoft.pivotal.pages.project.ProjectForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class Dashboard extends AbstractPage {
 
-    @FindBy(css = "#create-project-button")
-    private WebElement createProjectButton;
+	@FindBy(css = "#create-project-button")
+	private WebElement createProjectButton;
 
-    public ProjectForm clickCreateProjectButton() {
-        action.click(createProjectButton);
-        return new ProjectForm();
-    }
+	public ProjectForm clickCreateProjectButton() {
+		action.click(createProjectButton);
+		return new ProjectForm();
+	}
+	@FindBy(css = ".backlog a[data-aid=\"AddButton\"]")
+ 	private WebElement firstStoryAddButton;
 
-    public boolean isProjectVisible(String projectName) {
-        return action.isElementVisible(By.xpath(String.format("//a[@data-aid='project-name' and text() = '%s']", projectName)));
-    }
-
+	public StoryForm clickFirstStoryAddButton() {
+		action.click(firstStoryAddButton);
+		return new StoryForm();
+	}
 
 }

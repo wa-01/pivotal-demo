@@ -4,84 +4,120 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.jalasoft.pivotal.core.ui.ISteps;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.*;
 
-public class StoryForm extends AbstractPage {
+public class StoryForm extends AbstractPage{
 
-    @FindBy(css = "textarea[name='story[name]']")
-    private WebElement storyTitleTextArea;
+    public static final String STORY_TYPE_XPATH = "//span[@class='dropdown_label' and text()='%s']";
+    public static final String STORY_OWNER_XPATH = "//span[@class='name' and text()='%s']";
 
-    @FindBy(css = "div[class^='DescriptionShow']")
-    private WebElement descriptionLabel;
+    @FindBy(css = "textarea[name=\"story[name]\"]")
+    private WebElement storyNameTextField;
 
-    @FindBy(css = "[data-aid='textarea']")
-    private WebElement descriptionTextArea;
+    @FindBy(css = ".selection.item_feature")
+    private WebElement storyTypeDropdown;
 
-    @FindBy(css = "[data-aid='save']")
-    private WebElement saveDescriptionButton;
+    @FindBy(css = ".selectable_owner_row_element.add_owner.selected")
+    private WebElement storyOwner;
 
-    @FindBy(css = "[data-aid='LabelsSearch__input']")
-    private WebElement labelsTextField;
+    @FindBy(css = "[data-aid=\"renderedDescription\"]")
+    private WebElement descriptionShow;
+
+    @FindBy(css = "textarea[data-aid=\"textarea\"]")
+    private WebElement descriptionEdit;
+
+    @FindBy(css = "[data-aid=\"save\"]")
+    private WebElement saveDescription;
+/*
+    @FindBy(css = "input[data-aid=\"LabelsSearch__input\"]")
+    private WebElement labelsSearch;
+*/
+    @FindBy(css = "[data-aid=\"BlockerAdd\"]")
+    private WebElement blockerAddButton;
+
+    @FindBy(css = "#blocker-edit-new")
+    private WebElement blockerEditView;
+
+    @FindBy(css = "[data-aid=\"BlockerEdit__addButton\"]")
+    private WebElement blockerEditAddButton;
+
+    @FindBy(css = "[data-aid=\"TaskAdd\"]")
+    private WebElement taskAdd;
+
+    @FindBy(css = "[data-aid=\"new\"]")
+    private WebElement taskEditNew;
+
+    @FindBy(css = "[data-aid=\"addTaskButton\"]")
+    private WebElement addTaskButton;
 
     @FindBy(css = ".autosaves.button.std.save")
-    private WebElement saveStory;
+    private WebElement storyClose;
 
-    @FindBy (css = "a[id*='story_type_dropdown'].item_feature.selection")
-    private WebElement storyTypeDropdownArrow;
+    @FindBy(css = "[data-aid=\"Comment__textarea\"]")
+    private WebElement commentTextArea;
 
-    @FindBy (css = "a[id*='story_estimate_dropdown' ][class='arrow target']")
-    private WebElement pointEstimationDropdawnArrow;
+    @FindBy(css = "[data-aid=\"comment-submit\"]")
+    private WebElement commentSubmit;
 
-
-    public static final String STORY_TYPE = "li[data-value='%s']";
-    public static final String POINTS_ESTIMATION = "li[data-value='%s']";
-
-    public StoryDetail saveStory(Map<String, String> data) {
+    public void createStory(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
-        strategyMap.put("title", () -> action.setValue(storyTitleTextArea, data.get("title")));
-        strategyMap.put("description", () -> addDescription(data.get("description")));
-        strategyMap.put("labels", () -> addLabels(data.get("labels")));
-        strategyMap.put("story_type", () -> addStoryType(data.get("story_type")));
-        strategyMap.put("points" , ()-> addPoints(data.get("points")));
+
+        strategyMap.put("story_name", () -> action.setValue(storyNameTextField, data.get("story_name")));
+        strategyMap.put("description_edit", () -> setDescription(data.get("description_edit")));
+        strategyMap.put("blocker_edit", () -> setBlocker(data.get("blocker_edit")));
+        strategyMap.put("add_task", () -> addTask(data.get("add_task")));
+        strategyMap.put("story_type", () -> setType(data.get("story_type")));
+        strategyMap.put("story_owner", () -> setOwner(data.get("story_owner")));
+    //    strategyMap.put("label_search", () -> setLabel(data.get("label_search")));
+        strategyMap.put("comment_text_area", () -> action.setValue(commentTextArea, data.get("comment_text_area")));
 
         Set<String> keys = data.keySet();
         for (String key : keys) {
             strategyMap.get(key).execute();
         }
 
-        action.click(saveStory);
-
-        // This needs to be removed
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return new StoryDetail();
+        action.click(storyClose);
     }
 
-    private void addLabels(String labels) {
-        action.setValue(labelsTextField, labels);
-        labelsTextField.sendKeys(Keys.RETURN);
+    public CurrentBacklog getCurrentBacklog() {
+        //driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
+        return new CurrentBacklog(driver);
     }
 
-    private void addDescription(String description) {
-        action.click(descriptionLabel);
-        action.setValue(descriptionTextArea, description);
-        action.click(saveDescriptionButton);
+    private void setDescription(String description) {
+        action.click(descriptionShow);
+        action.setValue(descriptionEdit, description);
+        action.click(saveDescription);
     }
 
-    private void addStoryType(String storyType) {
-        action.click(storyTypeDropdownArrow);
-        action.click(By.cssSelector(String.format(STORY_TYPE, storyType)));
+    private void setBlocker(String blocker) {
+        action.click(blockerAddButton);
+        action.setValue(blockerEditView, blocker);
+        action.click(blockerEditAddButton);
     }
-    private void addPoints(String points) {
-        action.click(pointEstimationDropdawnArrow);
-        action.click(By.cssSelector(String.format(POINTS_ESTIMATION, points)));
+
+    private void addTask(String task) {
+        action.click(taskAdd);
+        action.setValue(taskEditNew, task);
+        action.click(addTaskButton);
     }
+
+    private void setType(String expectedType) {
+        action.click(storyTypeDropdown);
+        String optionstoryTypeLocator = String.format(STORY_TYPE_XPATH, expectedType);
+        action.click(By.xpath(optionstoryTypeLocator));
+    }
+
+    private void setOwner(String expectedOwner) {
+        action.click(storyOwner);
+        String storyOwnerLocator = String.format(STORY_OWNER_XPATH, expectedOwner);
+        action.click(By.xpath(storyOwnerLocator));
+    }
+/*
+    private void setLabel(String label) {
+        action.setValue(labelsSearch, label);
+    }*/
+
 }
