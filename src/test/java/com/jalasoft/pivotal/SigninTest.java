@@ -2,6 +2,7 @@ package com.jalasoft.pivotal;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import com.jalasoft.pivotal.pages.Dashboard;
@@ -21,9 +22,9 @@ public class SigninTest {
     @Test
     public void testSignin() {
         // When
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "mauricioramirez1";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "59334499");
 
         // Then
         ProfileDropdown profileDropdown = header.clickProfileDropdown();
@@ -35,24 +36,29 @@ public class SigninTest {
     public void testCreateProject() {
 
         // Given
-        String expectedUserName = "Carledriss";
+        String expectedUserName = "mauricioramirez1";
         Signin signin = new Signin();
-        Header header = signin.loginAs(expectedUserName, "");
+        Header header = signin.loginAs(expectedUserName, "59334499");
 
         // When
 
         Dashboard dashboard = new Dashboard();
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
 
-        Map<String, String> data = new HashMap<>();
-        data.put("project_name", "MyProject");
-        data.put("account", "account1");
-//        data.put("privacy", "public");
-
 //        Map<String, String> data = new HashMap<>();
 //        data.put("project_name", "MyProject");
 //        data.put("account", "account1");
+//        data.put("privacy", "public");
+
+        Map<String, String> data = new HashMap<>();
+        Random rand = new Random();
+        data.put("project_name", "MyProject" + rand.nextInt(400));
+        data.put("account", "test_account");
         projectForm.createProject(data);
+
+        String text = header.getLogoButtonText();
+
+        System.out.print(text);
 
         // Then
 //        String actualProjectName = driver.findElement(By.cssSelector(".raw_context_name")).getText();
