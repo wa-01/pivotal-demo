@@ -31,14 +31,14 @@ public class StoryForm extends AbstractPage {
     @FindBy(css = ".autosaves.button.std.save")
     private WebElement saveStory;
 
-    @FindBy (css = "a[id*='story_type_dropdown'].item_feature.selection")
+    @FindBy (css = "a[id*=\"story_type_dropdown\"].item_feature.selection")
     private WebElement storyTypeDropdownArrow;
 
-    @FindBy (css = "a[id *= 'story_estimate_dropdown' ][class='arrow target']")
+    @FindBy (css = "a[id *= \"story_estimate_dropdown\" ][class=\"arrow target\"]")
     private WebElement pointEstimationDropdawnArrow;
 
 
-    public static final String STORY_TYPE = "input[data-value='%s']";
+    public static final String STORY_TYPE = "li[data-value='%s']";
     public static final String POINTS_ESTIMATION = "li[data-value='%s']";
 
 
@@ -49,7 +49,7 @@ public class StoryForm extends AbstractPage {
         strategyMap.put("title", () -> action.setValue(storyTitleTextArea, data.get("title")));
         strategyMap.put("description", () -> addDescription(data.get("description")));
         strategyMap.put("labels", () -> addLabels(data.get("labels")));
-        strategyMap.put("story-type", () -> addStoryType(data.get("story-type")));
+        strategyMap.put("story_type", () -> addStoryType(data.get("story_type")));
         strategyMap.put("points" , ()-> addPoints(data.get("points")));
 
 
@@ -91,8 +91,14 @@ public class StoryForm extends AbstractPage {
      *               3 for  3 points
      */
     private void addPoints(String points) {
-        action.click(pointEstimationDropdawnArrow);
-        action.click(By.cssSelector(String.format(POINTS_ESTIMATION, points)));
+        try {
+            action.click(pointEstimationDropdawnArrow);
+            action.click(By.cssSelector(String.format(POINTS_ESTIMATION, points)));
+        }catch (Exception e){
+            System.out.println("Exception: " + e);
+            System.out.println("No able to select point might the Item is not of Feature type");
+        }
+
     }
 }
 
