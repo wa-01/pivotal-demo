@@ -21,7 +21,7 @@ public class DriverFactory {
         DRIVERS.put("firefox", Firefox::new);
         DRIVERS.put("remote", BrowserStack::new);
         DRIVERS.put("docker", BrowserStack::new);
-        DRIVERS.put("headless", BrowserStack::new);
+        DRIVERS.put("headless", ChromeHeadless::new);
     }
 
     public static WebDriver getDriver(String browser) {
