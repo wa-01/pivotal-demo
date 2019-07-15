@@ -20,7 +20,7 @@ public class DriverFactory {
         DRIVERS.put("chrome", Chrome::new);
         DRIVERS.put("firefox", Firefox::new);
         DRIVERS.put("remote", BrowserStack::new);
-        DRIVERS.put("docker", BrowserStack::new);
+        DRIVERS.put("docker", Docker::new);
         DRIVERS.put("headless", ChromeHeadless::new);
     }
 
