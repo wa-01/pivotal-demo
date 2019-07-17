@@ -23,11 +23,8 @@ public class Signin extends AbstractPage {
     @FindBy(css = ".app_signin_action_button")
     private WebElement loginButton;
 
-    public Signin() {
-        driver.get("https://www.pivotaltracker.com/signin?source=navbar");
-    }
-
     public Header loginAs(String userName, String password) {
+        driver.get("https://www.pivotaltracker.com/signin?source=navbar");
         action.setValue(userNameTextField, userName);
         action.click(loginButton);
         action.setValue(passwordTextField, password);

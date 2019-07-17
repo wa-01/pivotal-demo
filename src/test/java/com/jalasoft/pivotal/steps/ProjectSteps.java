@@ -2,6 +2,7 @@ package com.jalasoft.pivotal.steps;
 
 import java.util.Map;
 
+import com.jalasoft.pivotal.pages.Dashboard;
 import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
@@ -12,9 +13,15 @@ public class ProjectSteps {
 
     private ProjectDetails projectDetails;
 
+    private ProjectForm projectForm;
+
+    public ProjectSteps(ProjectDetails projectDetails, ProjectForm projectForm) {
+        this.projectDetails = projectDetails;
+        this.projectForm = projectForm;
+    }
+
     @And("I set the project form")
     public void iSetTheProjectForm(Map<String, String> data) {
-        ProjectForm projectForm = new ProjectForm();
         projectDetails = projectForm.createProject(data);
     }
 

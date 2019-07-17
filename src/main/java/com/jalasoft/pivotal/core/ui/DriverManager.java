@@ -25,7 +25,7 @@ public class DriverManager {
 
 	private DriverManager() {
 		// info from config.json
-		String browser = "docker";
+		String browser = "chrome";
 		driver = DriverFactory.getDriver(browser);
 
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
