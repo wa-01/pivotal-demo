@@ -9,13 +9,19 @@ public class DashboardSteps {
 
     private Dashboard dashboard;
 
-    public DashboardSteps(Dashboard dashboard) {
+    private CommonSteps commonSteps;
+
+    public DashboardSteps(Dashboard dashboard, CommonSteps commonSteps) {
         this.dashboard = dashboard;
+        this.commonSteps = commonSteps;
     }
 
     @When("I click the new project button")
     public void iClickTheNewProjectButton() {
         Dashboard dashboard = new Dashboard();
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
+
+        commonSteps.getValue();
+
     }
 }
