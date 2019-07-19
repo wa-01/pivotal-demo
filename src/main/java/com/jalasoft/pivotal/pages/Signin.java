@@ -15,11 +15,13 @@ public class Signin extends AbstractPage {
     private WebElement loginButton;
 
     public Header loginAs(String userName, String password) {
-        driver.get("https://www.pivotaltracker.com/signin?source=navbar");
-        action.setValue(userNameTextField, userName);
-        action.click(loginButton);
-        action.setValue(passwordTextField, password);
-        action.click(loginButton);
+        if (!driver.getTitle().contains(" - Pivotal Tracker")) {
+            driver.get("https://www.pivotaltracker.com/signin?source=navbar");
+            action.setValue(userNameTextField, userName);
+            action.click(loginButton);
+            action.setValue(passwordTextField, password);
+            action.click(loginButton);
+        }
         return new Header();
     }
 }

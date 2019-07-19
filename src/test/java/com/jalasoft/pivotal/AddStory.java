@@ -26,9 +26,9 @@ public class AddStory {
     @Before
     public void setUp() {
         // Given
-        String userName = "rubenmendoza";
+        String userName = "Carledriss";
         Signin signin = new Signin();
-        signin.loginAs(userName, "");
+        signin.loginAs(userName, "P@ssw0rd");
 
         dashboard = new Dashboard();
         ProjectForm projectForm = dashboard.clickCreateProjectButton();
@@ -40,7 +40,6 @@ public class AddStory {
         projectForm.createProject(projectData);
     }
 
-
     @Test
     public void testCreateStory() {
         // When
@@ -50,7 +49,6 @@ public class AddStory {
         storyData.put("title", "new Story");
         storyData.put("story_type", "feature");
         storyData.put("points", "3");
-        storyData.put("owner", "ruben");
         storyData.put("blockers", "blocker sample");
         storyData.put("description", "This is a description");
         storyData.put("labels", "label sample");
@@ -59,15 +57,15 @@ public class AddStory {
 
         StoryDetail storyDetail = storyForm.saveStory(storyData);
 
-//        //Then
-//        assertEquals(storyData.get("title"), storyDetail.getStoryModelName(storyData.get("title")));
-//
-//        // Show All Projects
-//        Header header = new Header();
-//        dashboard = header.goToDashboard();
-//        MenuPopover menuPopover = header.clickPivotalTrackerDropDown();
-//        ShowAll showAll = menuPopover.clickShowAllProjectsLink();
-//
-//        assertEquals("1", showAll.getStoriesCountByProject(projectData.get("name")));
+        //Then
+        assertEquals(storyData.get("title"), storyDetail.getStoryModelName(storyData.get("title")));
+
+        // Show All Projects
+        Header header = new Header();
+        dashboard = header.goToDashboard();
+        MenuPopover menuPopover = header.clickPivotalTrackerDropDown();
+        ShowAll showAll = menuPopover.clickShowAllProjectsLink();
+
+        assertEquals("1", showAll.getStoriesCountByProject(projectData.get("name")));
     }
 }
