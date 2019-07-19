@@ -2,6 +2,7 @@ package com.jalasoft.pivotal.core.ui;
 
 import java.util.concurrent.TimeUnit;
 
+import com.jalasoft.pivotal.core.Environment;
 import org.openqa.selenium.WebDriver;
 
 public class DriverManager {
@@ -16,8 +17,7 @@ public class DriverManager {
 
 
     private DriverManager() {
-        // info from config.json
-        String browser = "chrome";
+        String browser = Environment.getInstance().getValue("$['browser']");
         driver = DriverFactory.getDriver(browser);
 
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
