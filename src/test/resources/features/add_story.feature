@@ -1,14 +1,14 @@
-Feature: Projects
+Feature: Stories
 
   Background:
-    Given I sign in as "Carledriss" user and "P@ssw0rd"
+    Given I sign in as "owner"
     And I click the new project button
     And I create the project with:
       | name    | MyProject28 |
       | account | account1    |
       | privacy | public      |
 
-  Scenario: Create Project
+  Scenario: Add story
     When I click the add story button on "icebox" panel
     And I add the story with:
       | title       | new Story               |

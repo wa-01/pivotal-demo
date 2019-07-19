@@ -10,9 +10,8 @@ import com.jalasoft.pivotal.pages.project.StoriesTab;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.testng.Assert;
 
-import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
 
 public class ProjectSteps {
 
@@ -43,7 +42,7 @@ public class ProjectSteps {
     @Then("I validate the project label is {string}")
     public void iValidateTheProjectLabelIs(String name) {
         String actualProjectName = projectDetails.getProjectNameLabel();
-        Assert.assertEquals(actualProjectName, name);
+        assertEquals(actualProjectName, name);
     }
 
     @When("I click the add story button on {string} panel")

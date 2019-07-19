@@ -1,0 +1,13 @@
+{
+  "credentials" : {
+    "owner" : {
+      "username" : "",
+      "password" : ""
+    },
+    "member" : {
+      "username" : "",
+      "password" : ""
+    }
+  },
+  "browser" : "chrome"
+}

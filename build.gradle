@@ -12,11 +12,29 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.6.1'
 
-    compile group: 'io.cucumber', name: 'cucumber-java', version: '4.2.6'
-    compile group: 'io.cucumber', name: 'cucumber-testng', version: '4.2.6'
-    compile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '4.2.6'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.1.0'
+
+    testCompile group: 'io.cucumber', name: 'cucumber-java', version: '4.4.0'
+    testCompile group: 'io.cucumber', name: 'cucumber-testng', version: '4.4.0'
+    testCompile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '4.4.0'
+}
+
+task executeFeatures(type: Test) {
+    doFirst {
+        useTestNG()
+        options {
+            useDefaultListeners = false
+            jvmArgs = ['-Dcucumber.options= ' +
+                               '--glue com.jalasoft.pivotal ' +
+                               '--plugin pretty ']
+        }
+        testLogging.showStandardStreams = true
+        scanForTestClasses = false
+        ignoreFailures = false
+        reports.html.enabled = false
+    }
 }

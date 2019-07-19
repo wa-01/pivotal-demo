@@ -1,7 +1,7 @@
 Feature: Projects
 
   Background:
-    Given I sign in as "Carledriss" user and "P@ssw0rd"
+    Given I sign in as "owner"
 
   Scenario: Create Project
     When I click the new project button
