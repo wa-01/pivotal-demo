@@ -1,5 +1,6 @@
 package com.jalasoft.pivotal.pages;
 
+import com.jalasoft.pivotal.pages.account.AccountPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,8 +14,16 @@ public class Header extends AbstractPage {
     @FindBy(css = ".tc_projects_dropdown_link")
     private WebElement pivotalTrackerDropdown;
 
+    @FindBy(xpath = "//a[@href='/reports']/preceding-sibling::a[@href='/accounts']")
+    private WebElement accounts;
+
+    @FindBy (css = "div[data-aid=\"ProfileDropdown\"] > button")
+    private WebElement profileDropdownButton;
+
     public ProfileDropdown clickProfileDropdown() {
-        driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
+        //  wait.until(ExpectedConditions.visibilityOf(profileDropdownButton));
+        action.click(profileDropdownButton);
+        //driver.findElement(By.cssSelector(profileDropdownButton)).click();
         return new ProfileDropdown(driver);
     }
 
@@ -27,5 +36,10 @@ public class Header extends AbstractPage {
     public MenuPopover clickPivotalTrackerDropDown() {
         action.click(pivotalTrackerDropdown);
         return new MenuPopover();
+    }
+
+    public AccountPage clickAccounts(){
+        action.click(accounts);
+        return new AccountPage();
     }
 }
