@@ -62,6 +62,10 @@ public class WebDriverAction {
         return webElement.isSelected();
     }
 
+    public void confirmDialog() {
+        driver.switchTo().alert().accept();
+    }
+
     public boolean isElementVisible(final By element) {
         try {
             driver.findElement(element);
@@ -70,5 +74,4 @@ public class WebDriverAction {
         }
         return true;
     }
-
 }

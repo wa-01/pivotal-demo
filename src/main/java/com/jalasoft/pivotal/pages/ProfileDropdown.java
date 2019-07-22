@@ -1,18 +1,27 @@
 package com.jalasoft.pivotal.pages;
 
-import org.openqa.selenium.By;
+import com.jalasoft.pivotal.pages.account.Account;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class ProfileDropdown {
+public class ProfileDropdown extends AbstractPage{
 
     private WebDriver driver;
 
-    public ProfileDropdown(WebDriver driver) {
-        this.driver = driver;
-    }
+    @FindBy(css = "a[href='/accounts']")
+    private WebElement accountsLink;
+
+    @FindBy(css = ".AvatarDetails__name")
+    private WebElement avatarDetailsName;
 
     public String getAvatarName() {
-        return driver.findElement(By.cssSelector(".AvatarDetails__name")).getText();
+        return action.getText(avatarDetailsName);
+    }
+
+    public Account clickAccounts(){
+        action.click(accountsLink);
+        return new Account();
     }
 
 }
