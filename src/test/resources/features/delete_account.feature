@@ -12,4 +12,4 @@ Feature: Accounts
     When I click the "Settings" tab button
     And I click the "delete this account" link
     And I click the OK button to confirm
-    Then I validate the confirmation label is "AccountTest was successfully deleted"
+    Then I validate the confirmation label is "AccountTest was successfully deleted."
