@@ -6,9 +6,7 @@ public class ProfileDropdown extends AbstractPage {
 
     private static final String DROP_DOWN_OPTION = "//a[text()=\"%s\"]";
 
-
     public ProfileDropdown() {
-
     }
 
     public String getAvatarName() {
@@ -17,7 +15,7 @@ public class ProfileDropdown extends AbstractPage {
 
     /**
      *
-     * @param option Can be Profile ,Account
+     * @param option Can be Profile ,AccountsPanel
      * @return UserManagementHeaderClass
      */
     public UserManagementHeader clickOnDropDownOption(String option) {
