@@ -1,18 +1,28 @@
 package com.jalasoft.pivotal.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-public class ProfileDropdown {
+public class ProfileDropdown extends AbstractPage {
 
-    private WebDriver driver;
+    private static final String DROP_DOWN_OPTION = "//a[text()=\"%s\"]";
 
-    public ProfileDropdown(WebDriver driver) {
-        this.driver = driver;
+
+    public ProfileDropdown() {
+
     }
 
     public String getAvatarName() {
-        return driver.findElement(By.cssSelector(".AvatarDetails__name")).getText();
+        return action.getText(By.cssSelector(".AvatarDetails__name"));
+    }
+
+    /**
+     *
+     * @param option Can be Profile ,Account
+     * @return UserManagementHeaderClass
+     */
+    public UserManagementHeader clickOnDropDownOption(String option) {
+        action.click(By.xpath(String.format(DROP_DOWN_OPTION,option)));
+        return new UserManagementHeader();
     }
 
 }

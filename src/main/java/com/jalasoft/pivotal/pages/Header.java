@@ -15,7 +15,7 @@ public class Header extends AbstractPage {
 
     public ProfileDropdown clickProfileDropdown() {
         driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
-        return new ProfileDropdown(driver);
+        return new ProfileDropdown();
     }
 
     public Dashboard goToDashboard() {
