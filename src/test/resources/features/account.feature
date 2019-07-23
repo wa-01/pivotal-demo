@@ -4,6 +4,7 @@ Feature: Accounts
     Given I sign in as "owner"
     And I create an account with :
       |AccountName    | AccountTest |
+      |Owner    | default |
 
   Scenario: Delete an account
     When I go to manage settings
