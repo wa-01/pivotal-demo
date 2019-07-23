@@ -7,9 +7,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class AccountDetail extends AbstractPage {
 
-    @FindBy(xpath = "//a[text()=\"Settings\"]")
-    private WebElement settingsTab;
-
     @FindBy(css = "a[data-method=\"delete\"]")
     private WebElement deleteAccountLink;
 
@@ -22,10 +19,10 @@ public class AccountDetail extends AbstractPage {
     private static final String ACCOUNT_NAME = "//div[text()='%s']";
 
     public void clickSettingsTab() {
-        action.click(settingsTab);
+        action.click(By.xpath("//a[text()='Settings']"));
     }
 
-    public void clickDeleteAccountLink(){
+    public void clickDeleteAccountLink() {
         action.click(deleteAccountLink);
         action.clickPopup();
     }
