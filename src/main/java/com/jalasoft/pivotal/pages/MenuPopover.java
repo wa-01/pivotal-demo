@@ -9,6 +9,8 @@ public class MenuPopover extends AbstractPage {
     @FindBy(css = ".tc_projects_menu_show_all")
     private WebElement showAllProjectsLink;
 
+
+
     public boolean isProjectVisible(String projectName) {
         return action.isElementVisible(By.xpath(String.format("//span[contains(@class, 'raw_project_name') and text() = '%s']", projectName)));
     }

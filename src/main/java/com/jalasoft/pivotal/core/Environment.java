@@ -18,7 +18,7 @@ import org.json.simple.parser.ParseException;
  */
 public final class Environment {
 
-    private static final String CONF_FILE = "environment.json";
+    private static final String CONF_FILE = "environment.json.dist";
     private static Environment ourInstance;
     private DocumentContext jsonContext;
 

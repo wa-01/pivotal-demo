@@ -13,6 +13,12 @@ public class Header extends AbstractPage {
     @FindBy(css = ".tc_projects_dropdown_link")
     private WebElement pivotalTrackerDropdown;
 
+    @FindBy(xpath = "//button[@aria-label=\"Profile Dropdown\"]")
+    private WebElement profileDropdown;
+
+    @FindBy(xpath = "//div[@data-aid='Dropdown__tabstop']/descendant::a[@href='/accounts']")
+    private WebElement accountsOption;
+
     public ProfileDropdown clickProfileDropdown() {
         driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
         return new ProfileDropdown(driver);
@@ -28,4 +34,12 @@ public class Header extends AbstractPage {
         action.click(pivotalTrackerDropdown);
         return new MenuPopover();
     }
+
+    public void clickAccountOption() {
+        driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
+        wait.until(ExpectedConditions.visibilityOf(accountsOption));
+        //driver.findElement(By.xpath("//div[@data-aid='Dropdown__tabstop']/descendant::a[@href='/accounts']")).click();
+        action.click(accountsOption);
+    }
+
 }
