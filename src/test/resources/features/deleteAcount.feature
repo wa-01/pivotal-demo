@@ -4,7 +4,7 @@ Feature: Delete an account
     And I click the new project button
     And I create the project with:
       | name    | My Project Eval |
-      | account | Untitled    |
+      | account | account1    |
       | privacy | public      |
     And I click Profile dropdown list
     And I click Accounts
