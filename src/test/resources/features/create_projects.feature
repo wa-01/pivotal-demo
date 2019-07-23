@@ -7,6 +7,6 @@ Feature: Projects
     When I click the new project button
     And I create the project with:
       | name    | MyProject27 |
-      | account | Gpuno    |
+      | account | account1    |
       | privacy | public      |
     Then I validate the project label is "MyProject27"
