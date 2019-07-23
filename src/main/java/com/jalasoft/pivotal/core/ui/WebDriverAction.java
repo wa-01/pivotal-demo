@@ -71,4 +71,9 @@ public class WebDriverAction {
         return true;
     }
 
+    //Added for WEB-AUT evaluation jose colina
+    public void acceptAlertMessage(){
+        driver.switchTo().alert().accept();
+    }
+
 }

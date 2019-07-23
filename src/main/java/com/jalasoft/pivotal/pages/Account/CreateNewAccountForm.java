@@ -4,9 +4,9 @@ import com.jalasoft.pivotal.pages.AbstractPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CreateNewAccount extends AbstractPage {
+public class CreateNewAccountForm extends AbstractPage {
     @FindBy (css = ".tc-form__input")
-    private WebElement accountName;
+    private WebElement accountNameTextField;
 
     @FindBy (css = "[class*=Button--positive]")
     private WebElement createButton;
@@ -15,7 +15,7 @@ public class CreateNewAccount extends AbstractPage {
     private WebElement cancelButton;
 
     public void createAccount(String accountName){
-        action.setValue(this.accountName, accountName);
+        action.setValue(this.accountNameTextField, accountName);
         action.click(createButton);
     }
 }

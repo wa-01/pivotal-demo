@@ -49,4 +49,14 @@ public class ProjectForm extends AbstractPage {
         action.click(By.xpath(optionAccountLocator));
     }
 
+    //Added for WEB-AUT evaluation jose colina
+    public void clickSelectAccount(){
+        action.click(accountSelect);
+    }
+
+    //Added for WEB-AUT evaluation jose colina
+    public boolean isAccountVisible(String accountName){
+        return action.isElementVisible(By.xpath(String.format(OPTION_ACCOUNT_XPATH,accountName)));
+    }
+
 }
