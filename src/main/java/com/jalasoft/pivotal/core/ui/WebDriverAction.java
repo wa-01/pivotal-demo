@@ -1,9 +1,10 @@
 package com.jalasoft.pivotal.core.ui;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -69,6 +70,16 @@ public class WebDriverAction {
             return false;
         }
         return true;
+    }
+
+    public void clickOnAlert(String actionBtn) {
+        // It will confirm the action if actionBtn='OK', otherwise it will cancel it.
+        Alert dialog = driver.switchTo().alert();
+        if (actionBtn.equals("OK")) {
+            dialog.accept();
+        } else {
+            dialog.dismiss();
+        }
     }
 
 }

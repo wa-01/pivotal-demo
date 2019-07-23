@@ -1,8 +1,15 @@
 package com.jalasoft.pivotal.steps;
 
 import com.jalasoft.pivotal.core.Environment;
+import com.jalasoft.pivotal.pages.Header;
+import com.jalasoft.pivotal.pages.NoticeBanner;
+import com.jalasoft.pivotal.pages.ProfileDropdown;
 import com.jalasoft.pivotal.pages.Signin;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+
+import static org.testng.Assert.assertEquals;
 
 public class CommonSteps {
 
@@ -19,4 +26,16 @@ public class CommonSteps {
         signin.loginAs(userName, password);
     }
 
+    @And("I click the {string} item in the profile menu")
+    public void iClickTheItemInTheProfileMenu(String option) {
+        Header header = new Header();
+        ProfileDropdown profileDropdown = header.clickProfileDropdown();
+        profileDropdown.clickOption(option);
+    }
+
+    @Then("I validate the notice {string} is displayed")
+    public void iValidateTheNoticeIsDisplayed(String notice) {
+        NoticeBanner noticeBanner = new NoticeBanner();
+        assertEquals(notice, noticeBanner.getNoticeText());
+    }
 }

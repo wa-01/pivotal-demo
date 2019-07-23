@@ -13,9 +13,12 @@ public class Header extends AbstractPage {
     @FindBy(css = ".tc_projects_dropdown_link")
     private WebElement pivotalTrackerDropdown;
 
+    @FindBy(css = "div[data-aid='ProfileDropdown'] > button")
+    private WebElement profileDropdown;
+
     public ProfileDropdown clickProfileDropdown() {
-        driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
-        return new ProfileDropdown(driver);
+        action.click(profileDropdown);
+        return new ProfileDropdown();
     }
 
     public Dashboard goToDashboard() {
