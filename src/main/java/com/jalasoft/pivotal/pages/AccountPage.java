@@ -10,6 +10,8 @@ public class AccountPage extends AbstractPage {
 
     private static final String OPTION_ACCOUNT_MANAGE_XPATH = "//div[@class='header']/descendant::div[text()='%s']/preceding::a[contains(@id,'manage')]";
 
+    private  static  final String ACCOUNT_FOUND_BY_ID = " //div[@class='accounts_list owner']/descendant::div[contains(@class,'%s')]";
+
     @FindBy(css = "#new_account_link")
     private WebElement createAccountLink;
 
@@ -18,6 +20,8 @@ public class AccountPage extends AbstractPage {
 
     @FindBy(css = "button[class=\"zWDds__Button pvXpn__Button--positive\"]")
     private WebElement createAccountButton;
+
+    //div[@class='accounts_list owner']/descendant::div[contains(@class,'1103006')]
 
 
     public ManageSpecificAccountPage createAccount(Map<String, String> data) {
@@ -33,7 +37,11 @@ public class AccountPage extends AbstractPage {
         return new ManageSpecificAccountPage();
     }
 
-    public void isAccountListed(String accountName) {
-        
+    public boolean isAccountListed(String accountID) {
+        String accountFoundInList = String.format(ACCOUNT_FOUND_BY_ID,accountID);
+
+       return driver.findElements(By.xpath(accountFoundInList)).size() > 0;
+
+
     }
 }

@@ -11,9 +11,15 @@ public class ManageSpecificAccountPage extends AccountPage {
     @FindBy(css = "a[data-method='delete']")
     private WebElement deleteAccountLink;
 
-    public void selectSettingsTab(String option) {
+    @FindBy(xpath = "//h4[text()='ID']/following-sibling::div")
+    private WebElement accountID;
+
+
+
+    public String selectSettingsTab(String option) {
         String tabToSelect = String.format(MANAGE_ACCOUNT_TAB_XPATH,option);
         action.click(By.xpath(tabToSelect));
+        return accountID.getText();
     }
 
     public AccountPage deleteAccount(){

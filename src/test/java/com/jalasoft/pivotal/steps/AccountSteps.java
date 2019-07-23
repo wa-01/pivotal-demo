@@ -7,6 +7,8 @@ import cucumber.api.java.en.When;
 
 import java.util.Map;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 
 public class AccountSteps {
@@ -15,6 +17,7 @@ public class AccountSteps {
     private Header header;
     private AccountPage accountPage;
     private ManageSpecificAccountPage manageSpecificAccountPage;
+    private String accountID;
 
     public AccountSteps(ProfileDropdown profileDropdown, Header header, AccountPage accountPage, ManageSpecificAccountPage manageSpecificAccountPage){
         this.profileDropdown = profileDropdown;
@@ -33,7 +36,9 @@ public class AccountSteps {
     @And("I select the tab {string}")
     public void iSelectTheTab(String option)
     {
-        manageSpecificAccountPage.selectSettingsTab(option);
+        this.accountID=manageSpecificAccountPage.selectSettingsTab(option);
+
+
     }
 
     @When("I go to manage account page of {string}")
@@ -49,9 +54,10 @@ public class AccountSteps {
     }
 
 
-    @Then("I validate the account with name {string} is not present in account list")
-    public void iValidateTheAccountWithNameIsNotPresentInAccountList(String accountName) {
-        accountPage.isAccountListed(accountName);
+    @Then("I validate the account with accountID is not present in account list")
+    public void iValidateTheAccountWithNameIsNotPresentInAccountList() {
+
+        assertFalse(accountPage.isAccountListed(accountID));
 
     }
 
