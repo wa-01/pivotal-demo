@@ -14,12 +14,15 @@ public class ManageAccountPage extends AbstractPage {
     @FindBy(css = "h2.account_name > span")
     private WebElement getAccountNameTitle;
 
-//    @FindBy(css = "//div[contains(@class, \"subnav\")]/descendant::a[contains(text(), \"Settings\")]")
+//    @FindBy(xpath = "//div[contains(@class, \"subnav\")]/descendant::a[contains(text(), \"Settings\")]")
     @FindBy(xpath = "//div[contains(@class, \"subnav\")]/descendant::a[contains(@href, \"settings\")]")
     private WebElement settingsSubnavButton;
 
     @FindBy(css = "#account_name")
     private WebElement accountNameTextField;
+
+    @FindBy(css = "a[data-method=\"delete\"]")
+    private WebElement deleteAccountLink;
 
     public ManageAccountPage clickSettingsButton() {
         action.click(settingsSubnavButton);
@@ -29,5 +32,12 @@ public class ManageAccountPage extends AbstractPage {
 
     public String getAccountNameTextField() {
         return action.getText(accountNameTextField);
+    }
+
+    public AccountsPage deleteAccount() {
+        action.click(deleteAccountLink);
+        action.clickAlertAccept();
+
+        return new AccountsPage();
     }
 }
