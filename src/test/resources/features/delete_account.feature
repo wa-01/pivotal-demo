@@ -15,6 +15,9 @@ Feature: Accounts
       And I click delete this account
       And I accept delete alert
       And I validate "TestAccount" account is deleted
+      And I validate "TestAccount" account message was deleted is displayed
+      And I validate "TestAccount" account is not available in project setting dropdown
+      And I validate "TestAccount" account is not available in create project dropdown
 
 
 

@@ -2,13 +2,14 @@ package com.jalasoft.pivotal.steps;
 
 import com.jalasoft.pivotal.pages.Accounts;
 import com.jalasoft.pivotal.pages.Header;
+import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 
 import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertFalse;
 
 public class AccountSteps {
 
@@ -67,7 +68,24 @@ public class AccountSteps {
 
     @And("I validate {string} account is deleted")
     public void iValidateAccountIsDeleted(String accountName) {
-        assertNotEquals(accountName, accounts.getAccountName(accountName));
+        assertFalse(accounts.checkAccountNameAvailability(accountName));
     }
 
+    @And("I validate {string} account message was deleted is displayed")
+    public void iValidateAccountDeletedMessageDisplayed(String accountName){
+        String deletedMessage = accountName + " was successfully deleted.";
+        assertEquals(deletedMessage, accounts.getDeletedMessage());
+    }
+
+    @And("I validate {string} account is not available in project setting dropdown")
+    public void iValidateAccountIsNotAvailableInProjectSetting(String accountName){
+        accounts.getProjectSettingsAccounts();
+        assertFalse(accounts.checkAccountInProjectSetting(accountName));
+    }
+
+    @And("I validate {string} account is not available in create project dropdown")
+    public void iValidateAccountIsNotAvailableInCreateProject(String accountName){
+        header.checkAccountsFromCreateProject();
+        assertFalse(accounts.checkAccountNameAvailability(accountName));
+    }
 }
