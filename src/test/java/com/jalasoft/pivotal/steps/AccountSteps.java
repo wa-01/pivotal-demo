@@ -5,6 +5,7 @@ import com.jalasoft.pivotal.pages.ProfileDropdown;
 import com.jalasoft.pivotal.pages.account.AccountModal;
 import com.jalasoft.pivotal.pages.account.AccountPage;
 import com.jalasoft.pivotal.pages.account.AccountSettingsPage;
+import com.jalasoft.pivotal.pages.account.SettingsPane;
 import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
@@ -16,21 +17,12 @@ import java.util.Map;
 
 public class AccountSteps {
 
-    /*
-    private ProjectDetails projectDetails;
-
-    private ProjectForm projectForm;
-*/
     private ProfileDropdown profile;
     private AccountPage accountsPage;
     private AccountModal accountModal;
     private AccountSettingsPage accountSettingsPage;
- /*
-    public AccountSteps(ProjectDetails projectDetails, ProjectForm projectForm) {
-        this.projectDetails = projectDetails;
-        this.projectForm = projectForm;
-    }
-*/
+    private SettingsPane settingsPane;
+
     @And("I click Profiles")
     public void iClickProfile(){
         Header header = new Header();
@@ -55,22 +47,28 @@ public class AccountSteps {
     }
 
     @When("I click manageAccount button {string}")
-    public void ilistAccount(String accountName){
+    public void iListAccount(String accountName){
         AccountPage accounts = new AccountPage();
         accounts.clickAccountsLink();
         accountSettingsPage = accounts.clickManageAccount(accountName);
     }
-/*
-    @And("I set the project form")
-    public void iSetTheProjectForm(Map<String, String> data) {
-        projectDetails = projectForm.createProject(data);
+
+    @And ("I click Setting")
+    public void iClickSettings(){
+        AccountSettingsPage accountSettings = new AccountSettingsPage();
+        settingsPane = accountSettings.clickSettings();
     }
 
-    @Then("I validate the Project label is {string}")
-    public void iValidateTheProjectLabelIs(String name) {
-        String actualProjectName = projectDetails.getProjectNameLabel();
-        Assert.assertEquals(actualProjectName, name);
+    @And ("I click Delete link")
+    public void iClickDeleteAccountLink(){
+        SettingsPane settingsPane = new SettingsPane();
+        accountSettingsPage = settingsPane.deleteAccount();
     }
 
- */
+    @Then("I validate the account {string} was deleted")
+    public void iValidateTheAccountWasDeleted(String name) {
+        String actualMessage = accountsPage.getAccountDeleteMessage();
+        String expectedMessage = name + " was successfully deleted.";
+        Assert.assertEquals(actualMessage, expectedMessage);
+    }
 }

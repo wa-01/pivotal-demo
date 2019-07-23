@@ -6,14 +6,14 @@ import org.openqa.selenium.support.FindBy;
 
 public class AccountSettingsPage extends AbstractPage {
 
-        @FindBy(css = ".create_account_button")
-        private WebElement createAccount;
-
         @FindBy (xpath = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[text()='Manage Account']")
         private WebElement manageAccount;
 
-        public AccountModal clickCreateAccount(){
-            action.click(createAccount);
-            return new AccountModal();
+        @FindBy (xpath="//a[@class='button' and text()='Settings']")
+        private WebElement settings;
+
+        public SettingsPane clickSettings(){
+            action.click(settings);
+            return new SettingsPane();
         }
 }

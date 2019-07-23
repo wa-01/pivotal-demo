@@ -16,6 +16,9 @@ public class AccountPage extends AbstractPage {
 
     private String manageAccount = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[text()='Manage Account']";
 
+    @FindBy (css = "#notice")
+    private WebElement notice;
+
     public AccountModal clickCreateAccount(){
         action.click(createAccount);
         return new AccountModal();
@@ -28,5 +31,10 @@ public class AccountPage extends AbstractPage {
     public AccountSettingsPage clickManageAccount(String accountName){
         action.click(By.xpath(String.format(manageAccount,accountName)));
         return new AccountSettingsPage();
+    }
+
+    public String getAccountDeleteMessage(){
+        String message = notice.getText();
+        return message;
     }
 }
