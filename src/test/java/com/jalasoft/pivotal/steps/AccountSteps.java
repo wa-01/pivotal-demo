@@ -6,13 +6,14 @@ import com.jalasoft.pivotal.pages.account.AccountModal;
 import com.jalasoft.pivotal.pages.account.AccountPage;
 import com.jalasoft.pivotal.pages.account.AccountSettingsPage;
 import com.jalasoft.pivotal.pages.account.SettingsPane;
-import com.jalasoft.pivotal.pages.project.ProjectDetails;
-import com.jalasoft.pivotal.pages.project.ProjectForm;
+import com.jalasoft.pivotal.pages.project.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class AccountSteps {
@@ -22,6 +23,8 @@ public class AccountSteps {
     private AccountModal accountModal;
     private AccountSettingsPage accountSettingsPage;
     private SettingsPane settingsPane;
+    private ProjectMenu projectMenu;
+    private ProjectSettingsForm projectSettingsForm;
 
     @And("I click Profiles")
     public void iClickProfile(){
@@ -65,10 +68,48 @@ public class AccountSteps {
         accountSettingsPage = settingsPane.deleteAccount();
     }
 
-    @Then("I validate the account {string} was deleted")
+    @Then ("I validate account {string} was deleted")
     public void iValidateTheAccountWasDeleted(String name) {
         String actualMessage = accountsPage.getAccountDeleteMessage();
         String expectedMessage = name + " was successfully deleted.";
         Assert.assertEquals(actualMessage, expectedMessage);
+    }
+
+    @And ("I validate account {string} is not listed")
+    public void iValidateTheAccountIsNotListed(String name){
+        boolean accountIsListed = true;
+        try {
+            accountsPage.findAccountInList(name);
+        }catch (WebDriverException ex){
+            accountIsListed = false;
+        }
+        Assert.assertFalse(accountIsListed);
+    }
+
+    @And ("I validate account {string} is not listed in new project")
+    public void iValidateAccountIsNotListedInNewProject(String name){
+        boolean accountIsListed = true;
+        ProjectForm newProject = settingsPane.createProject();
+        try {
+            newProject.selectAccount(name);
+        }catch (WebDriverException ex){
+            accountIsListed = false;
+        }
+        newProject.cancelCreateProject();
+        Assert.assertFalse(accountIsListed);
+    }
+
+    @And ("I validate account {string} is not listed in project settings")
+    public void iValidateAccountIsNotListedInProjectSettings(String name){
+        boolean accountIsListed = true;
+        projectMenu = settingsPane.openAnyProject();
+        projectSettingsForm = projectMenu.clickMore();
+        projectSettingsForm.changeAccountLink();
+        try{
+            projectSettingsForm.changeAccount(name);
+        }catch (WebDriverException ex){
+            accountIsListed = false;
+        }
+        Assert.assertFalse(accountIsListed);
     }
 }

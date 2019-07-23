@@ -1,6 +1,7 @@
 package com.jalasoft.pivotal.pages;
 
 import com.jalasoft.pivotal.pages.account.AccountPage;
+import com.jalasoft.pivotal.pages.project.ProjectSettingsForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,9 +22,7 @@ public class Header extends AbstractPage {
     private WebElement profileDropdownButton;
 
     public ProfileDropdown clickProfileDropdown() {
-        //  wait.until(ExpectedConditions.visibilityOf(profileDropdownButton));
         action.click(profileDropdownButton);
-        //driver.findElement(By.cssSelector(profileDropdownButton)).click();
         return new ProfileDropdown(driver);
     }
 
@@ -42,4 +41,5 @@ public class Header extends AbstractPage {
         action.click(accounts);
         return new AccountPage();
     }
+
 }

@@ -15,6 +15,7 @@ public class AccountPage extends AbstractPage {
     private WebElement accountsLink;
 
     private String manageAccount = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[text()='Manage Account']";
+    private String accountDeletedName = "//div[@class='name' and text()='%s']";
 
     @FindBy (css = "#notice")
     private WebElement notice;
@@ -36,5 +37,9 @@ public class AccountPage extends AbstractPage {
     public String getAccountDeleteMessage(){
         String message = notice.getText();
         return message;
+    }
+
+    public void findAccountInList(String accountDeleted){
+        action.click(By.xpath(String.format(accountDeletedName,accountDeleted)));
     }
 }

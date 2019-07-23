@@ -13,4 +13,7 @@ Feature: Accounts
     And I click manageAccount button "AccountToDelete101"
     And I click Setting
     And I click Delete link
-    Then I validate the account "AccountToDelete101" was deleted
+    Then I validate account "AccountToDelete101" was deleted
+    And I validate account "AccountToDelete101" is not listed
+    And I validate account "AccountToDelete101" is not listed in new project
+    And I validate account "AccountToDelete101" is not listed in project settings
