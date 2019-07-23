@@ -29,7 +29,7 @@ public class ProjectForm extends AbstractPage {
 
     public void setProjectFields(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
-        strategyMap.put("name", () -> action.setValue(projectNameTextField, data.get("name")));
+        strategyMap.put("name", () -> action.setValue(projectNameTextField, data.get("name") + System.currentTimeMillis()));
         strategyMap.put("account", () -> selectAccount(data.get("account")));
         strategyMap.put("privacy", () -> action.click(By.cssSelector(String.format(PRIVACY_CSS, data.get("privacy")))));
 
