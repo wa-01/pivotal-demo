@@ -1,5 +1,6 @@
 package com.jalasoft.pivotal.runner;
 
+import com.jalasoft.pivotal.core.ui.DriverManager;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.AfterTest;
@@ -29,5 +30,6 @@ public class RunCucumberTest extends AbstractTestNGCucumberTests {
     @AfterTest
     public void close() {
         // Implement.
+        DriverManager.getInstance().getDriver().quit();
     }
 }
