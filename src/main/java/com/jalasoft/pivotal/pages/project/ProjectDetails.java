@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ProjectDetails extends AbstractPage {
+    //Added for WEB-AUT evaluation jose colina
+    @FindBy (css ="a[data-aid='navTab-more']")
+    WebElement moreButton;
 
     @FindBy(css = ".raw_context_name")
     private WebElement projectNameLabel;
@@ -24,4 +27,11 @@ public class ProjectDetails extends AbstractPage {
     public String getProjectPrivacyLabel() {
         return action.getText(projectPrivacyLabel).toLowerCase();
     }
+
+    //Added for WEB-AUT evaluation jose colina
+    public MorePage clickMoreMenu(){
+        action.click(moreButton);
+        return new MorePage();
+    }
+
 }

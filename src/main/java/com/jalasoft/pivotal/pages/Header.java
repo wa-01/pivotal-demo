@@ -14,7 +14,10 @@ public class Header extends AbstractPage {
     private WebElement pivotalTrackerDropdown;
 
     public ProfileDropdown clickProfileDropdown() {
-        driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".raw_context_name")));
+
+        action.click(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button"));
+        //driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
         return new ProfileDropdown(driver);
     }
 
