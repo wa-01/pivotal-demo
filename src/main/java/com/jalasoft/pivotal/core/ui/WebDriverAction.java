@@ -71,4 +71,8 @@ public class WebDriverAction {
         return true;
     }
 
+    public void confirmDialog() {
+        driver.switchTo().alert().accept();
+    }
+
 }

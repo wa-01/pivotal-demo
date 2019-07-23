@@ -7,8 +7,7 @@ Feature: Accounts
       |Owner    | default |
 
   Scenario: Delete an account
-    When I go to manage settings
-    And I delete the account with:
-      |AccountName    | AccountTest |
+    When  I select the tab "Settings"
+    And I click on delete account
     Then I validate the account with name "AccountTest" is not present in account list
-    And I validate that acount with name "AccountTest" is not present in new project form
+    And I validate that account with name "AccountTest" is not present in new project form
