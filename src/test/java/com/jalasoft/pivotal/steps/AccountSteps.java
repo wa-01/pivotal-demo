@@ -5,11 +5,12 @@ import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.account.AddAccount;
 import com.jalasoft.pivotal.pages.account.Dashboard;
 import com.jalasoft.pivotal.pages.account.DetailsAccount;
+import com.jalasoft.pivotal.pages.account.SettingsAccount;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 
 public class AccountSteps {
@@ -17,12 +18,14 @@ public class AccountSteps {
     private Dashboard actdashboard;
     private AddAccount addAccount;
     private DetailsAccount detailsAccount;
+    private SettingsAccount settingsAccount;
 
-    public AccountSteps(Header header, Dashboard actdashboard, AddAccount addAccount, DetailsAccount detailsAccount) {
+    public AccountSteps(Header header, Dashboard actdashboard, AddAccount addAccount, DetailsAccount detailsAccount, SettingsAccount settingsAccount) {
         this.header = header;
         this.actdashboard = actdashboard;
         this.addAccount = addAccount;
         this.detailsAccount = detailsAccount;
+        this.settingsAccount=settingsAccount;
     }
 
     @Given("I click on Accounts")
@@ -53,19 +56,16 @@ public class AccountSteps {
 
     @When("I click settings tab")
     public void i_click_settings_tab() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        settingsAccount = detailsAccount.clickSettingtab();
     }
 
     @When("I click delete link")
     public void i_click_delete_link() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        settingsAccount.clickDeleteLink();
     }
 
     @Then("I validate the account name is {string} is not displayed")
     public void i_validate_the_account_name_is_is_not_displayed(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        assertFalse(actdashboard.accountIsNotDisplayed(string));
     }
 }

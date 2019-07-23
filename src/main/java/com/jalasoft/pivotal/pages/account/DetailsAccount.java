@@ -6,16 +6,27 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class DetailsAccount extends AbstractPage {
-    private static String CSS_DETAILS_TITLE =".account_name";
+    private static String CSS_DETAILS_TITLE = ".account_name";
 
-    @FindBy (xpath = "//div[@class='accounts_list owner']")
+    private static String XPATH_MANAGE_BUTTON = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[contains(@id,'manage_account')]";
+
+    private static String XPATH_SETTINGS_TAB ="//ul[@class='buttons']/descendant::a[text()='Settings']";
+
+    @FindBy(xpath = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[contains(@id,'manage_account')]")
     WebElement accountRow;
 
-    public String getAccountName (){
+    public String getAccountName() {
         return action.getText(By.cssSelector(CSS_DETAILS_TITLE));
     }
 
-    public void clickManageButton (String accountName){
-        System.out.println(accountName);
+    public void clickManageButton(String accountName) {
+        String manage_button = String.format(XPATH_MANAGE_BUTTON, accountName);
+        action.click(By.xpath(manage_button));
+
+    }
+
+    public SettingsAccount clickSettingtab() {
+        action.click(By.xpath(XPATH_SETTINGS_TAB));
+        return new SettingsAccount();
     }
 }

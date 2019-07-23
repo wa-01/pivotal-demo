@@ -10,17 +10,22 @@ public class Dashboard extends AbstractPage {
     @FindBy(css = "#new_account_link")
     WebElement buttonCreateAccount;
 
+    private static String XPATH_MANAGE_BUTTON = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[contains(@id,'manage_account')]";
+
+    @FindBy(xpath = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[contains(@id,'manage_account')]")
+    WebElement accountRow;
+
     public AddAccount clickCreateProjectButton() {
         action.click(buttonCreateAccount);
         return new AddAccount();
     }
 
-    /**
-     * modificar para que valide la nueva cuenta
-     * @param accountName
-     * @return
-     */
-    public boolean isProjectVisible(String accountName) {
+
+    public boolean accountDisplayed(String accountName) {
+        return action.isElementVisible(By.xpath(String.format("//a[@data-aid='project-name' and text() = '%s']", accountName)));
+    }
+
+    public boolean accountIsNotDisplayed(String accountName) {
         return action.isElementVisible(By.xpath(String.format("//a[@data-aid='project-name' and text() = '%s']", accountName)));
     }
 }

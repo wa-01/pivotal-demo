@@ -16,7 +16,7 @@ public class Dashboard extends AbstractPage {
     }
 
     public boolean isProjectVisible(String projectName) {
-        return action.isElementVisible(By.xpath(String.format(".account_name and text() = '%s']", projectName)));
+        return action.isElementVisible(By.xpath(String.format("//a[@data-aid='project-name' and text() = '%s']", projectName)));
     }
 
 
