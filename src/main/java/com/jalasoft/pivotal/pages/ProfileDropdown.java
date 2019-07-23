@@ -1,5 +1,6 @@
 package com.jalasoft.pivotal.pages;
 
+import com.jalasoft.pivotal.pages.Account.UserAccounts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +22,8 @@ public class ProfileDropdown extends AbstractPage{
     }
 
     //Added for WEB-AUT evaluation jose colina
-    public void clickAccountOption(){
+    public UserAccounts clickAccountOption(){
         action.click(accountDropDownOption);
+        return new UserAccounts();
     }
 }

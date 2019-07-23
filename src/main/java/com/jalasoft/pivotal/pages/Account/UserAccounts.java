@@ -11,7 +11,7 @@ public class UserAccounts extends AbstractPage {
    @FindBy (css = ".create_account_button")
    private WebElement createButton;
 
-   private String MANAGE_ACCOUNT_BUTTON = "//div[@class='header']/descendant::div[text()='%s']/ancestor::h3/following-sibling::a[contains(@id,'manage_account_link')]";
+   private String MANAGE_ACCOUNT_BUTTON = "//div[text()='%s']/ancestor::h3/following-sibling::a[contains(@id,'manage_account_link')]";
    private String ACCOUNT_LABEL = "//div[@class='header']/descendant::div[text()='%s']";
 
     public CreateNewAccountForm clickCreateButton(){

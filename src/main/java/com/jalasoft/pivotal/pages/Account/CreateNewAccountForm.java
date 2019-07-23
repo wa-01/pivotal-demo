@@ -14,8 +14,9 @@ public class CreateNewAccountForm extends AbstractPage {
     @FindBy (css = "[class*=Button--open]")
     private WebElement cancelButton;
 
-    public void createAccount(String accountName){
+    public Account createAccount(String accountName){
         action.setValue(this.accountNameTextField, accountName);
         action.click(createButton);
+        return new Account();
     }
 }

@@ -7,8 +7,6 @@ import com.jalasoft.pivotal.pages.Account.UserAccounts;
 import com.jalasoft.pivotal.pages.Dashboard;
 import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.ProfileDropdown;
-import com.jalasoft.pivotal.pages.project.MorePage;
-import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -21,6 +19,7 @@ public class deleteAccountSteps {
     Header header;
     Dashboard dashboard;
     ProjectForm projectForm;
+    Account account;
 
     @Given("I click Profile dropdown list")
     public void iClickProfileDropdownList() {
@@ -30,19 +29,17 @@ public class deleteAccountSteps {
 
     @And("I click Accounts")
     public void iClickAccounts() {
-        profileDropdown.clickAccountOption();
+        accounts = profileDropdown.clickAccountOption();
     }
 
     @And("I create an account with name {string}")
     public void iCreateAnAccountWithName(String accountName) {
-        accounts = new UserAccounts();
         CreateNewAccountForm accountForm = accounts.clickCreateButton();
-        accountForm.createAccount(accountName);
+        account = accountForm.createAccount(accountName);
     }
 
     @And("I click {string} tab")
     public void iClickTab(String tabMenu) {
-        Account account = new Account();
         account.clickTabMenu(tabMenu);
     }
 
@@ -72,12 +69,4 @@ public class deleteAccountSteps {
         Assert.assertFalse(projectForm.isAccountVisible(accountName));
     }
 
-    @And("I validate the {string} is not visible from change account in project {string}")
-    public void iValidateTheIsNotVisibleFromChangeAccountInProject(String accountName, String projectName) {
-        projectForm.clickCancelButton();
-        dashboard.clickProjectLink(projectName);
-        ProjectDetails projectDetails = new ProjectDetails();
-        MorePage morePage = projectDetails.clickMoreMenu();
-        Assert.assertFalse(morePage.accountIsPresent(accountName));
-    }
 }

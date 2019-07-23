@@ -24,5 +24,6 @@ public class Dashboard extends AbstractPage {
     //Added for WEB-AUT evaluation jose colina
     public void clickProjectLink(String projectName){
         action.click(By.xpath(String.format(PROJECT_TITLE, projectName)));
+        action.isElementVisible(By.cssSelector(".main.project"));
     }
 }
