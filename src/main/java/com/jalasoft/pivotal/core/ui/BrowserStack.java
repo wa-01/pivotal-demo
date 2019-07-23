@@ -9,8 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BrowserStack extends AbstractDriver {
 
-
-    public static final String USERNAME = "carledriss1";
+    public static final String USERNAME = "gilmarp";
     public static final String AUTOMATE_KEY = "SUcFSGH3Y6kzYvxHrxfF";
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 

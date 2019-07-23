@@ -5,7 +5,7 @@ Feature: Stories
     And I click the new project button
     And I create the project with:
       | name    | MyProject28 |
-      | account | account1    |
+      | account | Gpuno    |
       | privacy | public      |
 
   Scenario: Add story

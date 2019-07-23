@@ -4,7 +4,6 @@ import com.jalasoft.pivotal.core.Environment;
 import com.jalasoft.pivotal.pages.Signin;
 import com.jalasoft.pivotal.pages.UserOption;
 import cucumber.api.java.en.And;
-
 import cucumber.api.java.en.Given;
 
 public class CommonSteps {
@@ -22,7 +21,6 @@ public class CommonSteps {
         String password = Environment.getInstance().getValue(String.format("$['credentials']['%s']['password']", user));
         signin.loginAs(userName, password);
     }
-
     @And("I click the CREATE ACCOUNT button")
     public void iClickTheCreateAccount(){
         userOption.SelectAccount();
