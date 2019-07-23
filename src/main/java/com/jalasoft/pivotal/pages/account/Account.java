@@ -7,13 +7,17 @@ import org.openqa.selenium.support.FindBy;
 
 public class Account extends AbstractPage {
 
-    private static final String MANAGE_ACCOUNT_BUTTON_XPATH = "//*[text()='Manage Account']/ancestor::div[@class='header']//div[text()='%s']";
+    private static final String MANAGE_ACCOUNT_BUTTON_XPATH = "//a[text()='Manage Account']/ancestor::div[@class='header']//div[text()='%s']";
+    private static final String ACCOUNT_NAME_XPATH = "//div[@class='header']//div[text()='%s']";
 
     @FindBy(css = "#new_account_link")
     private WebElement newAccountLink;
 
     @FindBy(css = "#notice")
     private WebElement noticeBanner;
+
+    @FindBy(css = "div[class='accounts_list owner'] div[class='name']")
+    private WebElement accountName;
 
     public ModalContent clickNewAccountLink() {
         action.click(newAccountLink);
@@ -28,5 +32,10 @@ public class Account extends AbstractPage {
 
     public String getNoticeBanner() {
         return action.getText(noticeBanner);
+    }
+
+    public boolean findAccountOwnName(String accountName){
+        String accountLocatorName = String.format(ACCOUNT_NAME_XPATH, accountName);
+        return driver.findElements(By.xpath(accountLocatorName)).size() > 0;
     }
 }

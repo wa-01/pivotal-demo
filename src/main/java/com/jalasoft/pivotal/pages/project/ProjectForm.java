@@ -43,6 +43,12 @@ public class ProjectForm extends AbstractPage {
         return new ProjectDetails();
     }
 
+    public boolean findAccount(String accountName) {
+        action.click(accountSelect);
+        String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, accountName);
+        return driver.findElements(By.xpath(optionAccountLocator)).size() > 0;
+    }
+
     private void selectAccount(String expectedAccount) {
         action.click(accountSelect);
         String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, expectedAccount);

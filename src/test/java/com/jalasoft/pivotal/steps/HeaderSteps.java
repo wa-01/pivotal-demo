@@ -4,8 +4,6 @@ import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.ProfileDropdown;
 import cucumber.api.java.en.When;
 
-import java.util.Map;
-
 public class HeaderSteps {
 
     private Header header;
@@ -20,5 +18,10 @@ public class HeaderSteps {
     @When("I click profile dropdown button")
     public void iClickProfileDropdownButton() {
         ProfileDropdown profileDropdown = header.clickProfileDropdown();
+    }
+
+    @When("I go to dashboard")
+    public void iGoToDashboard() {
+        header.goToDashboard();
     }
 }
