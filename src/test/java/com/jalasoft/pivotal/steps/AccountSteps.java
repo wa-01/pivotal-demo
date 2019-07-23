@@ -1,7 +1,12 @@
 package com.jalasoft.pivotal.steps;
 
+
+import com.jalasoft.pivotal.pages.Dashboard;
+import com.jalasoft.pivotal.pages.Header;
+import com.jalasoft.pivotal.pages.MenuPopover;
+import com.jalasoft.pivotal.pages.project.ProjectForm;
+import com.jalasoft.pivotal.pages.project.ProjectSettings;
 import cucumber.api.java.en.Then;
-import org.openqa.selenium.WebDriver;
 import com.jalasoft.pivotal.pages.Account;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.And;
@@ -10,6 +15,11 @@ import org.testng.Assert;
 public class AccountSteps {
 
     private Account account;
+    Header header = new Header();
+    MenuPopover menuPivotal = new MenuPopover();
+    ProjectForm projectForm = new ProjectForm();
+    Dashboard dashboard = new Dashboard();
+    ProjectSettings projectSettings = new ProjectSettings();
 
     public AccountSteps(Account account) {
         this.account = account;
@@ -91,5 +101,25 @@ public class AccountSteps {
     @Then ("I validate {string} account is not displayed in Accounts menu")
     public void IValidateAccountDeletedFromMenu(String accountName){
         Assert.assertFalse(account.existAccount(accountName));
+    }
+
+    @Then ("I validate {string} account is not displayed in Create Project")
+    public void IValidateAccountDeletedFromCreateProject(String accountName){
+        header.clickPivotalTrackerDropDown();
+        menuPivotal.clickCreateProject();
+        projectForm.clickSelectAccount();
+        Assert.assertFalse(projectForm.isAccountVisible(accountName));
+        projectForm.clickFirstAccount();
+        projectForm.clickCancelButton();
+    }
+
+    @Then ("I validate {string} account is not displayed in Project Settings")
+    public void IValidateAccountDeletedFromProjectSettings(String accountName){
+        header.goToDashboard();
+        dashboard.openProjectSettings();
+        projectSettings.clickChangeAccount();
+        projectSettings.clickAccountsDropdown();
+        Assert.assertFalse(projectSettings.isAccountListedInDropdown(accountName));
+        header.goToDashboard();
     }
 }

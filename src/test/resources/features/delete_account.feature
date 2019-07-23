@@ -8,6 +8,8 @@ Feature: Account
     When I Delete the Account "XXXGP"
     Then I validate "XXXGP" account was successfully deleted message is displayed
     Then I validate "XXXGP" account is not displayed in Accounts menu
+    Then I validate "XXXGP" account is not displayed in Create Project
+    Then I validate "XXXGP" account is not displayed in Project Settings
 
 
 

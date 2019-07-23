@@ -1,6 +1,5 @@
 package com.jalasoft.pivotal.pages;
 
-import com.jalasoft.pivotal.pages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -72,10 +71,10 @@ public class Account extends AbstractPage {
         action.click(By.xpath(String.format(xpathManageAccount, AccountName)));
     }
 
-    public void clickProfMenu(){
-        action.click(profMenu);
+    public void clickCreateProject (String AccountName) {
+        String xpathCreateProject = "//div[@class='header']/descendant::div[text()='%s']/ancestor::h3/following-sibling::a[contains(@id,'new_project_link')]";
+        action.click(By.xpath(String.format(xpathCreateProject, AccountName)));
     }
-
     public String getDeleteConfirmationMessage(){
         return action.getAttribute(deletedMessage, "innerText");
     }
