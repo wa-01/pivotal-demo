@@ -11,3 +11,11 @@ Feature: Accounts
     And I click the delete account link and confirm with "OK"
     Then I validate the notice "AccountToDelete was successfully deleted." is displayed
     And I validate the "AccountToDelete" is not listed in the accounts page
+    And I click Create Project button in the Pivotal Tracker dropdown
+    And I validate the "AccountToDelete" is not in the account selector of Project Form
+    And I create the project with:
+      | name    | MyProject01 |
+      | account | account1    |
+      | privacy | public      |
+    And I click the "More" tab in projects page
+    And I validate the account "AccountToDelete" is not listed in the change account selector

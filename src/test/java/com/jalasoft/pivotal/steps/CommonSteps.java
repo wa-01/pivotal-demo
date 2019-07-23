@@ -1,10 +1,7 @@
 package com.jalasoft.pivotal.steps;
 
 import com.jalasoft.pivotal.core.Environment;
-import com.jalasoft.pivotal.pages.Header;
-import com.jalasoft.pivotal.pages.NoticeBanner;
-import com.jalasoft.pivotal.pages.ProfileDropdown;
-import com.jalasoft.pivotal.pages.Signin;
+import com.jalasoft.pivotal.pages.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -37,5 +34,12 @@ public class CommonSteps {
     public void iValidateTheNoticeIsDisplayed(String notice) {
         NoticeBanner noticeBanner = new NoticeBanner();
         assertEquals(notice, noticeBanner.getNoticeText());
+    }
+
+    @And("I click Create Project button in the Pivotal Tracker dropdown")
+    public void iClickInThePivotalTrackerDropdown() {
+        Header header = new Header();
+        MenuPopover menuPopover = header.clickPivotalTrackerDropDown();
+        menuPopover.clickCreateProjectButton();
     }
 }
