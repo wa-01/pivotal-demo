@@ -9,9 +9,6 @@ public class MorePage extends AbstractPage {
     @FindBy (css = "#account_change_link")
     private WebElement changeAccountLink;
 
-    @FindBy (css = "select[name='project[account_id]']")
-    private WebElement selectAccount;
-
     private String ACCOUNT_OPTION = "//option[contains(text(),'%s')]";
 
     public void clickChangeAccount(){

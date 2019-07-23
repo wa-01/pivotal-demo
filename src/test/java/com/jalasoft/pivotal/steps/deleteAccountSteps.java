@@ -7,6 +7,8 @@ import com.jalasoft.pivotal.pages.Account.UserAccounts;
 import com.jalasoft.pivotal.pages.Dashboard;
 import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.ProfileDropdown;
+import com.jalasoft.pivotal.pages.project.MorePage;
+import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -20,10 +22,13 @@ public class deleteAccountSteps {
     Dashboard dashboard;
     ProjectForm projectForm;
     Account account;
+    ProjectDetails details;
 
     @Given("I click Profile dropdown list")
     public void iClickProfileDropdownList() {
         header = new Header();
+        details = new ProjectDetails();
+        details.isProjectPageLoaded();
         profileDropdown = header.clickProfileDropdown();
     }
 
@@ -69,4 +74,13 @@ public class deleteAccountSteps {
         Assert.assertFalse(projectForm.isAccountVisible(accountName));
     }
 
+    @And("I validate that the account {string} is not visible changing account from project {string}")
+    public void iValidateThatTheAccountIsNotVisibleChangingAccountFromProject(String accountName, String projectName) {
+        projectForm.clickCancelButton();
+        dashboard.clickProjectLink(projectName);
+        details.isProjectPageLoaded();
+        MorePage more= details.clickMoreMenu();
+        more.clickChangeAccount();
+        Assert.assertFalse(more.accountIsPresent(accountName));
+    }
 }

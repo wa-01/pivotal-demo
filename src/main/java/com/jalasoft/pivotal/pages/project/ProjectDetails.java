@@ -16,6 +16,8 @@ public class ProjectDetails extends AbstractPage {
     @FindBy(css = ".public_project_label")
     private WebElement projectPrivacyLabel;
 
+    private String sidebarSection = ".sidebar_wrapper";
+
     public void goToTab(String tab) {
         action.click(By.cssSelector(String.format("a[data-aid='navTab-%s']", tab)));
     }
@@ -32,6 +34,10 @@ public class ProjectDetails extends AbstractPage {
     public MorePage clickMoreMenu(){
         action.click(moreButton);
         return new MorePage();
+    }
+
+    public boolean isProjectPageLoaded(){
+        return action.isElementVisible(By.cssSelector(sidebarSection));
     }
 
 }
