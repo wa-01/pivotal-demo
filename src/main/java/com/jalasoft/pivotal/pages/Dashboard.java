@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Dashboard extends AbstractPage {
     //Added for WEB-AUT evaluation jose colina
-    private String PROJECT_TITLE = "//a[contains(@class,'projectTileHeader') and text() = '%s']";
+    private String PROJECT_TITLE = ".projectTileHeader__projectName";
 
     @FindBy(css = "#create-project-button")
     private WebElement createProjectButton;
@@ -22,7 +22,7 @@ public class Dashboard extends AbstractPage {
     }
 
     //Added for WEB-AUT evaluation jose colina
-    public void clickProjectLink(String projectName){
-        action.click(By.xpath(String.format(PROJECT_TITLE, projectName)));
+    public void clickProjectLink(){
+        action.click(By.cssSelector(PROJECT_TITLE));
     }
 }

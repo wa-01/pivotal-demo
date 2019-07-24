@@ -24,18 +24,19 @@ public class deleteAccountSteps {
     Account account;
     ProjectDetails details;
 
-    @Given("I click Profile dropdown list")
-    public void iClickProfileDropdownList() {
+    @Given("I go to Accounts")//"I click Profile dropdown list")
+    public void iGoToAccounts() {
         header = new Header();
         details = new ProjectDetails();
         details.isProjectPageLoaded();
         profileDropdown = header.clickProfileDropdown();
+        accounts = profileDropdown.clickAccountOption();
     }
-
+/*
     @And("I click Accounts")
     public void iClickAccounts() {
         accounts = profileDropdown.clickAccountOption();
-    }
+    }*/
 
     @And("I create an account with name {string}")
     public void iCreateAnAccountWithName(String accountName) {
@@ -74,13 +75,18 @@ public class deleteAccountSteps {
         Assert.assertFalse(projectForm.isAccountVisible(accountName));
     }
 
-    @And("I validate that the account {string} is not visible changing account from project {string}")
-    public void iValidateThatTheAccountIsNotVisibleChangingAccountFromProject(String accountName, String projectName) {
+    @And("I validate that the account {string} is not visible changing account from project page")
+    public void iValidateThatTheAccountIsNotVisibleChangingAccountFromProjectPage(String accountName) {
         projectForm.clickCancelButton();
-        dashboard.clickProjectLink(projectName);
+        dashboard.clickProjectLink();
         details.isProjectPageLoaded();
         MorePage more= details.clickMoreMenu();
         more.clickChangeAccount();
         Assert.assertFalse(more.accountIsPresent(accountName));
+    }
+
+    @And("I click manage account button in account {string}")
+    public void iClickManageAccountButtonInAccount(String accountName) {
+        accounts.clickManageAccount(accountName);
     }
 }
