@@ -71,10 +71,8 @@ public class AccountSteps {
 
     @And("account {string} is not listed on create project dropdown")
     public void accountIsNotListedOnCreateProjectDropdown(String accName) {
-        header.goToDashboard();
-        dashboard.clickCreateProjectButton();
+//        dashboard.clickCreateProjectButton();
         assertFalse(projectForm.findAccount(accName));
-
     }
 
     @And("I go to the Dashboard")
@@ -90,5 +88,10 @@ public class AccountSteps {
     @And("account {string} is not displayed on the project dropdown settings.")
     public void accountIsNotDisplayedOnTheProjectDropdownSettings(String accName) {
         assertFalse(projectDetails.isAccountDisplayed(accName));
+    }
+
+    @And("I open the Dashboard")
+    public void iOpenTheDashboard() {
+        header.goToDashboard();
     }
 }

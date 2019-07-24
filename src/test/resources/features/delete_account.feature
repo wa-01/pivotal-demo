@@ -14,6 +14,8 @@ Feature: Delete account
     And I accept the pop up
     Then I validate the message is "eedgarTest01 was successfully deleted."
     And account "eedgarTest01" is not present in the Accounts list
+    And I open the Dashboard
+    And I click the new project button
     And account "eedgarTest01" is not listed on create project dropdown
     And I go to the Dashboard
     And I click the new project button
