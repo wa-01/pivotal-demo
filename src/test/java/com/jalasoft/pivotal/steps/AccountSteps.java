@@ -99,6 +99,7 @@ public class AccountSteps {
 
     @And("I validate that account with accountID is not present in project settings {string}")
     public void iValidateThatAccountWithAccountIDIsNotPresentInProjectSettings(String projectName) {
+        dashboard=projectDetails.goToHome();
         projectSettings=dashboard.goToSpecificProjectSettings(projectName);
         projectSettings.isThisAccountInAccountSelectorOptions(accountID);
         assertFalse(projectSettings.isThisAccountInAccountSelectorOptions(accountID));

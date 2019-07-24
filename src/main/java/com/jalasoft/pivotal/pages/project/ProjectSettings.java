@@ -39,7 +39,7 @@ public class ProjectSettings extends AbstractPage {
 
 
     public boolean isThisAccountInAccountSelectorOptions(String accountID) {
-        action.click(accountLink);
+        action.click(changeAccountLink);
         String optionAccountLocator = String.format(OPTIONS_ACCOUNT_XPATH, accountID);
         return driver.findElements(By.xpath(optionAccountLocator)).size() > 0;
     }

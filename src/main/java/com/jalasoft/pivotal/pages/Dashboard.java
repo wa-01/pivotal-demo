@@ -8,7 +8,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class Dashboard extends AbstractPage {
 
-    private static final String X_PROJECT_SETTINGS_LINK = "//a[text()='%s']/../following-sibling::div/span[@data-balloon='Project settings']";
+    private static final String NAME_PROJECT_SETTINGS_LINK = "//a[text()='%s']/../following-sibling::div/span[@data-balloon='Project settings']";
+    private static final String X_PROJECT_SETTINGS_LINK = "//a[contains (text(),'%s')]/../following-sibling::div/span[@data-balloon='Project settings']";
 
 
     @FindBy(css = "#create-project-button")
