@@ -7,9 +7,9 @@ Feature: Account
   Scenario: Delete Account
     When I Delete the Account "XXXGP"
     Then I validate "XXXGP" account was successfully deleted message is displayed
-    Then I validate "XXXGP" account is not displayed in Accounts menu
-    Then I validate "XXXGP" account is not displayed in Create Project
-    Then I validate "XXXGP" account is not displayed in Project Settings
+    And I validate "XXXGP" account is not displayed in Accounts menu
+    And I validate "XXXGP" account is not displayed in Create Project
+    And I validate "XXXGP" account is not displayed in Project Settings
 
 
 
