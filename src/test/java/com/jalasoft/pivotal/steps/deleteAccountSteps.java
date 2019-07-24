@@ -53,7 +53,7 @@ public class deleteAccountSteps {
 
     @And("I have an account created {string}")
     public void iHaveAnAccountCreated(String accountName) {
-        //sleepInMiliseconds(15000);
+        sleepInMiliseconds(15000);
         projectDetails.isProjectPageLoaded();
         profileDropdown = header.clickProfileDropdown();
         accounts = profileDropdown.clickAccountOption();
@@ -100,7 +100,7 @@ public class deleteAccountSteps {
     public void iDonTSeeTheAccountInProjectSettings(String accountName) {
         projectForm.clickCancelButton();
         dashboard.clickProjectLink();
-        //sleepInMiliseconds(10000);
+        sleepInMiliseconds(10000);
         projectDetails.isProjectPageLoaded();
         more= projectDetails.clickMoreMenu();
         more.clickChangeAccount();
