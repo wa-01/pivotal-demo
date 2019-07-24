@@ -16,7 +16,7 @@ public class ProjectDetails extends AbstractPage {
     @FindBy(css = ".public_project_label")
     private WebElement projectPrivacyLabel;
 
-    private String sidebarSection = ".sidebar_wrapper";
+    private String sidebarButton = "[class*='Sidebar__toggleContainer']";
 
     public void goToTab(String tab) {
         action.click(By.cssSelector(String.format("a[data-aid='navTab-%s']", tab)));
@@ -37,8 +37,8 @@ public class ProjectDetails extends AbstractPage {
     }
 
     public boolean isProjectPageLoaded(){
-        return (action.isElementPresent(By.cssSelector(sidebarSection))) &&
-                action.isElementVisible(By.cssSelector(sidebarSection));
+        return (action.isElementPresent(By.cssSelector(sidebarButton))) &&
+                action.isElementVisible(By.cssSelector(sidebarButton));
     }
 
 }
