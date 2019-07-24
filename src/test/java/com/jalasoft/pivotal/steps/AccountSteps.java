@@ -51,7 +51,7 @@ public class AccountSteps {
 
     @When("I validate notice {string} is displayed")
     public void iValidateNotice(String notice) {
-        assertEquals(notice, account.getNoticeBanner());
+        assertEquals(account.getNoticeBanner(), notice);
     }
 
     @When("I validate account {string} is not displayed")

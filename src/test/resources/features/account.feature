@@ -6,7 +6,7 @@ Feature: Accounts
     And I create account "TesT Account"
 
   Scenario: Delete Account
-    When I delete this account and notice "Account To Delete was successfully deleted." is displayed
+    When I delete this account and notice "TesT Account was successfully deleted." is displayed
     And I go to accounts
     Then I validate account "TesT Account" is not displayed
     And I go to dashboard
