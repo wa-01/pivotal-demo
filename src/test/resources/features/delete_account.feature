@@ -12,4 +12,5 @@ Feature: Delete Account
 
     Then I validate the account "test_delete_account" is deleted on Accounts Page
     And I validate a notice message is displayed with the message "test_delete_account was successfully deleted."
+    And I validate "test_delete_account" is not present on create project form
 

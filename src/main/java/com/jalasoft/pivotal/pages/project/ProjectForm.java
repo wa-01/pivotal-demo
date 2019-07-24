@@ -43,7 +43,7 @@ public class ProjectForm extends AbstractPage {
         return new ProjectDetails();
     }
 
-    private void selectAccount(String expectedAccount) {
+    public void selectAccount(String expectedAccount) {
         action.click(accountSelect);
         String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, expectedAccount);
         action.click(By.xpath(optionAccountLocator));

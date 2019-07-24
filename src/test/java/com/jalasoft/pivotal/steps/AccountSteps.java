@@ -10,6 +10,7 @@ import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.accounts.AccountsPage;
 import com.jalasoft.pivotal.pages.accounts.ManageAccountPage;
 import com.jalasoft.pivotal.pages.accounts.NewAccountForm;
+import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -54,10 +55,28 @@ public class AccountSteps {
         }
     }
 
-    @And("I validate a notice message is displayed with the message {string}")
+    @Then("I validate a notice message is displayed with the message {string}")
     public void iValidateANoticeMessageIsDisplayedWithTheMessage(String accountName) {
         String message = accountsPage.getFlashNoticeMessage();
 
         assert message.contains(accountName);
+    }
+
+    @Then("I validate {string} is not present on create project form")
+    public void iValidateIsNotPresentOnCreateProjectForm(String accountName) {
+        accountsPage.goToPage("dashboard");
+
+        Dashboard dashboard = new Dashboard();
+        ProjectForm projectForm = dashboard.clickCreateProjectButton();
+
+        try {
+            projectForm.selectAccount(accountName);
+
+            assert false;
+        }
+        catch (Exception e) {
+            assert true;
+        }
+
     }
 }
