@@ -7,9 +7,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class MoreTab extends AbstractPage {
 
-    public void goToSidebarOption(String option) {
-        action.click(By.cssSelector(String.format("#%s", option)));
+    public void goToMoreTab() {
+        action.click(By.xpath(String.format("//a[@data-aid='navTab-more']//child::span")));
     }
-
 
 }
