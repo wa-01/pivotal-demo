@@ -26,8 +26,7 @@ public class Header extends AbstractPage {
 
     public Dashboard goToDashboard() {
         action.click(dashboardIcon);
-        //wait.until(ExpectedConditions.titleIs("DashboardAccount - Pivotal Tracker"));
-        wait.until(ExpectedConditions.titleContains("- Pivotal Tracker"));
+        wait.until(ExpectedConditions.titleContains("Dashboard - Pivotal Tracker"));
         return new Dashboard();
     }
 
