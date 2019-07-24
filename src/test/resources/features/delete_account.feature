@@ -2,8 +2,8 @@ Feature: Accounts
 
   Background:
     Given I sign in as "owner"
-    When I create a new account called "AccountTest"
-    Then I should see the "AccountTest" label
+    And I create a new account called "AccountTest"
+    And I should see the "AccountTest" label
 
   Scenario: Delete Account
     When I delete the account created
