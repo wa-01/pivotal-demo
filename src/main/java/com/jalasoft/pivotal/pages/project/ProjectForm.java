@@ -25,6 +25,9 @@ public class ProjectForm extends AbstractPage {
     @FindBy(css = "[data-aid=\"FormModal__submit\"]")
     private WebElement createButton;
 
+    @FindBy(css = "[data-aid='FormModal__cancel']")
+    private WebElement cancelButton;
+
     public void setProjectFields(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
         strategyMap.put("name", () -> action.setValue(projectNameTextField, data.get("name") + System.currentTimeMillis()));
@@ -43,10 +46,12 @@ public class ProjectForm extends AbstractPage {
         return new ProjectDetails();
     }
 
-    public boolean findAccount(String accountName) {
+    public boolean isAccountDisplayed(String accountName) {
         action.click(accountSelect);
         String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, accountName);
-        return driver.findElements(By.xpath(optionAccountLocator)).size() > 0;
+        boolean isDisplayed = driver.findElements(By.xpath(optionAccountLocator)).size() > 0;
+        action.click(cancelButton);
+        return isDisplayed;
     }
 
     private void selectAccount(String expectedAccount) {

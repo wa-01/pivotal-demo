@@ -52,4 +52,12 @@ public class AccountSteps {
     public void iValidateAccountNotDisplayed(String accountName) {
         assertFalse(account.findAccountOwnName(accountName));
     }
+
+    @When("I delete this account and notice {string} is displayed")
+    public void iDeleteThisAccountAndValidateNotice(String notice) {
+        iClickManageAccountTab("Settings");
+        iClickDeleteThisAccount();
+        iValidateNotice(notice);
+    }
+
 }

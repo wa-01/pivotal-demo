@@ -20,6 +20,12 @@ public class HeaderSteps {
         ProfileDropdown profileDropdown = header.clickProfileDropdown();
     }
 
+    @When("I go to accounts")
+    public void iGoToAccounts() {
+        ProfileDropdown profileDropdown = header.clickProfileDropdown();
+        profileDropdown.clickAccounts();
+    }
+
     @When("I go to dashboard")
     public void iGoToDashboard() {
         header.goToDashboard();
