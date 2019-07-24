@@ -5,10 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ProjectDetails extends AbstractPage {
     //Added for WEB-AUT evaluation jose colina
-    @FindBy (css ="a[data-aid='navTab-more']")
-    WebElement moreButton;
+    private Map<String, String> TAB_BUTTONS;
 
     @FindBy(css = ".raw_context_name")
     private WebElement projectNameLabel;
@@ -18,8 +20,12 @@ public class ProjectDetails extends AbstractPage {
 
     private String sidebarButton = "[class*='Sidebar__toggleContainer']";
 
-    public void goToTab(String tab) {
-        action.click(By.cssSelector(String.format("a[data-aid='navTab-%s']", tab)));
+    public ProjectDetails(){
+        TAB_BUTTONS = new HashMap<>();
+        TAB_BUTTONS.put("STORIES", "a[data-aid='navTab-stories']");
+        TAB_BUTTONS.put("ANALITYCS", "a[data-aid='navTab-analytics']");
+        TAB_BUTTONS.put("MEMBERS", "a[data-aid='navTab-members']");
+        TAB_BUTTONS.put("MORE", "a[data-aid='navTab-more']");
     }
 
     public String getProjectNameLabel() {
@@ -31,8 +37,8 @@ public class ProjectDetails extends AbstractPage {
     }
 
     //Added for WEB-AUT evaluation jose colina
-    public MorePage clickMoreMenu(){
-        action.click(moreButton);
+    public MorePage goToTab(String tab) {
+        action.click(By.cssSelector(TAB_BUTTONS.get(tab)));
         return new MorePage();
     }
 

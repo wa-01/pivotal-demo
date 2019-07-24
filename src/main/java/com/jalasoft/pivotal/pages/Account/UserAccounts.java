@@ -13,6 +13,7 @@ public class UserAccounts extends AbstractPage {
 
    private String MANAGE_ACCOUNT_BUTTON = "//div[text()='%s']/ancestor::h3/following-sibling::a[contains(@id,'manage_account_link')]";
    private String ACCOUNT_LABEL = "//div[@class='header']/descendant::div[text()='%s']";
+   private String accountsSectionDiv = "#accounts_module";
 
     public CreateNewAccountForm clickCreateButton(){
         action.click(createButton);
@@ -29,5 +30,10 @@ public class UserAccounts extends AbstractPage {
 
     public boolean accountExists(String accountName) {
         return action.isElementVisible(By.xpath(String.format(ACCOUNT_LABEL, accountName)));
+    }
+
+    public void isAccountsPageLoaded() {
+        action.isElementPresent(By.cssSelector(accountsSectionDiv));
+        action.isElementVisible(By.cssSelector(accountsSectionDiv));
     }
 }

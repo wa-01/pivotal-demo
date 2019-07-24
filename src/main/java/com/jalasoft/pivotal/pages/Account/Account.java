@@ -12,14 +12,14 @@ public class Account extends AbstractPage {
 
     public Account(){
         TABS_BUTTONS = new HashMap<>();
-        TABS_BUTTONS.put("Plans & Billing", "//ul[@class='buttons']/child::li[1]");
-        TABS_BUTTONS.put("Settings", "//ul[@class='buttons']/child::li[2]");
-        TABS_BUTTONS.put("Projects", "//ul[@class='buttons']/child::li[3]");
-        TABS_BUTTONS.put("Account Members", "//ul[@class='buttons']/child::li[4]");
+        TABS_BUTTONS.put("Plans & Billing", ".buttons > li > a[href*='plans']"); //.buttons > li > a[href*='settings']
+        TABS_BUTTONS.put("Settings", ".buttons > li > a[href*='settings']");//ul[@class='buttons']/child::li[2]");
+        TABS_BUTTONS.put("Projects", ".buttons > li > a[href*='projects']");//"//ul[@class='buttons']/child::li[3]");
+        TABS_BUTTONS.put("Account Members", ".buttons > li > a[href*='memberships']");
     }
 
     public void clickTabMenu(String tabName){
-        action.click(By.xpath(TABS_BUTTONS.get(tabName)));
+        action.click(By.cssSelector(TABS_BUTTONS.get(tabName)));
     }
 
     public boolean isAccountPageLoaded(){

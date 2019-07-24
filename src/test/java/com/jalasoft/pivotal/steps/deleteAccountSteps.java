@@ -20,9 +20,6 @@ import java.util.Map;
 import static java.lang.Thread.sleep;
 
 public class deleteAccountSteps {
-    private String projectName = "My Project Eval";
-    private String projectAccount = "account1";
-    private String projectPrivacy = "public";
     private ProfileDropdown profileDropdown;
     private UserAccounts accounts;
     private Header header;
@@ -31,48 +28,48 @@ public class deleteAccountSteps {
     private Account account;
     private ProjectDetails projectDetails;
     private CreateNewAccountForm accountForm;
-    private Map<String,String> projectData;
-    private  MorePage more;
+    private MorePage more;
     private AccountSettings settings;
 
-    public deleteAccountSteps() {
-        init();
+    public deleteAccountSteps(Dashboard dashboard, ProjectForm projectForm, ProjectDetails projectDetails, Header header, AccountSettings settings) {
+        this.dashboard = dashboard;
+        this.projectForm = projectForm;
+        this.projectDetails = projectDetails;
+        this.header = header;
+        this.settings = settings;
     }
 
-    private void init(){
-        dashboard = new Dashboard();
-        projectForm = new ProjectForm();
-        projectData = new HashMap<>();
-        projectData.put("name", projectName);
-        projectData.put("account", projectAccount);
-        projectData.put("privacy", projectPrivacy);
-        projectDetails = new ProjectDetails();
-        header = new Header();
-        settings = new AccountSettings();
-    }
-
-    @And("I have an account created {string}")
-    public void iHaveAnAccountCreated(String accountName) {
-        projectDetails.isProjectPageLoaded();
+    @And("I go to Accounts menu")
+    public void iGoToAccountsMenu() {
         profileDropdown = header.clickProfileDropdown();
         accounts = profileDropdown.clickAccountOption();
+    }
 
+    @And("I click create account button")
+    public void iClickCreateAccountButton() {
         accountForm = accounts.clickCreateButton();
+    }
+
+    @And("I create the account with name {string}")
+    public void iCreateTheAccountWithName(String accountName) {
         account = accountForm.createAccount(accountName);
         account.isAccountPageLoaded();
     }
 
-    @When("I open the account settings for {string}")
-    public void iOpenTheAccountSettingsFor(String accountName) {
-        profileDropdown = header.clickProfileDropdown();
-        accounts = profileDropdown.clickAccountOption();
+    @And("I open the account {string}")
+    public void iOpenTheAccount(String accountName) {
         accounts.clickManageAccount(accountName);
-        account.clickTabMenu("Settings");
+    }
+
+    @And("I go to {string} tab")
+    public void iGoToTab(String tabName) {
+        account.clickTabMenu(tabName);
     }
 
     @And("I delete the account")
     public void iDeleteTheAccount() {
         settings.deleteAccount();
+        accounts.isAccountsPageLoaded();
     }
 
     @Then("I see the confirmation message with the account {string}")
@@ -87,21 +84,37 @@ public class deleteAccountSteps {
         Assert.assertFalse(accounts.accountExists(accountName));
     }
 
+    @And("I go to dashboard")
+    public void iGoToDashboard() {
+        dashboard = header.goToDashboard();
+    }
+
+    @And("I expand account droplist")
+    public void iExpandAccountDroplist() {
+        projectForm.clickSelectAccount();
+    }
+
     @But("I don't see the account {string} in the create project form")
     public void iDonTSeeTheAccountInTheCreateProjectForm(String accountName) {
-        dashboard = header.goToDashboard();
-        projectForm = dashboard.clickCreateProjectButton();
-        projectForm.clickSelectAccount();
         Assert.assertFalse(projectForm.isAccountVisible(accountName));
+        projectForm.clickCancelButton();
+    }
+
+    @And("I open the project {string}")
+    public void iOpenTheProject(String projectName) {
+        dashboard.clickProjectLink(projectName);
+        projectDetails.isProjectPageLoaded();
+    }
+
+    @And("I click {string} tab menu")
+    public void iClickMoreOption(String tabMenu) {
+        more = projectDetails.goToTab(tabMenu);
     }
 
     @But("I don't see the account {string} in project settings")
     public void iDonTSeeTheAccountInProjectSettings(String accountName) {
-        projectForm.clickCancelButton();
-        dashboard.clickProjectLink();
-        projectDetails.isProjectPageLoaded();
-        more= projectDetails.clickMoreMenu();
         more.clickChangeAccount();
         Assert.assertFalse(more.accountIsPresent(accountName));
     }
+
 }
