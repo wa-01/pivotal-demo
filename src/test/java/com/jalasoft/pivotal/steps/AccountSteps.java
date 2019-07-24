@@ -80,14 +80,11 @@ public class AccountSteps {
     @And("I go to the Dashboard")
     public void iGoToTheDashboard() {
         projectForm.cancelProject();
-//        header.goToDashboard();
     }
 
     @And("I click the more tab in projects page")
     public void iClickTheTabInProjectsPage() {
-
         projectDetails.goToTab("more");
-
     }
 
     @And("account {string} is not displayed on the project dropdown settings.")

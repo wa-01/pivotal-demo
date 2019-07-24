@@ -38,7 +38,7 @@ public class AccountSettingsPage extends AbstractPage {
     }
 
     public boolean isAccountNamePresent(String accName) {
-    action.click(accountsLink);
+//    action.click(accountsLink);
         return action.isElementVisible(By.xpath(String.format(ACCOUNT_NAME, accName)));
     }
 }
