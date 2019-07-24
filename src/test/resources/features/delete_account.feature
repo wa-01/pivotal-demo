@@ -18,8 +18,8 @@ Feature: Delete account
     And I go to the Dashboard
     And I click the new project button
     And I create the project with:
-      | name    | EdgarProjectA |
+      | name    | EQProjectA |
       | account | account1    |
-    And I click the "more" tab in projects page
+    And I click the more tab in projects page
     And account "edgarTest01" is not displayed on the project dropdown settings.
 

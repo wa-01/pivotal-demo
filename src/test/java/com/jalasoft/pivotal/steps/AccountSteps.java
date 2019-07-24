@@ -83,10 +83,10 @@ public class AccountSteps {
 //        header.goToDashboard();
     }
 
-    @And("I click the {string} tab in projects page")
-    public void iClickTheTabInProjectsPage(String More) {
+    @And("I click the more tab in projects page")
+    public void iClickTheTabInProjectsPage() {
 
-        projectDetails.goToTab(More);
+        projectDetails.goToTab("more");
 
     }
 
