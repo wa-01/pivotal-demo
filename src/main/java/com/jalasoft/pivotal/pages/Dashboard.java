@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class Dashboard extends AbstractPage {
+    //Added for WEB-AUT evaluation jose colina
+    private String PROJECT_TITLE = "//a[@data-aid='project-name' and contains(text(),'%s')]";
 
     @FindBy(css = "#create-project-button")
     private WebElement createProjectButton;
@@ -19,5 +21,8 @@ public class Dashboard extends AbstractPage {
         return action.isElementVisible(By.xpath(String.format("//a[@data-aid='project-name' and text() = '%s']", projectName)));
     }
 
-
+    //Added for WEB-AUT evaluation jose colina
+    public void clickProjectLink(String projectName){
+        action.click(By.xpath(String.format(PROJECT_TITLE, projectName)));
+    }
 }

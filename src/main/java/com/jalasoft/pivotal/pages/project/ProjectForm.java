@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ProjectForm extends AbstractPage {
+    @FindBy (css = "button[class*='Button--open']")
+    WebElement cancelButton;
 
     private static final String OPTION_ACCOUNT_XPATH = "//div[@class='tc-account-selector__option-account-name' and text()='%s']";
 
@@ -47,6 +49,20 @@ public class ProjectForm extends AbstractPage {
         action.click(accountSelect);
         String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, expectedAccount);
         action.click(By.xpath(optionAccountLocator));
+    }
+
+    //Added for WEB-AUT evaluation jose colina
+    public void clickSelectAccount(){
+        action.click(accountSelect);
+    }
+
+    //Added for WEB-AUT evaluation jose colina
+    public boolean isAccountVisible(String accountName){
+        return action.isElementVisible(By.xpath(String.format(OPTION_ACCOUNT_XPATH,accountName)));
+    }
+    //Added for WEB-AUT evaluation jose colina
+    public void clickCancelButton(){
+        action.click(cancelButton);
     }
 
 }

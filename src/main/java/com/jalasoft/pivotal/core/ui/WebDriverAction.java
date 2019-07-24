@@ -18,6 +18,7 @@ public class WebDriverAction {
     }
 
     public void click(By locator) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         driver.findElement(locator).click();
     }
@@ -69,6 +70,19 @@ public class WebDriverAction {
             return false;
         }
         return true;
+    }
+
+    public boolean isElementPresent(By selector) {
+        try {
+        wait.until(ExpectedConditions.presenceOfElementLocated(selector));
+        } catch (final NoSuchElementException e) {
+            return false;
+           }
+        return true;
+    }
+    //Added for WEB-AUT evaluation jose colina
+    public void acceptAlertMessage(){
+        driver.switchTo().alert().accept();
     }
 
 }

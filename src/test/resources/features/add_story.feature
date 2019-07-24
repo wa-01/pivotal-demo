@@ -4,7 +4,7 @@ Feature: Stories
     Given I sign in as "owner"
     And I click the new project button
     And I create the project with:
-      | name    | MyProject28 |
+      | name    | My_Project  |
       | account | account1    |
       | privacy | public      |
 
