@@ -1,15 +1,19 @@
 package com.jalasoft.pivotal.steps;
 
 import com.jalasoft.pivotal.core.Environment;
+import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.Signin;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 
 public class CommonSteps {
 
     private Signin signin;
+    private Header header;
 
-    public CommonSteps(Signin signin) {
+    public CommonSteps(Signin signin, Header header) {
         this.signin = signin;
+        this.header = header;
     }
 
     @Given("I sign in as {string}")
@@ -19,4 +23,8 @@ public class CommonSteps {
         signin.loginAs(userName, password);
     }
 
+    @And("I go to the dashboard")
+    public void iGoToTheDashboard() {
+        header.goToDashboard();
+    }
 }

@@ -4,10 +4,8 @@ import com.jalasoft.pivotal.pages.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.testng.Assert;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.*;
 
 public class AccountSteps {
 
@@ -42,18 +40,29 @@ public class AccountSteps {
         accountsPanel.selectAccount(accountName);
     }
 
-    @And("I click settings option")
-    public void iClickSettingsOption() {
-        accountDetail.clickSubnaveOption("Settings");
+    @And("I click settings option in the account manage")
+    public void iClickSettingsOptionInTheAccountManage() {
+        accountDetail.clickSubNaveOption("Settings");
     }
 
-    @Then("I delete the account")
-    public void iDeleteTheAccount() {
+
+    @Then("I verify the account named as {string} is not found in account panel")
+    public void iVerifyTheAccountNamedAsIsNotFoundInAccountPanel(String accountName) {
+        assertFalse(accountsPanel.isAccountNameVisible(accountName));
+    }
+
+    @And("I click delete account link in the account manage panel")
+    public void iClickDeleteAccountLinkInTheAccountManagePanel() {
         accountDetail.deleteAccount();
     }
 
-    @Then("I verify the account named as {string} is not found")
-    public void iVerifyTheAccountNamedAsIsNotFound(String accountName) {
-        assertFalse(accountsPanel.isAccountNameVisible(accountName));
+    @And("I verify the delete notification is displayed")
+    public void iVerifyTheDeleteNotificationIsDisplayed() {
+        assertTrue(accountDetail.deleteNotificationIsDisplayed());
+    }
+
+    @And("I click accept delete account button")
+    public void iClickAcceptDeleteAccountButton() {
+        accountDetail.acceptDeleteNotification();
     }
 }

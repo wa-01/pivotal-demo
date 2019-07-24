@@ -20,14 +20,21 @@ public class AccountDetail extends AbstractPage {
 
     /**
      *
-     * @param subnavOption Settings, Project, Account Members
+     * @param subNavOption Settings, Project, Account Members
      */
-    public void clickSubnaveOption(String subnavOption){
-        action.click(By.xpath(String.format(SUBNAV_OPTION, subnavOption)));
+    public void clickSubNaveOption(String subNavOption){
+        action.click(By.xpath(String.format(SUBNAV_OPTION, subNavOption)));
     }
 
     public void deleteAccount(){
         action.click(deleteOption);
+    }
+
+    public boolean deleteNotificationIsDisplayed(){
+        return driver.switchTo().alert().getText().contains("this account will be removed");
+    }
+
+    public void acceptDeleteNotification(){
         driver.switchTo().alert().accept();
     }
 
