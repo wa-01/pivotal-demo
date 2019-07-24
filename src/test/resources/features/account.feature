@@ -4,12 +4,14 @@ Feature: Accounts
     Given I sign in as "owner"
     And I go to accounts
     And I create account "Account To Delete"
+    And I go to accounts
+    And I create account "Account Test"
     And I go to dashboard
     And I click the new project button
     And I create the project with:
-      | name    | Test     |
-      | account | account1 |
-      | privacy | public   |
+      | name    | Test         |
+      | account | Account Test |
+      | privacy | public       |
 
   Scenario: Delete Account
     When I go to accounts
