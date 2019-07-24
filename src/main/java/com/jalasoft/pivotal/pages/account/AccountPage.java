@@ -1,7 +1,6 @@
 package com.jalasoft.pivotal.pages.account;
 
 import com.jalasoft.pivotal.pages.AbstractPage;
-import cucumber.api.java.en_old.Ac;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

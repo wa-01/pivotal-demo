@@ -1,7 +1,7 @@
 Feature: Accounts
 
   Background:
-    Given I sign in as "emelyllanos" user and "Control123"
+    Given I sign in as "owner"
     And I click Profiles
     And I click Accounts
     And I click Create Account
