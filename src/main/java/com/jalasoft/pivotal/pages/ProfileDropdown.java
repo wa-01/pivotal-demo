@@ -15,4 +15,6 @@ public class ProfileDropdown {
         return driver.findElement(By.cssSelector(".AvatarDetails__name")).getText();
     }
 
+
+
 }

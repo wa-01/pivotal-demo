@@ -1,9 +1,6 @@
 package com.jalasoft.pivotal.core.ui;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -62,6 +59,10 @@ public class WebDriverAction {
         return webElement.isSelected();
     }
 
+    public void acceptPopupChrome(){
+        driver.switchTo().alert().accept();
+    }
+
     public boolean isElementVisible(final By element) {
         try {
             driver.findElement(element);
@@ -70,5 +71,7 @@ public class WebDriverAction {
         }
         return true;
     }
+
+    
 
 }

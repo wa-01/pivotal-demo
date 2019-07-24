@@ -25,6 +25,11 @@ public class ProjectForm extends AbstractPage {
     @FindBy(css = "[data-aid=\"FormModal__submit\"]")
     private WebElement createButton;
 
+    @FindBy(css = "[data-aid=\"FormModal__cancel\"]")
+    private WebElement cancelButton;
+
+    private static final String ACCOUNT_NAME = "//div[text()='%s']";
+
     public void setProjectFields(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
         strategyMap.put("name", () -> action.setValue(projectNameTextField, data.get("name") + System.currentTimeMillis()));
@@ -49,4 +54,12 @@ public class ProjectForm extends AbstractPage {
         action.click(By.xpath(optionAccountLocator));
     }
 
+    public boolean findAccount(String accName) {
+        action.click(accountSelect);
+        return action.isElementVisible(By.xpath(String.format(ACCOUNT_NAME, accName)));
+    }
+
+    public void cancelProject() {
+        action.click(cancelButton);
+    }
 }
