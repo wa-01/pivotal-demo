@@ -11,7 +11,7 @@ public class ProjectMenu extends AbstractPage {
     private WebElement moreButton;
 
     public ProjectSettingsForm clickMore(){
-        //driver.navigate().refresh();
+        driver.navigate().refresh();
         action.click(moreButton);
         return new ProjectSettingsForm();
     }
