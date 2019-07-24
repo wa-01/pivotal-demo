@@ -9,6 +9,7 @@ import com.jalasoft.pivotal.core.ui.ISteps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class ProjectForm extends AbstractPage {
 
@@ -24,6 +25,9 @@ public class ProjectForm extends AbstractPage {
 
     @FindBy(css = "[data-aid=\"FormModal__submit\"]")
     private WebElement createButton;
+
+    @FindBy(css = "[data-aid=\"FormModal__cancel\"]")
+    private WebElement cancelButton;
 
     public void setProjectFields(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
@@ -47,6 +51,24 @@ public class ProjectForm extends AbstractPage {
         action.click(accountSelect);
         String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, expectedAccount);
         action.click(By.xpath(optionAccountLocator));
+    }
+
+    public boolean isAccountInAccountSelect(String accountName){
+
+        action.click(accountSelect);
+        String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, accountName);
+        return driver.findElements(By.xpath(optionAccountLocator)).size() > 0;
+    }
+
+
+    public void closeProjectForm() {
+        action.click(cancelButton);
+    }
+
+    public ProjectDetails createProject(String projectName) {
+        action.setValue(projectNameTextField,projectName);
+        action.click(createButton);
+        return new ProjectDetails();
     }
 
 }

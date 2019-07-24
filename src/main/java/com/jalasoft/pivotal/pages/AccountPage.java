@@ -8,7 +8,8 @@ import java.util.Map;
 
 public class AccountPage extends AbstractPage {
 
-    private static final String OPTION_ACCOUNT_MANAGE_XPATH = "//div[@class='header']/descendant::div[text()='%s']/preceding::a[contains(@id,'manage')]";
+
+    private static final String LINK_TO_ACCOUNT_MANAGE_XPATH = "//div[@class='header']/descendant::a[contains(@id,'%s') and contains(@href,'accounts')]";
 
     private  static  final String ACCOUNT_FOUND_BY_ID = " //div[@class='accounts_list owner']/descendant::div[contains(@class,'%s')]";
 
@@ -21,7 +22,8 @@ public class AccountPage extends AbstractPage {
     @FindBy(css = "button[class=\"zWDds__Button pvXpn__Button--positive\"]")
     private WebElement createAccountButton;
 
-    //div[@class='accounts_list owner']/descendant::div[contains(@class,'1103006')]
+    @FindBy(css = "#notice")
+    private WebElement notificationMessage;
 
 
     public ManageSpecificAccountPage createAccount(Map<String, String> data) {
@@ -31,8 +33,8 @@ public class AccountPage extends AbstractPage {
         return new ManageSpecificAccountPage();
     }
 
-    public ManageSpecificAccountPage goToAccountSpecificSettings(String accountName) {
-        String accountSpecificManageLink = String.format(OPTION_ACCOUNT_MANAGE_XPATH,accountName);
+    public ManageSpecificAccountPage goToAccountSpecificSettings(String accountID) {
+        String accountSpecificManageLink = String.format(LINK_TO_ACCOUNT_MANAGE_XPATH,accountID);
         action.click(By.xpath(accountSpecificManageLink));
         return new ManageSpecificAccountPage();
     }
@@ -42,6 +44,11 @@ public class AccountPage extends AbstractPage {
 
        return driver.findElements(By.xpath(accountFoundInList)).size() > 0;
 
+    }
+
+    public boolean IsDeleteNotificationDisplayed(String notificationMessageExpected) {
+
+        return notificationMessage.getText().equals(notificationMessageExpected);
 
     }
 }
