@@ -71,4 +71,8 @@ public class WebDriverAction {
         return true;
     }
 
+    public void clickAlertAccept() {
+        driver.switchTo().alert().accept();
+    }
+
 }

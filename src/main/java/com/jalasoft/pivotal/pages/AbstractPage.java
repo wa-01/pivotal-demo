@@ -12,12 +12,21 @@ public class AbstractPage {
     protected WebDriverWait wait;
     protected WebDriverAction action;
 
+    private static final String base_url = "https://www.pivotaltracker.com/%s";
+
     public AbstractPage() {
         driver = DriverManager.getInstance().getDriver();
         wait = new WebDriverWait(driver, 30);
         action = new WebDriverAction(driver, wait);
 
         PageFactory.initElements(driver, this);
+    }
+
+    public void goToPage(String pageName) {
+        String url = String.format(base_url, pageName);
+        driver.get(url);
+
+        //TODO: This should return a pageFactory
     }
 
 }

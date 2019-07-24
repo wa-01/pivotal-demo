@@ -2,6 +2,7 @@ package com.jalasoft.pivotal.steps;
 
 import com.jalasoft.pivotal.core.Environment;
 import com.jalasoft.pivotal.pages.Signin;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 
 public class CommonSteps {
@@ -19,4 +20,9 @@ public class CommonSteps {
         signin.loginAs(userName, password);
     }
 
+
+    @And("I go to the {string} page")
+    public void iGoToThePage(String pageName) {
+        signin.goToPage(pageName);
+    }
 }
