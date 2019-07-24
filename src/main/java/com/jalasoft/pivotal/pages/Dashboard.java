@@ -14,7 +14,7 @@ public class Dashboard extends AbstractPage {
     @FindBy(css = "#projects-search-bar")
     private WebElement projectSearchText;
 
-    private static final String PROJECT_SETTING_BUTTON = "//a[text()='%s']/parent::div//following-sibling::div/span[@data-balloon='Project settings']";
+    private static final String PROJECT_SETTING_BUTTON = "//a[contains(text(),'%s')]/parent::div//following-sibling::div/span[@data-balloon='Project settings']";
 
     public ProjectForm clickCreateProjectButton() {
         action.click(createProjectButton);
