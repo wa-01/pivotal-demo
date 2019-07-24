@@ -1,11 +1,13 @@
 package com.jalasoft.pivotal.steps;
 
 
+import com.jalasoft.pivotal.pages.Dashboard;
 import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.account.AddAccount;
-import com.jalasoft.pivotal.pages.account.Dashboard;
+import com.jalasoft.pivotal.pages.account.DashboardAccount;
 import com.jalasoft.pivotal.pages.account.DetailsAccount;
 import com.jalasoft.pivotal.pages.account.SettingsAccount;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -14,18 +16,23 @@ import static org.testng.Assert.*;
 
 
 public class AccountSteps {
+    public String actName;
     private Header header;
-    private Dashboard actdashboard;
+    private DashboardAccount actdashboard;
     private AddAccount addAccount;
     private DetailsAccount detailsAccount;
     private SettingsAccount settingsAccount;
+    private Dashboard dashboard;
 
-    public AccountSteps(Header header, Dashboard actdashboard, AddAccount addAccount, DetailsAccount detailsAccount, SettingsAccount settingsAccount) {
+    public AccountSteps(Header header, DashboardAccount actdashboard,
+                        AddAccount addAccount, DetailsAccount detailsAccount,
+                        SettingsAccount settingsAccount, Dashboard dashboard) {
         this.header = header;
         this.actdashboard = actdashboard;
         this.addAccount = addAccount;
         this.detailsAccount = detailsAccount;
-        this.settingsAccount=settingsAccount;
+        this.settingsAccount = settingsAccount;
+        this.dashboard = dashboard;
     }
 
     @Given("I click on Accounts")
@@ -39,19 +46,19 @@ public class AccountSteps {
     }
 
     @When("I create {string} account")
-    public void i_create_account(String string) {
-        addAccount.createAccount(string);
+    public void i_create_account(String accountName) {
+        addAccount.createAccount(accountName);
+
     }
 
-
     @Then("I validate the account name is {string}")
-    public void i_validate_the_account_name_is(String string) {
-        assertEquals(string, detailsAccount.getAccountName().toString());
+    public void i_validate_the_account_name_is(String accountName) {
+        assertEquals(accountName, detailsAccount.getAccountName().toString());
     }
 
     @When("I click manage account button for {string} account")
-    public void i_click_manage_account_button_for_account(String string) {
-        detailsAccount.clickManageButton(string);
+    public void i_click_manage_account_button_for_account(String accountName) {
+        actdashboard.clickManageButton(accountName);
     }
 
     @When("I click settings tab")
@@ -64,8 +71,26 @@ public class AccountSteps {
         settingsAccount.clickDeleteLink();
     }
 
-    @Then("I validate the account name is {string} is not displayed")
-    public void i_validate_the_account_name_is_is_not_displayed(String string) {
-        assertFalse(actdashboard.accountIsNotDisplayed(string));
+    @Then("I validate the {string} is not displayed")
+    public void i_validate_the_is_not_displayed(String accountName) {
+        //assertFalse(actdashboard.accountIsNotDisplayed(accountName));
+        assertFalse(actdashboard.accountDisplayed(accountName));
+    }
+
+    @And("I validate a delete {string} message is displayed")
+    public void i_validate_a_delete_message_is_displayed(String accountName) {
+        assertTrue(actdashboard.deleteAccountMessageIsDisplayed(accountName));
+    }
+
+    @And("I validate {string} is not displayed on create project form")
+    public void iValidateIsNotDisplayedOnCreateProjectForm(String accountName) {
+        header.goToDashboard();
+        assertFalse(dashboard.clickCreateProjectButton(accountName).searchAccount(accountName));
+    }
+
+    @And("I validate {string} is not displayed on {string} more tab")
+    public void iValidateIsNotDisplayedOnMoreTab(String accountName, String projectName) {
+        header.goToDashboard();
+        assertFalse(dashboard.clickProject(projectName).searchAccount(accountName));
     }
 }

@@ -12,7 +12,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class ProjectSteps {
 
@@ -43,7 +42,7 @@ public class ProjectSteps {
     @Then("I validate the project label is {string}")
     public void iValidateTheProjectLabelIs(String name) {
         String actualProjectName = projectDetails.getProjectNameLabel();
-        assertTrue(actualProjectName.contains(name));
+        assertEquals(actualProjectName, name);
     }
 
     @When("I click the add story button on {string} panel")
@@ -60,4 +59,5 @@ public class ProjectSteps {
     public void iValidateTheStoryLabelIs(String storyName) {
         assertEquals(storyName, storyDetail.getStoryModelName(storyName));
     }
+
 }

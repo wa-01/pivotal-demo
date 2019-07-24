@@ -26,7 +26,8 @@ public class Header extends AbstractPage {
 
     public Dashboard goToDashboard() {
         action.click(dashboardIcon);
-        wait.until(ExpectedConditions.titleIs("Dashboard - Pivotal Tracker"));
+        //wait.until(ExpectedConditions.titleIs("DashboardAccount - Pivotal Tracker"));
+        wait.until(ExpectedConditions.titleContains("- Pivotal Tracker"));
         return new Dashboard();
     }
 
@@ -41,5 +42,4 @@ public class Header extends AbstractPage {
         //driver.findElement(By.xpath("//div[@data-aid='Dropdown__tabstop']/descendant::a[@href='/accounts']")).click();
         action.click(accountsOption);
     }
-
 }
