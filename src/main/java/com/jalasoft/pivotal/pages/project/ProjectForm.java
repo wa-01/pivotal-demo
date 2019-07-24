@@ -1,20 +1,21 @@
 package com.jalasoft.pivotal.pages.project;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import com.jalasoft.pivotal.pages.AbstractPage;
 import com.jalasoft.pivotal.core.ui.ISteps;
+import com.jalasoft.pivotal.pages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class ProjectForm extends AbstractPage {
 
     private static final String OPTION_ACCOUNT_XPATH = "//div[@class='tc-account-selector__option-account-name' and text()='%s']";
 
     private static final String PRIVACY_CSS = "input[data-aid='%s']";
+    private static final String ACCOUNT_NAME = "//div[@class='tc-account-selector__option-account-name' and text()='%s']";
 
     @FindBy(css = "input[name=\"project_name\"]")
     private WebElement projectNameTextField;
@@ -24,6 +25,10 @@ public class ProjectForm extends AbstractPage {
 
     @FindBy(css = "[data-aid=\"FormModal__submit\"]")
     private WebElement createButton;
+
+    @FindBy(css = "button[data-aid=\"FormModal__cancel\"]")
+    private WebElement cancelButton;
+
 
     public void setProjectFields(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
@@ -49,4 +54,13 @@ public class ProjectForm extends AbstractPage {
         action.click(By.xpath(optionAccountLocator));
     }
 
+    public boolean isAccountVisible(String accountName) {
+        action.click(accountSelect);
+        return action.isElementVisible(By.xpath(String.format(ACCOUNT_NAME, accountName)));
+    }
+
+    public void clickCancelButton(){
+        action.click(cancelButton);
+
+    }
 }

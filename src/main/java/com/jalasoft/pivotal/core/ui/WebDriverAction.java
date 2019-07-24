@@ -71,4 +71,8 @@ public class WebDriverAction {
         return true;
     }
 
+    public void clickPopup(){
+        driver.switchTo().alert().accept();
+    }
+
 }

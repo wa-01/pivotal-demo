@@ -60,4 +60,10 @@ public class ProjectSteps {
     public void iValidateTheStoryLabelIs(String storyName) {
         assertEquals(storyName, storyDetail.getStoryModelName(storyName));
     }
+
+
+    @And("I click the {string} tab in projects page")
+    public void iClickTheTabInProjectsPage(String tab) {
+        projectDetails.goToTab(tab.toLowerCase());
+    }
 }
