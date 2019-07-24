@@ -38,6 +38,7 @@ public class ProjectSteps {
     @And("I create the project with:")
     public void iSetTheProjectForm(Map<String, String> data) {
         projectDetails = projectForm.createProject(data);
+        storyDetail.isVelocityIndicatorButtonDisplayed();
     }
 
     @Then("I validate the project label is {string}")

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Account extends AbstractPage {
 
-    private static final String MANAGE_ACCOUNT_BUTTON_XPATH = "//a[text()='Manage Account']/ancestor::div[@class='header']//div[text()='%s']";
+    private static final String MANAGE_ACCOUNT_BUTTON_XPATH = "//div[text()='%s']//ancestor::div[@class='header']//a[text()='Manage Account']";
     private static final String ACCOUNT_NAME_XPATH = "//div[@class='header']//div[text()='%s']";
 
     @FindBy(css = "#new_account_link")
@@ -22,6 +22,10 @@ public class Account extends AbstractPage {
     public ModalContent clickNewAccountLink() {
         action.click(newAccountLink);
         return new ModalContent();
+    }
+
+    public String getNewAccountLink() {
+        return action.getText(newAccountLink);
     }
 
     public ManageAccount clickManageAccount(String accountName) {

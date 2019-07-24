@@ -28,6 +28,9 @@ public class ProjectForm extends AbstractPage {
     @FindBy(css = "[data-aid='FormModal__cancel']")
     private WebElement cancelButton;
 
+    @FindBy(css = ".raw_context_name")
+    private WebElement contextName;
+
     public void setProjectFields(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
         strategyMap.put("name", () -> action.setValue(projectNameTextField, data.get("name") + System.currentTimeMillis()));
@@ -43,6 +46,7 @@ public class ProjectForm extends AbstractPage {
     public ProjectDetails createProject(Map<String, String> data) {
         setProjectFields(data);
         action.click(createButton);
+        action.getText(contextName);
         return new ProjectDetails();
     }
 

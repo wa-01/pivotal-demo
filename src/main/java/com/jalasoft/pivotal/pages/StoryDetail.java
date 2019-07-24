@@ -9,6 +9,10 @@ public class StoryDetail extends AbstractPage {
     public String getStoryModelName(String title) {
         return action.getText(By.cssSelector(String.format(STORY_MODEL_NAME, title)));
     }
+
+    public boolean isVelocityIndicatorButtonDisplayed(){
+        return action.isElementVisible(By.cssSelector("h2[data-aid='PanelHeader__name'] button[data-aid='VelocityIndicator']"));
+    }
 }
 
 

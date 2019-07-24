@@ -22,7 +22,7 @@ public class DashboardSteps {
         dashboard.clickCreateProjectButton();
     }
 
-    @When("I verify account {string} is not displayed in create project dropdown")
+    @When("I validate account {string} is not displayed in create project dropdown")
     public void iVerifyAccountNameIsNotDisplayed(String accountName) {
         projectForm = dashboard.clickCreateProjectButton();
         assertFalse(projectForm.isAccountDisplayed(accountName));
