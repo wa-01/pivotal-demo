@@ -14,6 +14,7 @@ Feature: Accounts
     And the account "MagaliAccount" is not present in Accounts
     And the account "MagaliAccount" is not visible when new project is created
     And the account "MagaliAccount" is not visible on project settings of new project created
-      | name    | MaguiProject |
+      | name    | MagaliProject |
       | account | account1    |
+      | privacy | public      |
 
