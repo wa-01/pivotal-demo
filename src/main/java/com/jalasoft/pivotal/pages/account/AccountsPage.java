@@ -22,11 +22,7 @@ public class AccountsPage extends AbstractPage {
 
     // Allows to know if an account Name is listed in the Accounts page
     public boolean listContainsTheAccount(String accountName){
-        for (WebElement element : listAccountNames) {
-            if (action.getText(element).equals(accountName.toUpperCase())){
-                return true;
-            }
-        }
-        return false;
+        return listAccountNames.stream()
+                .anyMatch(element -> action.getText(element).equals(accountName.toUpperCase()));
     }
 }
