@@ -49,4 +49,13 @@ public class ProjectForm extends AbstractPage {
         action.click(By.xpath(optionAccountLocator));
     }
 
+    public boolean isAccountVisibleInSelector(String accountName) {
+        action.click(accountSelect);
+        String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, accountName);
+        return action.isElementVisible(By.xpath(optionAccountLocator));
+    }
+
+    public void clickProjectNameTextField() {
+        action.mouseClick(projectNameTextField);
+    }
 }

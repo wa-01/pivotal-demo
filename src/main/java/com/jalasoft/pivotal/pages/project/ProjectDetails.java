@@ -4,6 +4,7 @@ import com.jalasoft.pivotal.pages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProjectDetails extends AbstractPage {
 
@@ -14,6 +15,7 @@ public class ProjectDetails extends AbstractPage {
     private WebElement projectPrivacyLabel;
 
     public void goToTab(String tab) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".scrim")));
         action.click(By.cssSelector(String.format("a[data-aid='navTab-%s']", tab)));
     }
 

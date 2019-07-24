@@ -6,29 +6,28 @@ import com.jalasoft.pivotal.pages.StoryDetail;
 import com.jalasoft.pivotal.pages.StoryForm;
 import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
+import com.jalasoft.pivotal.pages.project.ProjectSettings;
 import com.jalasoft.pivotal.pages.project.StoriesTab;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class ProjectSteps {
 
     private ProjectDetails projectDetails;
-
+    private ProjectSettings projectSettings;
     private ProjectForm projectForm;
-
     private StoriesTab storiesTab;
-
     private StoryForm storyForm;
-
     private StoryDetail storyDetail;
 
-    public ProjectSteps(ProjectDetails projectDetails, ProjectForm projectForm, StoriesTab storiesTab,
+    public ProjectSteps(ProjectDetails projectDetails, ProjectSettings projectSettings,
+                        ProjectForm projectForm, StoriesTab storiesTab,
                         StoryForm storyForm, StoryDetail storyDetail) {
         this.projectDetails = projectDetails;
+        this.projectSettings = projectSettings;
         this.projectForm = projectForm;
         this.storiesTab = storiesTab;
         this.storyForm = storyForm;
@@ -59,5 +58,21 @@ public class ProjectSteps {
     @Then("I validate the story label is {string}")
     public void iValidateTheStoryLabelIs(String storyName) {
         assertEquals(storyName, storyDetail.getStoryModelName(storyName));
+    }
+
+    @And("I validate the {string} is not in the account selector of Project Form")
+    public void iValidateTheIsNotInTheAccountSelectorOfProjectForm(String accountName) {
+        assertFalse(this.projectForm.isAccountVisibleInSelector(accountName));
+        this.projectForm.clickProjectNameTextField();
+    }
+
+    @And("I click the {string} tab in projects page")
+    public void iClickTheTabInProjectsPage(String tabName) {
+        this.projectDetails.goToTab(tabName.toLowerCase());
+    }
+
+    @And("I validate the account {string} is not listed in the change account selector")
+    public void iValidateTheAccountIsNotListedInTheChangeAccountSelector(String accountName) {
+        assertFalse(this.projectSettings.isAccountInChangeAccountSelector(accountName));
     }
 }
