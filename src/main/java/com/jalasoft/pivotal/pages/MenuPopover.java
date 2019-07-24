@@ -21,4 +21,8 @@ public class MenuPopover extends AbstractPage {
         action.click(showAllProjectsLink);
         return new ShowAll();
     }
+
+    public void clickCreateProject() {
+        action.click(By.xpath("//li[contains(@class,'tc_create_project')]/child::a"));
+    }
 }

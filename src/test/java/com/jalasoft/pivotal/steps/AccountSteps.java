@@ -1,7 +1,9 @@
 package com.jalasoft.pivotal.steps;
 
 import com.jalasoft.pivotal.pages.Header;
+import com.jalasoft.pivotal.pages.MenuPopover;
 import com.jalasoft.pivotal.pages.account.AccountsList;
+import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -12,9 +14,13 @@ import static org.testng.Assert.assertFalse;
 public class AccountSteps {
     private Header header;
     private AccountsList accountsList;
+    private ProjectForm projectForm;
+    private MenuPopover menuPopover;
 
-    public AccountSteps(Header header, AccountsList accountsList) {
+    public AccountSteps(Header header, MenuPopover menuPopover, ProjectForm projectForm, AccountsList accountsList) {
         this.header = header;
+        this.menuPopover = menuPopover;
+        this.projectForm = projectForm;
         this.accountsList = accountsList;
     }
 
@@ -50,5 +56,14 @@ public class AccountSteps {
     public void iValidateTheAccountIsNotDisplayedInTheAccountsList(String accountName) {
         boolean actual = this.accountsList.isAccountVisible(accountName);
         assertFalse(actual);
+    }
+
+    @And("I validate the {string} account is not displayed in the dropdown list in create project")
+    public void iValidateTheAccountIsNotDisplayedInTheDropdownListInCreateProject(String accountName) {
+        this.menuPopover = this.header.clickPivotalTrackerDropDown();
+        this.menuPopover.clickCreateProject();
+        boolean actual = this.projectForm.isAccountVisible(accountName);
+        assertFalse(actual);
+        this.projectForm.cancel();
     }
 }

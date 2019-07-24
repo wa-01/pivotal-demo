@@ -9,3 +9,4 @@ Feature: Accounts
     When I delete the account created
     Then I validate the message is "AccountTest was successfully deleted."
     And I validate the "AccountTest" account is not displayed in the accounts list
+    And I validate the "AccountTest" account is not displayed in the dropdown list in create project
