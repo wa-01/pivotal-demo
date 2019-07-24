@@ -15,7 +15,7 @@ public class Header extends AbstractPage {
 
     public ProfileDropdown clickProfileDropdown() {
         //wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".raw_context_name")));
-
+        action.isElementVisible(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button"));
         action.click(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button"));
         //driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
         return new ProfileDropdown(driver);

@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class Account extends AbstractPage {
     private Map<String, String> TABS_BUTTONS;
+    private String accountName = ".account_name";
 
     public Account(){
         TABS_BUTTONS = new HashMap<>();
@@ -19,5 +20,10 @@ public class Account extends AbstractPage {
 
     public void clickTabMenu(String tabName){
         action.click(By.xpath(TABS_BUTTONS.get(tabName)));
+    }
+
+    public boolean isAccountPageLoaded(){
+        return (action.isElementPresent(By.cssSelector(accountName))) &&
+                action.isElementVisible(By.cssSelector(accountName));
     }
 }

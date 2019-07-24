@@ -37,7 +37,8 @@ public class ProjectDetails extends AbstractPage {
     }
 
     public boolean isProjectPageLoaded(){
-        return action.isElementVisible(By.cssSelector(sidebarSection));
+        return (action.isElementPresent(By.cssSelector(sidebarSection))) &&
+                action.isElementVisible(By.cssSelector(sidebarSection));
     }
 
 }
