@@ -38,6 +38,7 @@ public class NewAccountForm extends AbstractPage {
     public ManageAccountPage clickSubmitButton() {
         action.click(submitButton);
 
+        driver.navigate().refresh();
         return new ManageAccountPage();
     }
 

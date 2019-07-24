@@ -22,7 +22,7 @@ public class CommonSteps {
 
 
     @And("I go to the {string} page")
-    public void iGoToThePage(String pagename) {
-        signin.goToPage(pagename);
+    public void iGoToThePage(String pageName) {
+        signin.goToPage(pageName);
     }
 }

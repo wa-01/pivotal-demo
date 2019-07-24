@@ -8,6 +8,9 @@ package com.jalasoft.pivotal.pages.accounts;/*
 import com.jalasoft.pivotal.pages.AbstractPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.concurrent.TimeUnit;
 
 public class ManageAccountPage extends AbstractPage {
 
@@ -35,8 +38,13 @@ public class ManageAccountPage extends AbstractPage {
     }
 
     public AccountsPage deleteAccount() {
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         action.click(deleteAccountLink);
+
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         action.clickAlertAccept();
+
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         return new AccountsPage();
     }

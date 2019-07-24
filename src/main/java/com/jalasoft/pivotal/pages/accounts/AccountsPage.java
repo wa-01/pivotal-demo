@@ -9,11 +9,15 @@ import com.jalasoft.pivotal.pages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class AccountsPage extends AbstractPage {
 
     @FindBy(css = "#new_account_link")
     private WebElement newAccountButton;
+
+    @FindBy(css = "#flash #notice")
+    private WebElement flashNoticeMessage;
 
     private static final String MANAGE_ACCOUNT_BUTTON = "//div[text()=\"%s\"]/ancestor::div[contains(@class, \"card\")]" +
             "/descendant::a[contains(@id, \"manage_account_link\")]";
@@ -36,7 +40,13 @@ public class AccountsPage extends AbstractPage {
     public String getAccountCardTitle(String accountTittle) {
         String accountCardTittle = String.format(ACCOUNT_CARD_TITLE, accountTittle);
 
+        action.getText(By.xpath(accountCardTittle));
+
         return action.getText(By.xpath(accountCardTittle));
+    }
+
+    public String getFlashNoticeMessage() {
+        return action.getText(flashNoticeMessage);
     }
 
 }
