@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class AccountsList extends AbstractPage {
 
-    @FindBy(css = "a[id='new_account_link']")
+    @FindBy(css = "#new_account_link")
     private WebElement createAccountButton;
 
     @FindBy(css = "input[data-aid='input']")
@@ -16,7 +16,7 @@ public class AccountsList extends AbstractPage {
     @FindBy(css = "h2[class='account_name']")
     private WebElement accountNameLabel;
 
-    @FindBy(css = "li[id='notice']")
+    @FindBy(css = "#notice")
     private WebElement confirmationMessage;
 
     private String anchorByText = "//a[text()='%s']";
