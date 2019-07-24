@@ -4,6 +4,7 @@ import com.jalasoft.pivotal.pages.Dashboard;
 import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.account.AccountSettingsPage;
 import com.jalasoft.pivotal.pages.account.AccountPage;
+import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -18,14 +19,16 @@ public class AccountSteps {
     private Dashboard dashboard;
     private ProjectForm projectForm;
     private Header header;
+    private ProjectDetails projectDetails;
 
     public AccountSteps(AccountPage account, AccountSettingsPage accountSettingsPage, Dashboard dashboard,
-                        ProjectForm projectForm, Header header) {
+                        ProjectForm projectForm, Header header, ProjectDetails projectDetails) {
         this.account = account;
         this.accountSettingsPage = accountSettingsPage;
         this.dashboard = dashboard;
         this.projectForm = projectForm;
         this.header = header;
+        this.projectDetails = projectDetails;
     }
 
 
@@ -71,5 +74,24 @@ public class AccountSteps {
         header.goToDashboard();
         dashboard.clickCreateProjectButton();
         assertFalse(projectForm.findAccount(accName));
+
+    }
+
+    @And("I go to the Dashboard")
+    public void iGoToTheDashboard() {
+        projectForm.cancelProject();
+//        header.goToDashboard();
+    }
+
+    @And("I click the {string} tab in projects page")
+    public void iClickTheTabInProjectsPage(String More) {
+
+        projectDetails.goToTab(More);
+
+    }
+
+    @And("account {string} is not displayed on the project dropdown settings.")
+    public void accountIsNotDisplayedOnTheProjectDropdownSettings(String accName) {
+        assertFalse(projectDetails.isAccountDisplayed(accName));
     }
 }
