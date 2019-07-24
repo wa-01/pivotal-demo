@@ -23,3 +23,4 @@ Feature: Accounts
     And I go to the dashboard
     And I click the new project button
     Then I verify the account named as "lfcaccount" is not found in account selection
+

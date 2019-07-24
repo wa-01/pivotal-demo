@@ -7,8 +7,10 @@ import cucumber.api.java.en.When;
 
 import static org.testng.Assert.*;
 
-public class AccountSteps {
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
+public class AccountSteps {
 
     private Header header;
     private ProfileDropdown profileDropdown;
