@@ -33,9 +33,9 @@ public class Header extends AbstractPage {
         return new Dashboard();
     }
 
-    public MenuPopover clickPivotalTrackerDropDown() {
+    public ProfileDropdown clickPivotalTrackerDropDown() {
         action.click(pivotalTrackerDropdown);
-        return new MenuPopover();
+        return new ProfileDropdown(driver);
     }
 
     public ProfileDropdown clickDropdownAccounts(){
@@ -43,9 +43,12 @@ public class Header extends AbstractPage {
         return new ProfileDropdown(driver);
     }
 
-    public ProfileDropdown checkAccountsFromCreateProject(){
-        action.click(pivotalTrackerDropdown);
+    public ProfileDropdown clickTheCreateProjectOption(){
         action.click(dropdownCreateProject);
+        return new ProfileDropdown(driver);
+    }
+
+    public ProfileDropdown checkAccountsFromCreateProject(){
         action.click(createNewProjectSelectAccount);
         return new ProfileDropdown(driver);
     }

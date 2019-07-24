@@ -98,9 +98,11 @@ public class Accounts extends AbstractPage{
         return action.getText(By.xpath(String.format("//li[contains(text(),'was successfully deleted.')]")));
     }
 
-    public void getProjectSettingsAccounts(){
+    public void selectProject(){
         action.click(selectProject);
-        action.click(moreTab);
+    }
+
+    public void getProjectSettingsAccountsList(){
         action.click(changeAccountButton);
         action.click(selectAccountsDropdown);
         selectAccountsDropdown.sendKeys(Keys.ESCAPE);
