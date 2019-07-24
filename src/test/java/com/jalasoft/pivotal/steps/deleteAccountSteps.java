@@ -1,6 +1,5 @@
 package com.jalasoft.pivotal.steps;
 
-import com.jalasoft.pivotal.core.Environment;
 import com.jalasoft.pivotal.pages.Account.Account;
 import com.jalasoft.pivotal.pages.Account.AccountSettings;
 import com.jalasoft.pivotal.pages.Account.CreateNewAccountForm;
@@ -18,10 +17,9 @@ import org.junit.Assert;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Thread.sleep;
+
 public class deleteAccountSteps {
-    private Signin signin;
-    private String user = "owner";
-    private String accountName = "My Account";
     private String projectName = "My Project Eval";
     private String projectAccount = "account1";
     private String projectPrivacy = "public";
@@ -37,8 +35,7 @@ public class deleteAccountSteps {
     private  MorePage more;
     private AccountSettings settings;
 
-    public deleteAccountSteps(Signin signin) {
-        this.signin = signin;
+    public deleteAccountSteps() {
         init();
     }
 
@@ -49,25 +46,14 @@ public class deleteAccountSteps {
         projectData.put("name", projectName);
         projectData.put("account", projectAccount);
         projectData.put("privacy", projectPrivacy);
+        projectDetails = new ProjectDetails();
         header = new Header();
         settings = new AccountSettings();
     }
 
-    @Given("I login")
-    public void iLogin() {
-        String userName = Environment.getInstance().getValue(String.format("$['credentials']['%s']['username']", user));
-        String password = Environment.getInstance().getValue(String.format("$['credentials']['%s']['password']", user));
-        signin.loginAs(userName, password);
-    }
-
-    @And("I have a project created")
-    public void iHaveAProjectCreated() {
-        dashboard.clickCreateProjectButton();
-        projectDetails = projectForm.createProject(projectData);
-    }
-
-    @And("I have an account created")
-    public void iHaveAnAccountCreated() {
+    @And("I have an account created {string}")
+    public void iHaveAnAccountCreated(String accountName) {
+        //sleepInMiliseconds(15000);
         projectDetails.isProjectPageLoaded();
         profileDropdown = header.clickProfileDropdown();
         accounts = profileDropdown.clickAccountOption();
@@ -77,8 +63,8 @@ public class deleteAccountSteps {
         account.isAccountPageLoaded();
     }
 
-    @When("I open the account settings")
-    public void iOpenTheAccountSettings() {
+    @When("I open the account settings for {string}")
+    public void iOpenTheAccountSettingsFor(String accountName) {
         profileDropdown = header.clickProfileDropdown();
         accounts = profileDropdown.clickAccountOption();
         accounts.clickManageAccount(accountName);
@@ -90,34 +76,40 @@ public class deleteAccountSteps {
         settings.deleteAccount();
     }
 
-    @Then("I see the confirmation message")
-    public void iSeeTheConfirmationMessage() {
+    @Then("I see the confirmation message with the account {string}")
+    public void iSeeTheConfirmationMessageWithTheAccount(String accountName) {
         String expectedMessage = accountName + " was successfully deleted.";
         String actualMessage = accounts.getDeletedMessage();
         Assert.assertEquals(expectedMessage, actualMessage);
     }
 
-    @But("I don't see the account in the accounts menu")
-    public void iDonTSeeTheAccountInTheAccountsMenu() {
+    @But("I don't see the account {string} in the accounts menu")
+    public void iDonTSeeTheAccountInTheAccountsMenu(String accountName) {
         Assert.assertFalse(accounts.accountExists(accountName));
     }
 
-    @But("I don't see the account in the create project form")
-    public void iDonTSeeTheAccountInTheCreateProjectForm() {
+    @But("I don't see the account {string} in the create project form")
+    public void iDonTSeeTheAccountInTheCreateProjectForm(String accountName) {
         dashboard = header.goToDashboard();
         projectForm = dashboard.clickCreateProjectButton();
         projectForm.clickSelectAccount();
         Assert.assertFalse(projectForm.isAccountVisible(accountName));
     }
 
-    @But("I don't see the account in project settings")
-    public void iDonTSeeTheAccountInProjectSettings() {
+    @But("I don't see the account {string} in project settings")
+    public void iDonTSeeTheAccountInProjectSettings(String accountName) {
         projectForm.clickCancelButton();
         dashboard.clickProjectLink();
+        //sleepInMiliseconds(10000);
         projectDetails.isProjectPageLoaded();
         more= projectDetails.clickMoreMenu();
         more.clickChangeAccount();
         Assert.assertFalse(more.accountIsPresent(accountName));
     }
 
+    private void sleepInMiliseconds(int miliseconds) {
+        try{
+            Thread.sleep(miliseconds);
+        } catch (Exception e){}
+    }
 }
