@@ -40,18 +40,18 @@ public class AccountSteps {
         header.clickAccountOption();
     }
 
-    @When("I click new account button")
+    @And("I click new account button")
     public void i_click_new_account_button() {
         actdashboard.clickCreateProjectButton();
     }
 
-    @When("I create {string} account")
+    @And("I create {string} account")
     public void i_create_account(String accountName) {
         addAccount.createAccount(accountName);
 
     }
 
-    @Then("I validate the account name is {string}")
+    @And("I validate the account name is {string}")
     public void i_validate_the_account_name_is(String accountName) {
         assertEquals(accountName, detailsAccount.getAccountName().toString());
     }

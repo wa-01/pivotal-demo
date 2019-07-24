@@ -3,9 +3,9 @@ Feature: Accounts
   Background:
     Given I sign in as "owner"
     And I click on Accounts
-    When I click new account button
+    And I click new account button
     And I create "RPFH account" account
-    Then I validate the account name is "RPFH account"
+    And I validate the account name is "RPFH account"
 
 
   Scenario: Delete Account
