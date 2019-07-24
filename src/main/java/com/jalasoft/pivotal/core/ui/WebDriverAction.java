@@ -71,4 +71,7 @@ public class WebDriverAction {
         return true;
     }
 
+    public void popUpAccept() {
+        driver.switchTo().alert().accept();
+    }
 }

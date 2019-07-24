@@ -13,8 +13,8 @@ import org.openqa.selenium.support.FindBy;
 public class ProjectForm extends AbstractPage {
 
     private static final String OPTION_ACCOUNT_XPATH = "//div[@class='tc-account-selector__option-account-name' and text()='%s']";
-
     private static final String PRIVACY_CSS = "input[data-aid='%s']";
+
 
     @FindBy(css = "input[name=\"project_name\"]")
     private WebElement projectNameTextField;
@@ -24,6 +24,12 @@ public class ProjectForm extends AbstractPage {
 
     @FindBy(css = "[data-aid=\"FormModal__submit\"]")
     private WebElement createButton;
+
+    @FindBy(css = "div[class*= 'tc-account-selector__option-account-name']")
+    private WebElement firstAccount;
+
+    @FindBy(css = "button[data-aid='FormModal__cancel']")
+    private WebElement cancelButton;
 
     public void setProjectFields(Map<String, String> data) {
         Map<String, ISteps> strategyMap = new HashMap<>();
@@ -48,5 +54,20 @@ public class ProjectForm extends AbstractPage {
         String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, expectedAccount);
         action.click(By.xpath(optionAccountLocator));
     }
+    public void clickSelectAccount(){
+        action.click(accountSelect);
+    }
+
+    public void clickFirstAccount(){
+        action.click(firstAccount);
+    }
+    public boolean isAccountVisible(String accountName){
+        return action.isElementVisible(By.xpath(String.format(OPTION_ACCOUNT_XPATH,accountName)));
+    }
+
+    public void clickCancelButton(){
+        action.click(cancelButton);
+    }
+
 
 }
