@@ -57,4 +57,8 @@ public class AccountsList extends AbstractPage {
     public String getConfirmationMessage() {
         return action.getText(confirmationMessage);
     }
+
+    public boolean isAccountVisible(String accountName) {
+        return action.isElementVisible(By.xpath(String.format("//div[text()='%s']", accountName)));
+    }
 }

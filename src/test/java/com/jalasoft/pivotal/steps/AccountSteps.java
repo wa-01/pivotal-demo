@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class AccountSteps {
     private Header header;
@@ -17,55 +18,37 @@ public class AccountSteps {
         this.accountsList = accountsList;
     }
 
-    @When("I click my username menu")
-    public void iClickMyUsernameMenu() {
+    @When("I create a new account called {string}")
+    public void iCreateANewAccountCalled(String accountName) {
         this.header.clickProfileDropdown();
-    }
-
-    @And("I click {string} menu link")
-    public void iClickMenuLink(String menuName) {
-        this.accountsList.clickMenuLink(menuName);
-    }
-
-    @And("I click the create account button")
-    public void iClickTheCreateAccountButton() {
+        this.accountsList.clickMenuLink("accounts");
         this.accountsList.createAccountClick();
-    }
-
-    @And("I enter the account name {string}")
-    public void iEnterTheAccountName(String accountName) {
         this.accountsList.setAccountName(accountName);
-    }
-
-    @And("I click create button")
-    public void iClickCreateButton() {
         this.accountsList.createClick();
     }
 
-    @Then("I validate the account label is {string}")
-    public void iValidateTheAccountLabelIs(String accountName) {
+    @Then("I should see the {string} label")
+    public void iShouldSeeTheLabel(String accountName) {
         String actualAccountName = this.accountsList.getAccountNameLabel();
         assertEquals(actualAccountName, accountName);
     }
 
-    @When("I click the {string} tab button")
-    public void iClickTheTabButton(String tabName) {
-        this.accountsList.clickOnSettingsTab(tabName);
-    }
-
-    @And("I click the {string} link")
-    public void iClickTheLink(String text) {
-        this.accountsList.deleteAccount(text);
-    }
-
-    @And("I click the OK button to confirm")
-    public void iClickTheButtonToConfirm() {
+    @When("I delete the account created")
+    public void iDeleteTheAccountCreated() {
+        this.accountsList.clickOnSettingsTab("Settings");
+        this.accountsList.deleteAccount("delete this account");
         this.accountsList.confirmDelete();
     }
 
-    @Then("I validate the confirmation label is {string}")
-    public void iValidateTheConfirmationLabelIs(String message) {
+    @Then("I validate the message is {string}")
+    public void iValidateTheMessageIs(String message) {
         String actualConfirmationMessage = this.accountsList.getConfirmationMessage();
         assertEquals(actualConfirmationMessage, message);
+    }
+
+    @And("I validate the {string} account is not displayed in the accounts list")
+    public void iValidateTheAccountIsNotDisplayedInTheAccountsList(String accountName) {
+        boolean actual = this.accountsList.isAccountVisible(accountName);
+        assertFalse(actual);
     }
 }
