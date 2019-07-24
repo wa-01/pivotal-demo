@@ -47,16 +47,14 @@ public class AccountSteps {
     @And ("I create new account {string}")
     public void iSaveNewAccount(String accountName){
         AccountModal accountModal = new AccountModal();
-        String account = Environment.getInstance().getValue(String.format("$['credentials']['%s']['name']", accountName));
-        accountsPage = accountModal.saveNewAccount(account);
+        accountsPage = accountModal.saveNewAccount(accountName);
     }
 
     @When("I click manageAccount button {string}")
     public void iListAccount(String accountName){
         AccountPage accounts = new AccountPage();
         accounts.clickAccountsLink();
-        String account = Environment.getInstance().getValue(String.format("$['credentials']['%s']['name']", accountName));
-        accountSettingsPage = accounts.clickManageAccount(account);
+        accountSettingsPage = accounts.clickManageAccount(accountName);
     }
 
     @And ("I click Setting")
@@ -74,17 +72,15 @@ public class AccountSteps {
     @Then ("I validate account {string} was deleted")
     public void iValidateTheAccountWasDeleted(String name) {
         String actualMessage = accountsPage.getAccountDeleteMessage();
-        String account = Environment.getInstance().getValue(String.format("$['credentials']['%s']['name']", name));
-        String expectedMessage = account + " was successfully deleted.";
+        String expectedMessage = name + " was successfully deleted.";
         Assert.assertEquals(actualMessage, expectedMessage);
     }
 
     @And ("I validate account {string} is not listed")
     public void iValidateTheAccountIsNotListed(String name){
-        String account = Environment.getInstance().getValue(String.format("$['credentials']['%s']['name']", name));
         boolean accountIsListed = true;
         try {
-            accountsPage.findAccountInList(account);
+            accountsPage.findAccountInList(name);
         }catch (WebDriverException ex){
             accountIsListed = false;
         }
@@ -93,11 +89,10 @@ public class AccountSteps {
 
     @And ("I validate account {string} is not listed in new project")
     public void iValidateAccountIsNotListedInNewProject(String name){
-        String account = Environment.getInstance().getValue(String.format("$['credentials']['%s']['name']", name));
         boolean accountIsListed = true;
         ProjectForm newProject = settingsPane.createProject();
         try {
-            newProject.selectAccount(account);
+            newProject.selectAccount(name);
         }catch (WebDriverException ex){
             accountIsListed = false;
         }
@@ -107,13 +102,12 @@ public class AccountSteps {
 
     @And ("I validate account {string} is not listed in project settings")
     public void iValidateAccountIsNotListedInProjectSettings(String name){
-        String account = Environment.getInstance().getValue(String.format("$['credentials']['%s']['name']", name));
         boolean accountIsListed = true;
         projectMenu = settingsPane.openAnyProject();
         projectSettingsForm = projectMenu.clickMore();
         projectSettingsForm.changeAccountLink();
         try{
-            projectSettingsForm.changeAccount(account);
+            projectSettingsForm.changeAccount(name);
         }catch (WebDriverException ex){
             accountIsListed = false;
         }
