@@ -31,7 +31,7 @@ public class DashboardSteps {
     }
 
 
-    @And("click on the Accounts link")
+    @And("I click on the Accounts link")
     public void clickOnTheAccountsLink() {
       profileOptions.clickAccountOption();
     }

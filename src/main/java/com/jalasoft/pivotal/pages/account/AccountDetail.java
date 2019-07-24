@@ -24,6 +24,10 @@ public class AccountDetail extends AbstractPage {
 
     public void clickDeleteAccountLink() {
         action.click(deleteAccountLink);
+
+    }
+
+    public void acceptPopup() {
         action.clickPopup();
     }
 
@@ -32,7 +36,6 @@ public class AccountDetail extends AbstractPage {
     }
 
     public boolean isAccountVisible(String accountName) {
-        action.click(accountLink);
         return action.isElementVisible(By.xpath(String.format(ACCOUNT_NAME, accountName)));
     }
 }

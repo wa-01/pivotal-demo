@@ -63,5 +63,4 @@ public class ProjectForm extends AbstractPage {
         action.click(cancelButton);
 
     }
-
 }

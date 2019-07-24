@@ -10,8 +10,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import java.util.Map;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
@@ -33,7 +31,7 @@ public class AccountSteps {
     }
 
 
-    @And("click on Create Account button")
+    @And("I click on Create Account button")
     public void clickOnCreateAccountButton() {
         account.clickCreateAccountButton();
     }
@@ -44,43 +42,46 @@ public class AccountSteps {
         account.createAccount(accountName);
     }
 
-    @When("click in Settings")
+    @When("I click in Settings")
     public void clickInSettings() {
         accountDetail.clickSettingsTab();
     }
 
-    @And("click in delete this account link")
+    @And("I click in delete this account link")
     public void clickInDeleteThisAccountLink() {
         accountDetail.clickDeleteAccountLink();
     }
 
-    @Then("I validate the message is displayed {string}")
+    @Then("I validate the message is {string}")
     public void iValidateTheMessageIsDisplayed(String expectedMessage) {
         assertEquals(expectedMessage, accountDetail.getAccountMessageDeleted());
 
     }
 
-    @And("the account {string} is not present in Accounts")
-    public void theAccountIsNotPresentInAccounts(String accountName) {
+    @And("I validate the {string} is not displayed in the Accounts list")
+    public void iValidateTheIsNotDisplayedInTheAccountsList(String accountName) {
         assertFalse(accountDetail.isAccountVisible(accountName));
     }
 
-
-    @And("the account {string} is not visible when new project is created")
-    public void theAccountIsNotVisibleWhenNewProjectIsCreated(String accountName) {
+    @And("I go to the Dashboard")
+    public void iGoToTheDashboard() {
         header.goToDashboard();
-        dashboard.clickCreateProjectButton();
-        assertFalse(projectForm.isAccountVisible(accountName));
-        projectForm.clickCancelButton();
-
     }
 
-    @And("the account {string} is not visible on project settings of new project created")
-    public void theAccountIsNotVisibleOnProjectSettingsOfNewProjectCreated(String accountName, Map<String, String> data) {
-        header.goToDashboard();
-        dashboard.clickCreateProjectButton();
-        projectForm.createProject(data);
-        projectDetails.goToTab("more");
+    @And("I validate the {string} account is not displayed in the dropdown")
+    public void iValidateTheAccountIsNotDisplayedInTheDropdown(String accountName) {
+
+        assertFalse(projectForm.isAccountVisible(accountName));
+        projectForm.clickCancelButton();
+    }
+
+    @And("I validate the {string} account is not displayed in the change account dropdown.")
+    public void iValidateTheAccountIsNotDisplayedInTheChangeAccountDropdown(String accountName) {
         assertFalse(projectDetails.isAccountVisible(accountName));
+    }
+
+    @And("I accept the popup")
+    public void iAcceptThePopup() {
+        accountDetail.acceptPopup();
     }
 }

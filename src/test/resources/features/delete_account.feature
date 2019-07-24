@@ -3,18 +3,25 @@ Feature: Accounts
   Background:
     Given I sign in as "owner"
     And I click in the profile dropdown
-    And click on the Accounts link
-    And click on Create Account button
+    And I click on the Accounts link
+    And I click on Create Account button
     And I create the account with: "MagaliAccount"
 
   Scenario: Delete Account
-    When click in Settings
-    And click in delete this account link
-    Then I validate the message is displayed "MagaliAccount was successfully deleted."
-    And the account "MagaliAccount" is not present in Accounts
-    And the account "MagaliAccount" is not visible when new project is created
-    And the account "MagaliAccount" is not visible on project settings of new project created
+    When I click in Settings
+    And I click in delete this account link
+    And I accept the popup
+    Then I validate the message is "MagaliAccount was successfully deleted."
+    And I validate the "MagaliAccount" is not displayed in the Accounts list
+    And I go to the Dashboard
+    And I click the new project button
+    And I validate the "MagaliAccount" account is not displayed in the dropdown
+    And I go to the Dashboard
+    And I click the new project button
+    And I create the project with:
       | name    | MagaliProject |
-      | account | account1    |
-      | privacy | public      |
+      | account | account1          |
+    And I click the "More" tab in projects page
+    And I validate the "MagaliAccount" account is not displayed in the change account dropdown.
+
 
