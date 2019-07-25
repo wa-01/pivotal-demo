@@ -4,7 +4,7 @@ Feature: Accounts
     Given I sign in as "owner"
     And I click the new project button
     And I create the project with:
-      | name    | MyProjectlfc |
+      | name    | MyProjectlfc|
       | account | account1    |
       | privacy | public      |
     And I create an account with "lfcaccount" as name
