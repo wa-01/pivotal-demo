@@ -9,6 +9,7 @@ import com.jalasoft.pivotal.core.ui.ISteps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProjectForm extends AbstractPage {
 
@@ -40,6 +41,7 @@ public class ProjectForm extends AbstractPage {
     public ProjectDetails createProject(Map<String, String> data) {
         setProjectFields(data);
         action.click(createButton);
+        wait.until(ExpectedConditions.titleContains(data.get("name")));
         return new ProjectDetails();
     }
 
@@ -47,6 +49,11 @@ public class ProjectForm extends AbstractPage {
         action.click(accountSelect);
         String optionAccountLocator = String.format(OPTION_ACCOUNT_XPATH, expectedAccount);
         action.click(By.xpath(optionAccountLocator));
+    }
+
+    public boolean accountIsVisibleinAccountList(String accountName){
+        action.click(accountSelect);
+        return action.isElementVisible(By.xpath(String.format(OPTION_ACCOUNT_XPATH, accountName)));
     }
 
 }

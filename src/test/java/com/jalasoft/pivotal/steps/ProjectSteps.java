@@ -6,6 +6,7 @@ import com.jalasoft.pivotal.pages.StoryDetail;
 import com.jalasoft.pivotal.pages.StoryForm;
 import com.jalasoft.pivotal.pages.project.ProjectDetails;
 import com.jalasoft.pivotal.pages.project.ProjectForm;
+import com.jalasoft.pivotal.pages.project.ProjectSettings;
 import com.jalasoft.pivotal.pages.project.StoriesTab;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -13,6 +14,7 @@ import cucumber.api.java.en.When;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertFalse;
 
 public class ProjectSteps {
 
@@ -26,13 +28,16 @@ public class ProjectSteps {
 
     private StoryDetail storyDetail;
 
+    private ProjectSettings projectSettings;
+
     public ProjectSteps(ProjectDetails projectDetails, ProjectForm projectForm, StoriesTab storiesTab,
-                        StoryForm storyForm, StoryDetail storyDetail) {
+                        StoryForm storyForm, StoryDetail storyDetail, ProjectSettings projectSettings) {
         this.projectDetails = projectDetails;
         this.projectForm = projectForm;
         this.storiesTab = storiesTab;
         this.storyForm = storyForm;
         this.storyDetail = storyDetail;
+        this.projectSettings = projectSettings;
     }
 
     @And("I create the project with:")
@@ -59,5 +64,15 @@ public class ProjectSteps {
     @Then("I validate the story label is {string}")
     public void iValidateTheStoryLabelIs(String storyName) {
         assertEquals(storyName, storyDetail.getStoryModelName(storyName));
+    }
+
+    @And("I verify the account named as {string} is not found in account selection")
+    public void iVerifyTheAccountNamedAsIsNotFoundInAccountSelection(String accountName) {
+        assertFalse(projectForm.accountIsVisibleinAccountList(accountName));
+    }
+
+    @And("I verify the account {string} is not listed into the project settings")
+    public void iVerifyTheAccountIsNotListedIntoTheProjectSettings(String accountName) {
+        assertFalse(projectSettings.isAccountFountinAccountList(accountName));
     }
 }
