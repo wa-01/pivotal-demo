@@ -24,8 +24,8 @@ public class AccountSteps {
 
     @And("I create an account with {string} as name")
     public void iCreateAnAccountWithAsName(String accountName) {
-        userManagementHeader.clickAccountOption();
-        accountsPanel.createAccount(accountName);
+        accountsPanel = userManagementHeader.clickAccountOption();
+        accountDetail = accountsPanel.createAccount(accountName);
         assertEquals(accountName, accountDetail.getAccountName());
         userManagementHeader.clickAccountOption();
     }
