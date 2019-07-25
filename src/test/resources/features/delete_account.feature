@@ -7,6 +7,7 @@ Feature: Accounts
       | name    | MyProjectlfc|
       | account | account1    |
       | privacy | public      |
+    And I Go to account menu
     And I create an account with "lfcaccount" as name
 
   Scenario: Delete Account

@@ -12,25 +12,18 @@ import static org.testng.Assert.assertFalse;
 
 public class AccountSteps {
 
-    private Header header;
-    private ProfileDropdown profileDropdown;
     private UserManagementHeader userManagementHeader;
     private AccountsPanel accountsPanel;
     private AccountDetail accountDetail;
 
-    public AccountSteps( Header header, ProfileDropdown profileDropdown, UserManagementHeader userManagementHeader, AccountsPanel accountsPanel, AccountDetail accountDetail){
+    public AccountSteps( UserManagementHeader userManagementHeader, AccountsPanel accountsPanel, AccountDetail accountDetail){
         this.accountsPanel = accountsPanel;
         this.accountDetail = accountDetail;
         this.userManagementHeader = userManagementHeader;
-        this.profileDropdown = profileDropdown;
-        this.header = header;
-
     }
 
     @And("I create an account with {string} as name")
     public void iCreateAnAccountWithAsName(String accountName) {
-        header.clickProfileDropdown();
-        profileDropdown.clickOnDropDownOption("Accounts");
         userManagementHeader.clickAccountOption();
         accountsPanel.createAccount(accountName);
         assertEquals(accountName, accountDetail.getAccountName());
