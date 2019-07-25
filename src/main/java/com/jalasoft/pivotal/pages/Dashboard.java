@@ -6,8 +6,11 @@ import com.jalasoft.pivotal.pages.project.ProjectForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Dashboard extends AbstractPage {
+
+    private static String XPATH_PROJECT_NAME = "//a[@data-aid='project-name' and text() = '%s']";
 
     @FindBy(css = "#create-project-button")
     private WebElement createProjectButton;
@@ -27,7 +30,8 @@ public class Dashboard extends AbstractPage {
     }
 
     public MoreTab clickProject(String projectName){
-        action.click(By.xpath(String.format("//a[@data-aid='project-name' and text() = '%s']", projectName)));
+        String projName = String.format(XPATH_PROJECT_NAME, projectName);
+        action.click(By.xpath(projName));
         new ProjectDetails().goToTab("more");
         return new MoreTab();
     }

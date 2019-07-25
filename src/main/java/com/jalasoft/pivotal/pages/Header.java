@@ -7,7 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Header extends AbstractPage {
 
-    @FindBy(css = "a[href='/dashboard']")
+    //@FindBy(css = "li > a[href='/dashboard']")
+    @FindBy(xpath = "//img[@class='headerLogo__image']/ancestor::a")
     private WebElement dashboardIcon;
 
     @FindBy(css = ".tc_projects_dropdown_link")
@@ -20,13 +21,15 @@ public class Header extends AbstractPage {
     private WebElement accountsOption;
 
     public ProfileDropdown clickProfileDropdown() {
+        wait.until(ExpectedConditions.elementToBeClickable(profileDropdown));
+        //action.click(By.xpath("//div[@data-aid='ProfileDropdown']/descendant::button[@aria-label='Profile Dropdown']"));
         driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
         return new ProfileDropdown(driver);
     }
 
     public Dashboard goToDashboard() {
         action.click(dashboardIcon);
-        wait.until(ExpectedConditions.titleContains("Dashboard - Pivotal Tracker"));
+        wait.until(ExpectedConditions.titleContains("Pivotal Tracker"));
         return new Dashboard();
     }
 
@@ -36,8 +39,11 @@ public class Header extends AbstractPage {
     }
 
     public void clickAccountOption() {
-        driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
-        wait.until(ExpectedConditions.visibilityOf(accountsOption));
+        //wait.until(ExpectedConditions.elementToBeClickable(profileDropdown));
+        //action.click(profileDropdown);
+        //driver.findElement(By.cssSelector("div[data-aid=\"ProfileDropdown\"] > button")).click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(accountsOption));
         //driver.findElement(By.xpath("//div[@data-aid='Dropdown__tabstop']/descendant::a[@href='/accounts']")).click();
         action.click(accountsOption);
     }

@@ -6,7 +6,15 @@ Feature: Projects
   Scenario: Create Project
     When I click the new project button
     And I create the project with:
-      | name    | MyProject27 |
-      | account | account1    |
+      | name    | MyProject278 |
+      | account |  TestAccount1564029940678     |
       | privacy | public      |
-    Then I validate the project label is "MyProject27"
+    Then I validate the project label is "MyProject278"
+
+  Scenario: Create Project
+    When I click the new project button
+    And I create the project with new account:
+      | name    | MyProject279 |
+      | account | account10    |
+      | privacy | public      |
+    Then I validate the project label is "MyProject279"

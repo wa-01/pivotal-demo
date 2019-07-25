@@ -37,18 +37,18 @@ public class AccountSteps {
 
     @Given("I click on Accounts")
     public void i_click_on_Accounts() {
+        header.clickProfileDropdown();
         header.clickAccountOption();
     }
 
     @And("I click new account button")
     public void i_click_new_account_button() {
-        actdashboard.clickCreateProjectButton();
+        actdashboard.clickCreateAccountButton();
     }
 
     @And("I create {string} account")
     public void i_create_account(String accountName) {
         addAccount.createAccount(accountName);
-
     }
 
     @And("I validate the account name is {string}")
@@ -90,7 +90,11 @@ public class AccountSteps {
 
     @And("I validate {string} is not displayed on {string} more tab")
     public void iValidateIsNotDisplayedOnMoreTab(String accountName, String projectName) {
-        header.goToDashboard();
         assertFalse(dashboard.clickProject(projectName).searchAccount(accountName));
+    }
+
+    @And("I go to dashboard page")
+    public void iGoToDashboardPage() {
+        header.goToDashboard();
     }
 }

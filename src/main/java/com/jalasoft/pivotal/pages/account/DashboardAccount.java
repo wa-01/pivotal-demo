@@ -4,6 +4,7 @@ import com.jalasoft.pivotal.pages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class DashboardAccount extends AbstractPage {
 
@@ -17,7 +18,8 @@ public class DashboardAccount extends AbstractPage {
     @FindBy(xpath = "//div[text()='%s']/ancestor::div[@class='header']/descendant::a[contains(@id,'manage_account')]")
     WebElement accountRow;
 
-    public AddAccount clickCreateProjectButton() {
+    public AddAccount clickCreateAccountButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(buttonCreateAccount));
         action.click(buttonCreateAccount);
         return new AddAccount();
     }
