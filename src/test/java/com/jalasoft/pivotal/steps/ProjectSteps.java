@@ -2,6 +2,7 @@ package com.jalasoft.pivotal.steps;
 
 import java.util.Map;
 
+import com.jalasoft.pivotal.pages.Header;
 import com.jalasoft.pivotal.pages.StoryDetail;
 import com.jalasoft.pivotal.pages.StoryForm;
 import com.jalasoft.pivotal.pages.project.ProjectDetails;
@@ -26,13 +27,16 @@ public class ProjectSteps {
 
     private StoryDetail storyDetail;
 
+    private Header header;
+
     public ProjectSteps(ProjectDetails projectDetails, ProjectForm projectForm, StoriesTab storiesTab,
-                        StoryForm storyForm, StoryDetail storyDetail) {
+                        StoryForm storyForm, StoryDetail storyDetail, Header header) {
         this.projectDetails = projectDetails;
         this.projectForm = projectForm;
         this.storiesTab = storiesTab;
         this.storyForm = storyForm;
         this.storyDetail = storyDetail;
+        this.header = header;
     }
 
     @And("I create the project with:")
@@ -60,4 +64,10 @@ public class ProjectSteps {
     public void iValidateTheStoryLabelIs(String storyName) {
         assertEquals(storyName, storyDetail.getStoryModelName(storyName));
     }
+
+    @And("I create the project with new account:")
+    public void iCreateTheProjectWithNewAccount(Map<String, String> data) {
+        projectForm.createProjectWithNewAccount(data);
+    }
+
 }
