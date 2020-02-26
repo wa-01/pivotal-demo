@@ -2,6 +2,7 @@ package com.jalasoft.pivotal.steps;
 
 import java.util.Map;
 
+import com.jalasoft.pivotal.core.ui.SharedDriver;
 import com.jalasoft.pivotal.pages.StoryDetail;
 import com.jalasoft.pivotal.pages.StoryForm;
 import com.jalasoft.pivotal.pages.project.ProjectDetails;
@@ -26,8 +27,8 @@ public class ProjectSteps {
 
     private StoryDetail storyDetail;
 
-    public ProjectSteps(ProjectDetails projectDetails, ProjectForm projectForm, StoriesTab storiesTab,
-                        StoryForm storyForm, StoryDetail storyDetail) {
+    public ProjectSteps(final SharedDriver sharedDriver, ProjectDetails projectDetails, ProjectForm projectForm,
+                        StoriesTab storiesTab, StoryForm storyForm, StoryDetail storyDetail) {
         this.projectDetails = projectDetails;
         this.projectForm = projectForm;
         this.storiesTab = storiesTab;
