@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class StoriesTab extends AbstractPage {
 
-    private static final String BACKLOG_A_DATA_AID_ADD_BUTTON = ".%s a[data-aid='AddButton']";
+    private static final String BACKLOG_A_DATA_AID_ADD_BUTTON = ".%s button[data-aid='AddButton']";
 
     public StoryForm clickAddStoryButton(String panelName) {
         action.click(By.cssSelector(String.format(BACKLOG_A_DATA_AID_ADD_BUTTON, panelName)));

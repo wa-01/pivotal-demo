@@ -1,6 +1,6 @@
 package com.jalasoft.pivotal.pages;
 
-import com.jalasoft.pivotal.core.ui.DriverManager;
+import com.jalasoft.pivotal.core.ui.DriverFactory;
 import com.jalasoft.pivotal.core.ui.WebDriverAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -13,7 +13,7 @@ public class AbstractPage {
     protected WebDriverAction action;
 
     public AbstractPage() {
-        driver = DriverManager.getInstance().getDriver();
+        driver = DriverFactory.getDriver();
         wait = new WebDriverWait(driver, 30);
         action = new WebDriverAction(driver, wait);
 
